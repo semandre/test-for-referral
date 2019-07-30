@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
 
-@Component({
+@Component ({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'bond-swap-frontend';
+
+  isOpen = false;
+
+  onButtonToggle($event: boolean): void {
+    this.isOpen = $event;
+  }
 }
