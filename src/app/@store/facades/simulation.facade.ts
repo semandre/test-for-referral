@@ -3,18 +3,17 @@ import { select, Store } from '@ngrx/store';
 
 import { AppState } from '../reducers';
 import { LoadSimulationDataAction, SimulationSelectAction } from '../actions/simulation.actions';
-import { fetchSimulationId, fetchSimulations } from '../selectors/simulation.selector';
+import { fetchSimulation, fetchSimulationId, fetchSimulations } from '../selectors/simulation.selector';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SimulationFacade {
   simulationList$ = this.store.pipe(select(fetchSimulations));
-  selectedSimulationId$ = this.store.pipe(select(fetchSimulationId));
+  selectedSimulation$ = this.store.pipe(select(fetchSimulation));
 
-  constructor(
-    private store: Store<AppState>,
-  ) {
+  constructor(private store: Store<AppState>) {
   }
 
   fetchSimulations(): void {

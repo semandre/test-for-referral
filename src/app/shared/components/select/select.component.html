@@ -1,0 +1,15 @@
+  <div class="select-menu">
+    <cdk-virtual-scroll-viewport itemSize="20">
+<!--      <div *ngIf="!list.length">No results found...</div>-->
+      <div class="select-menu__item"
+        *cdkVirtualFor="let option of list"
+        (click)="select(option)">
+        {{ option}}
+      </div>
+    </cdk-virtual-scroll-viewport>
+<!--    <div class="select-menu__item"-->
+<!--         *ngFor="let option of list"-->
+<!--         (click)="select(option)">-->
+<!--      {{ option}}-->
+<!--    </div>-->
+  </div>

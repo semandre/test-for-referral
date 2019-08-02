@@ -25,7 +25,6 @@ export class SimulationListComponent implements OnInit {
 
   ngOnInit(): void {
     this.list$ = this.simulationFacade.simulationList$;
-    this.simulationFacade.fetchSimulations();
   }
 
   navigateToPortfolio(id: number | string): void {
