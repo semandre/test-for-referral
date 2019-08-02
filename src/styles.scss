@@ -1,9 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@import "assets/styles/variables";
 
+html{
+  font-size: 14px;
+  height: 100%;
+}
 
 body{
   margin: 0;
-  font-family: 'Heebo', sans-serif;
+  font-family: $font-default;
+  color: $color-default;
 }
 
 p, h1, h2{

@@ -6,25 +6,16 @@
     <span>Create New</span>
   </button>
   <div class="simulation-list__table">
-    <h4>Saved Simulation</h4>
-    <div class="simulation-list__table__content">
-      <table>
-        <tr>
-          <th>Report name</th>
-          <th>Base portfolio</th>
-          <th>Date</th>
-        </tr>
-        <tr>
-          <td>US646D132</td>
-          <td>TestCust</td>
-          <td>11.10.2018</td>
-        </tr>
-        <tr>
-          <td>0S646D132</td>
-          <td>TestCust1</td>
-          <td>06.09.2018</td>
-        </tr>
-      </table>
+    <h3>Saved Simulation</h3>
+    <div class="flex-table">
+      <div class="flex-table__row">
+        <div class="flex-table__row__header" *ngFor="let head of header">{{head}}</div>
+      </div>
+      <a class="flex-table__row" *ngFor="let item of list$ | async" (click)="navigateToPortfolio(item.id)">
+        <div class="flex-table__row__content">{{item.name}}</div>
+        <div class="flex-table__row__content">{{item.base}}</div>
+        <div class="flex-table__row__content">{{item.date}}</div>
+      </a>
     </div>
   </div>
 </div>

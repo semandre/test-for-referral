@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import { SimulationComponent } from './simulation.component';
 import { SimulationListComponent } from './simulation-list/simulation-list.component';
+import { SimulationItemComponent } from './simulation-item/simulation-item.component';
 
 
 const routes: Routes = [
@@ -16,14 +18,19 @@ const routes: Routes = [
       },
       {
         path: 'list',
-        component: SimulationListComponent
+        component: SimulationListComponent,
+      },
+      {
+        path: 'list/:id',
+        component: SimulationItemComponent
       }
     ]
   }
 ];
 
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
+@NgModule ({
+  imports: [RouterModule.forChild (routes)],
   exports: [RouterModule]
 })
-export class SimulationRoutingModule { }
+export class SimulationRoutingModule {
+}

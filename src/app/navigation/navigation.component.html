@@ -1,7 +1,10 @@
 <div class="nav-wrapper">
   <ul [class.open]="isOpen">
-    <li *ngFor="let link of links;" >
-      <a [routerLink]="link.link" [routerLinkActive]="'selected'" [routerLinkActiveOptions]="{exact: true}">
+    <li *ngFor="let link of links;">
+      <a [routerLink]="link.link"
+         [routerLinkActive]="'selected'"
+         [routerLinkActiveOptions]="{exact: !link.link}"
+         >
         <i class="material-icons">
           {{link.icon}}
         </i>

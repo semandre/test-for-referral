@@ -1,0 +1,59 @@
+// Colors
+$color-default: #1C1C1C; // default color for text
+$white: #FFFFFF;
+$white-shade: rgba(0, 0, 0, 0.7);
+$light-blue: #E5F1FF;
+$lighter-grey: #F5F5F5;
+$light-grey: #EEEEEE;
+$grey: #969696;
+$middle-grey: #b6b5b5;
+$dark-grey: #585757;
+$grey-shade: rgba(0, 0, 0, 0.54);;
+$blue-primary: #16C9EF;
+$blue-secondary: #2e7cd9;
+$red: #F23030;
+
+//$dark: #4A4A4A;
+//$color-light-grey: #D8D8D8;
+//$light-grey: #f0f0f0;
+//$middle-grey: #9B9B9B;
+//$light-blue: #64D1CC;
+//$lighter-blue: #2DE1CC;
+//$red: #D0021B;
+//$green: #28A745;
+//$yellow: #FFC107;
+
+// Font Sizes
+$font-size-xs: 0.714rem; // 10 px
+$font-size-default: 1rem; // 14 px
+$font-size-regular: 1.143rem; // 16 px
+$font-size-md: 1.428rem; // 20 px
+$font-size-lg: 1.714rem; // 24 px
+$font-size-xl: 2.572rem; // 36 px
+
+// Shadows
+$shadow-1: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+// Letter Spacing
+$ls-1: -0.1px;
+$ls-2: -0.2px;
+
+
+// Font Weights
+$light: 300;
+$regular: 400;
+$medium: 500;
+$semi-bold: 600;
+$bold: 700;
+$extra-bold: 800;
+
+//Font-Icons
+$font-icon-default: 1.57rem; // 22 px
+$font-icon-xs: 1.143rem; // 16 px
+$font-icon-sm: 1.285rem; // 18 px
+//$font-icon-md: 2rem; // 28 px
+//$font-icon-lg: 2.52rem; // 36 px
+//$font-icon-xl: 3.57rem; // 50 px
+
+// Font family
+$font-default: 'Heebo', sans-serif;

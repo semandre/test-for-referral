@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { SimulationService } from '../../shared/services/simulation.service';
+import { Simulation } from '../../shared/types/simulation.model';
+import { SimulationFacade } from '../../@store/facades/simulation.facade';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-simulation-list',
@@ -7,9 +13,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SimulationListComponent implements OnInit {
 
-  constructor() { }
+  list$: Observable<Simulation[]>;
 
-  ngOnInit(): void {
+  header = ['Report name', 'Base portfolio', 'Date'];
+
+  constructor(
+    private simulationFacade: SimulationFacade,
+    private router: Router
+  ) {
   }
 
+  ngOnInit(): void {
+    this.list$ = this.simulationFacade.simulationList$;
+    this.simulationFacade.fetchSimulations();
+  }
+
+  navigateToPortfolio(id: number | string): void {
+    this.simulationFacade.selectSimulation(id);
+    this.router.navigate(['/', 'list', id]);
+  }
 }
