@@ -1,0 +1,10 @@
+@import "assets/styles/variables";
+@import "assets/styles/components/table.component";
+
+.flex-table__row__content{
+  border: none;
+  outline: none;
+  font-size: $font-size-default;
+  font-family: $font-default;
+  background: transparent;
+}

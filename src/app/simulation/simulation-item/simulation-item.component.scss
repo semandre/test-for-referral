@@ -1,9 +1,145 @@
-.simulation-item{
+@import "assets/styles/variables";
 
-  &__header{
+.simulation-item {
+  padding-top: 7px;
 
-    &__block{
-      width: 200px;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    width: 93%;
+
+
+    &__wrapper {
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      &:last-child {
+        justify-content: flex-end;
+        width: fit-content;
+      }
+
+      .report-btn {
+        background: $blue-secondary;
+        border: none;
+        border-radius: 4px;
+        display: -webkit-box;
+        display: flex;
+        align-items: center;
+        color: $white;
+        padding: 8px 10px;
+        letter-spacing: $ls-1;
+        line-height: 20px;
+        font-size: $font-size-default;
+        white-space: nowrap;
+      }
     }
+
+    a {
+      display: flex;
+      text-decoration: none;
+      outline: none;
+      background: transparent;
+      color: $grey;
+      border: none;
+      margin-right: 20px;
+    }
+
+    &__block {
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      &.second {
+        margin-left: 5%;
+      }
+
+      p {
+        margin: 0 10px;
+        font-size: $font-size-sm;
+        color: $grey;
+        line-height: 18px;
+        letter-spacing: $ls-1;
+      }
+
+      .selector {
+      }
+
+      .datepicker {
+        mat-form-field {
+          width: 100px;
+        }
+
+        input {
+          border: 1px solid $light-grey;
+          padding: 10px;
+          border-radius: 4px;
+          width: 100px;
+        }
+
+        button {
+          background: transparent;
+          border: none;
+          outline: none;
+          position: absolute;
+          top: 50%;
+          transform: translate(0, -37%);
+          right: -23px;
+
+          i {
+            color: $grey;
+            font-size: $font-size-regular;
+          }
+        }
+      }
+    }
+  }
+
+  &__subheader{
+    margin-top: 15px;
+
+    .input-block {
+      display: inline-block;
+      max-width: 380px;
+      border: 1px solid $light-grey;
+      margin: 0 55px;
+      padding: 8px 10px;
+    }
+  }
+
+  &__content{
+    width: 93%;
+    .outline-btn {
+      margin-top: 28px;
+      margin-left: 15px;
+    }
+  }
+}
+
+::ng-deep {
+  .mat-form-field-appearance-legacy .mat-form-field-infix {
+    padding-bottom: 0;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 1rem;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-underline {
+    display: none;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon-button {
+    display: none;
+  }
+
+  .mat-input-element:disabled {
+    color: $color-default;
+  }
+}
+
+@media all and (max-width: 1400px){
+  .simulation-item__content{
+    width: 100%;
   }
 }

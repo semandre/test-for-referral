@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { SimulationService } from '../../shared/services/simulation.service';
 import { Simulation } from '../../shared/types/simulation.model';
 import { SimulationFacade } from '../../@store/facades/simulation.facade';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-simulation-list',

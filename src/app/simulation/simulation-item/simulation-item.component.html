@@ -1,11 +1,52 @@
 <div class="simulation-item">
   <div class="simulation-item__header">
-    <div class="simulation-item__header__block">
-      <p>Portfolio</p>
-      <div class="selector">
-        <p>{{selectedPortfolio.base}}</p>
-        <app-select  [valueType]="'base'"></app-select>
+    <div class="simulation-item__header__wrapper">
+      <a type="button" [routerLink]="['/', 'list']">
+        <i class="material-icons">
+          arrow_back
+        </i>
+      </a>
+      <div class="simulation-item__header__block">
+        <p>Portfolio</p>
+        <div class="selector">
+          <app-select
+            [selectedItem]="selectedPortfolio"
+            [list]="list$ | async"
+            [valueType]="'base'"
+            (selectEmitter)="onSelectedData($event)"
+          ></app-select>
+        </div>
+      </div>
+      <div class="simulation-item__header__block second">
+        <p>AsOfDate</p>
+        <div class="datepicker">
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" disabled>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker disabled="false"></mat-datepicker>
+          </mat-form-field>
+          <button (click)="picker.open()">
+            <i class="material-icons">
+              today
+            </i>
+          </button>
+        </div>
       </div>
     </div>
+    <div class="simulation-item__header__wrapper">
+      <button class="report-btn">
+        Generate report
+      </button>
+    </div>
+  </div>
+  <div class="simulation-item__subheader">
+      <div class="input-block">
+        <input type="text" placeholder="Simulation Name" class="bond-input">
+      </div>
+    <button class="outline-btn">Save</button>
+  </div>
+  <div class="simulation-item__content">
+    <app-simulation-table [items]="portfolioItems"></app-simulation-table>
+    <button class="outline-btn" (click)="onAddNewLine()">Add Line</button>
   </div>
 </div>

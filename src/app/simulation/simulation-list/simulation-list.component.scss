@@ -2,7 +2,7 @@
 @import "assets/styles/components/table.component";
 
 .simulation-list {
-  width: 97%;
+  width: 93%;
   padding-top: 20px;
 
   button {
@@ -24,13 +24,10 @@
       padding-right: 6px;
     }
   }
+}
 
-  h3 {
-    font-weight: $medium;
-    font-size: $font-size-md;
-    line-height: 26px;
-    letter-spacing: $ls-2;
-    padding-left: 10px;
-    margin-top: 30px;
+@media all and (max-width: 1100px){
+  .simulation-list{
+    width: 100%;
   }
 }

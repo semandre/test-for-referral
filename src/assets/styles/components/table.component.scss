@@ -1,9 +1,19 @@
+.head-title {
+  font-weight: $medium;
+  font-size: $font-size-md;
+  line-height: 26px;
+  letter-spacing: $ls-2;
+  padding-left: 10px;
+  margin-top: 30px;
+}
+
 .flex-table {
 
   &__row {
     display: flex;
     justify-content: space-between;
     text-decoration: none;
+
 
     &__header {
       width: 100%;
@@ -12,25 +22,27 @@
       line-height: 20px;
       letter-spacing: $ls-1;
       padding: 10px;
+      min-width: 10px;
     }
 
     &__content {
       width: 100%;
       padding: 12px 10px;
       color: $dark-grey;
+      min-width: 10px;
 
       &:first-child {
         font-weight: $medium;
-        line-height: 20px;
+        line-height: 21px;
         letter-spacing: $ls-1;
         color: $color-default;
       }
     }
 
-    &:not(:first-child){
+    &:not(:first-child) {
       border-bottom: 1px solid $light-grey;
 
-      &:hover{
+      &:hover {
         background: $light-blue;
       }
     }

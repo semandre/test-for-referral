@@ -1,15 +1,18 @@
-  <div class="select-menu">
-    <cdk-virtual-scroll-viewport itemSize="20">
-<!--      <div *ngIf="!list.length">No results found...</div>-->
+<div class="selector__block" (click)="isOpen = !isOpen">
+  {{selectedItem[valueType]}}
+  <i class="material-icons" [class.open] = isOpen>
+    keyboard_arrow_down
+  </i>
+</div>
+<div class="select-menu" [class.open]="isOpen" [style.height.px]="isOpen ? visibleOptions * 44 : 0">
+    <cdk-virtual-scroll-viewport itemSize="44">
+      <div *ngIf="!list.length">No results found...</div>
       <div class="select-menu__item"
         *cdkVirtualFor="let option of list"
         (click)="select(option)">
-        {{ option}}
+        {{ option[valueType]}}
       </div>
     </cdk-virtual-scroll-viewport>
-<!--    <div class="select-menu__item"-->
-<!--         *ngFor="let option of list"-->
-<!--         (click)="select(option)">-->
-<!--      {{ option}}-->
-<!--    </div>-->
   </div>
+
+

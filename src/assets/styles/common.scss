@@ -1,0 +1,38 @@
+.input-block{
+  position: relative;
+  width: 100%;
+  min-width: 100px;
+  border: 1px solid  $grey;
+  border-radius: 4px;
+
+  .bond-input{
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: $font-size-default;
+
+    &::placeholder{
+      color: $middle-grey;
+      letter-spacing: -0.2px;
+      font-family: 'Heebo', sans-serif;
+    }
+  }
+}
+
+.outline-btn{
+  background: transparent;
+  border-radius: 4px;
+  display: -webkit-box;
+  padding: 8px 10px;
+  line-height: 20px;
+  font-size: $font-size-default;
+  white-space: nowrap;
+  outline: none;
+  display: inline-block;
+  width: 100%;
+  justify-content: center;
+  max-width: 165px;
+  letter-spacing: $ls-1;
+  color: $blue-secondary;
+  border: 1px solid $blue-secondary;
+}

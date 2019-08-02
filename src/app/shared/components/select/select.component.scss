@@ -1,14 +1,64 @@
+@import "assets/styles/variables";
+
+.selector{
+
+  &__block {
+    padding: 8px 10px;
+    border: 1px solid $light-grey;
+    border-radius: 4px;
+    color: $dark-grey;
+    letter-spacing: $ls-2;
+    line-height: 20px;
+    position: relative;
+    cursor: pointer;
+    width: 180px;
+
+    i {
+      position: absolute;
+      right: 4px;
+      font-size: $font-icon-md;
+      top: 50%;
+      color: $grey;
+      transform: translate(0, -50%);
+      transition: transform .3s ease-in-out;
+
+      &.open {
+        transform: rotate(180deg) translate(0, 50%);
+      }
+    }
+  }
+}
+
 .select-menu{
+  margin-top: 5px;
   max-width: 100%;
-  color: #333;
-  padding: 10px;
-  height: 200px;
+  height: 0;
+  width: 200px;
+  transition: height .3s ease-in-out, border .3s ease-in-out;
+  border-radius: 6px;
+  box-shadow: none;
+  border: 0;
+  position: absolute;
+  background: $white;
+  z-index: 9999;
+
+  &.open{
+    border: 1px solid $light-grey;
+  }
+
+  cdk-virtual-scroll-viewport{
+    height: 100%;
+  }
 
   &__item {
-    background: #FAFAAF;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    text-align: center;
-    font-weight: 600;
+    padding: 12px;
+    font-weight: $medium;
+    line-height: 20px;
+    letter-spacing: $ls-1;
+    cursor: pointer;
+
+    &:hover{
+      background: $light-blue;
+    }
   }
 }

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { Simulation } from '../types/simulation.model';
+import { simulationItems } from '../../../mocks/simulation-items';
+import { Portfolio } from '../types/portfolioModel';
 
 @Injectable({
   providedIn: 'root'
@@ -22,11 +24,17 @@ export class SimulationService {
       date: '11.10.2019'
     }];
 
+  private portfolioItems = simulationItems;
+
   constructor() {
   }
 
   fetchSimulations(): Observable<Simulation[]> {
     return of(this.list);
+  }
+
+  fetchSimulationData(id: number): Observable<Portfolio[]> {
+    return of(this.portfolioItems[id]);
   }
 
 }

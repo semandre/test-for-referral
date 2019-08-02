@@ -10,20 +10,22 @@ export class SelectComponent implements OnInit {
 
   @Output() selectEmitter: EventEmitter<any> = new EventEmitter<any>();
 
-  list: any[] = [];
+  @Input() list: any[];
   @Input() valueType: string;
+  @Input() selectedItem: any;
+
+  isOpen: boolean;
+  visibleOptions = 3;
 
   constructor() {
   }
 
   ngOnInit(): void {
-    for (let i = 0; i < 1000; i++) {
-      this.list.push(i);
-    }
+    this.visibleOptions = this.list.length >= 3 ? this.visibleOptions : this.list.length;
   }
 
   select(option: any): void {
     this.selectEmitter.emit(option);
-    console.log(234);
+    this.isOpen = false;
   }
 }
