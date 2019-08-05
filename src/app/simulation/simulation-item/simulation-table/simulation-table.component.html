@@ -1,18 +1,23 @@
 <h3 class="head-title">Create Simulation</h3>
 <div class="flex-table">
   <div class="flex-table__row">
-    <div class="flex-table__row__header" *ngFor="let head of header">{{head}}</div>
+    <div class="flex-table__row__header" *ngFor="let head of header">{{head.name}}</div>
   </div>
   <div class="flex-table__row" *ngFor="let item of items">
-    <input class="flex-table__row__content" [(ngModel)]="item.cusip">
-    <input class="flex-table__row__content" [(ngModel)]="item.faceAmount">
-    <input class="flex-table__row__content" [(ngModel)]="item.marketPrice">
-    <input class="flex-table__row__content" [(ngModel)]="item.bookPrice">
-    <input class="flex-table__row__content" [(ngModel)]="item.bookValue">
-    <input class="flex-table__row__content" [(ngModel)]="item.maturityDate">
-    <input class="flex-table__row__content" [(ngModel)]="item.couponRate">
-    <input class="flex-table__row__content" [(ngModel)]="item.parValue">
-    <input class="flex-table__row__content" [(ngModel)]="item.marketValue">
-    <input class="flex-table__row__content" [(ngModel)]="item.aveLife">
+    <ng-container *ngFor="let key of objectKeys(item)">
+      <input class="flex-table__row__content"
+             *ngIf="checkForColumn(key)"
+             [(ngModel)]="item[key]">
+    </ng-container>
+    <!--    <input class="flex-table__row__content" [(ngModel)]="item.cusip">-->
+    <!--    <input class="flex-table__row__content" [(ngModel)]="item.faceAmount">-->
+    <!--    <input class="flex-table__row__content" [(ngModel)]="item.marketPrice">-->
+    <!--    <input class="flex-table__row__content" [(ngModel)]="item.bookPrice">-->
+    <!--    <input class="flex-table__row__content" [(ngModel)]="item.bookValue">-->
+    <!--    <input class="flex-table__row__content" [(ngModel)]="item.maturityDate">-->
+    <!--    <input class="flex-table__row__content" [(ngModel)]="item.couponRate">-->
+    <!--    <input class="flex-table__row__content" [(ngModel)]="item.parValue">-->
+    <!--    <input class="flex-table__row__content" [(ngModel)]="item.marketValue">-->
+    <!--    <input class="flex-table__row__content" [(ngModel)]="item.aveLife">-->
   </div>
 </div>

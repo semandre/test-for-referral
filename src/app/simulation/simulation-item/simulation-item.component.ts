@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { Simulation } from '../../shared/types/simulation.model';
-import { SimulationFacade } from '../../@store/facades/simulation.facade';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
+
+import { SimulationFacade } from '../../@store/facades/simulation.facade';
+import { PortfolioFacade } from '../../@store/facades/portfolio.facade';
+import { Simulation } from '../../shared/types/simulation.model';
 import { Portfolio, PortfolioMaker } from '../../shared/types/portfolioModel';
 import { isEmpty } from '../../shared/helpers/isEmpty';
-import { PortfolioFacade } from '../../@store/facades/portfolio.facade';
 
 @Component({
   selector: 'app-simulation-item',
