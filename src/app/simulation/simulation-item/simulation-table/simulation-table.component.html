@@ -1,23 +1,59 @@
-<h3 class="head-title">Create Simulation</h3>
+<div class="table-header">
+  <div class="table-header__block">
+    <h3 class="head-title">Create Simulation</h3>
+    <button class="vertical">
+      <i class="material-icons">
+        more_vert
+      </i>
+    </button>
+  </div>
+  <div class="table-header__block" *ngIf="selectedRows.length">
+    <div class="table-header__block__content">
+      <button>
+        <i class="material-icons">
+          add
+        </i>
+        <span class="hint">Buy</span>
+      </button>
+    </div>
+    <div class="table-header__block__content">
+      <button>
+        <i class="material-icons">
+          remove
+        </i>
+        <span class="hint">Sell</span>
+      </button>
+    </div>
+    <div class="table-header__block__content">
+      <button (click)="onExport()">
+        <i class="material-icons-outlined">
+          publish
+        </i>
+        <span class="hint">Publish</span>
+      </button>
+    </div>
+    <div class="table-header__block__content">
+      <button>
+        <i class="material-icons-outlined">
+          delete
+        </i>
+        <span class="hint">Remove</span>
+      </button>
+    </div>
+  </div>
+</div>
 <div class="flex-table">
   <div class="flex-table__row">
-    <div class="flex-table__row__header" *ngFor="let head of header">{{head.name}}</div>
-  </div>
-  <div class="flex-table__row" *ngFor="let item of items">
-    <ng-container *ngFor="let key of objectKeys(item)">
-      <input class="flex-table__row__content"
-             *ngIf="checkForColumn(key)"
-             [(ngModel)]="item[key]">
+    <ng-container *ngFor="let column of columns">
+      <div class="flex-table__row__header" *ngIf="column.show">{{column.name}}</div>
     </ng-container>
-    <!--    <input class="flex-table__row__content" [(ngModel)]="item.cusip">-->
-    <!--    <input class="flex-table__row__content" [(ngModel)]="item.faceAmount">-->
-    <!--    <input class="flex-table__row__content" [(ngModel)]="item.marketPrice">-->
-    <!--    <input class="flex-table__row__content" [(ngModel)]="item.bookPrice">-->
-    <!--    <input class="flex-table__row__content" [(ngModel)]="item.bookValue">-->
-    <!--    <input class="flex-table__row__content" [(ngModel)]="item.maturityDate">-->
-    <!--    <input class="flex-table__row__content" [(ngModel)]="item.couponRate">-->
-    <!--    <input class="flex-table__row__content" [(ngModel)]="item.parValue">-->
-    <!--    <input class="flex-table__row__content" [(ngModel)]="item.marketValue">-->
-    <!--    <input class="flex-table__row__content" [(ngModel)]="item.aveLife">-->
+  </div>
+  <div class="flex-table__row"
+       [class.selected]="checkIfSelected(item.id)"
+       *ngFor="let item of items"
+       (click)="selectRow(item, $event)">
+    <ng-container *ngFor="let key of objectKeys(item)">
+      <input class="flex-table__row__content" *ngIf="checkForColumn(key)" [(ngModel)]="item[key]">
+    </ng-container>
   </div>
 </div>

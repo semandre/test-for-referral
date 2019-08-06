@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { SelectComponent } from './components/select/select.component';
+import { IgxExcelExporterService } from 'igniteui-angular';
 
 @NgModule({
   declarations: [SelectComponent],
@@ -31,7 +32,7 @@ import { SelectComponent } from './components/select/select.component';
     SelectComponent,
 
   ],
-  providers: [],
+  providers: [IgxExcelExporterService],
 })
 export class SharedModule {
 }

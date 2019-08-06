@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 
 import { SimulationFacade } from '../../@store/facades/simulation.facade';
 import { PortfolioFacade } from '../../@store/facades/portfolio.facade';
+import { SimulationTableComponent } from './simulation-table/simulation-table.component';
 import { Simulation } from '../../shared/types/simulation.model';
 import { Portfolio, PortfolioMaker } from '../../shared/types/portfolioModel';
 import { isEmpty } from '../../shared/helpers/isEmpty';
+import { TableColumn } from '../../shared/types/tableColumnsModel';
+import { SIMULATION_PROPS } from '../../shared/consts/simulationProps';
 
 @Component({
   selector: 'app-simulation-item',
@@ -16,9 +19,12 @@ import { isEmpty } from '../../shared/helpers/isEmpty';
 })
 export class SimulationItemComponent implements OnInit {
 
+  @ViewChild('table', { static: true }) table: SimulationTableComponent;
+
   selectedPortfolio: Simulation;
-  list$: Observable<Simulation[]>;
   portfolioItems: Portfolio[];
+  columns: TableColumn[] = SIMULATION_PROPS;
+  list$: Observable<Simulation[]>;
 
   private _destroy$ = new Subject<any>();
 

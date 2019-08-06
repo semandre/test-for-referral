@@ -1,10 +1,88 @@
 @import "assets/styles/variables";
 @import "assets/styles/components/table.component";
 
-.flex-table__row__content{
+.flex-table__row__content {
   border: none;
   outline: none;
   font-size: $font-size-default;
   font-family: $font-default;
   background: transparent;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  height: 75px;
+
+  &__block {
+    display: flex;
+    align-items: center;
+
+    button {
+      background: transparent;
+      outline: none;
+      background: none;
+      position: relative;
+      border: none;
+      color: $light-grey-secondary;
+      width: 30px;
+      height: 30px;
+
+      i {
+        font-size: 28px;
+      }
+
+      &.vertical {
+
+        i {
+          position: absolute;
+          top: 66%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+
+    &__content {
+      position: relative;
+
+      button {
+        border-radius: 50%;
+        margin: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 35px;
+        height: 35px;
+        transition: background-color .2s ease-in-out;
+
+        .hint{
+          opacity: 0;
+          pointer-events: none;
+          position: absolute;
+          background: $light-blue;
+          padding: 5px 25px;
+          font-size: 12px;
+          top: 37px;
+          transition: opacity .2s ease-in-out;
+          color: $blue-secondary;
+          border-radius: 4px;
+        }
+
+        &:hover {
+          background: $light-blue;
+
+          .hint{
+            pointer-events: all;
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    &:last-child {
+      padding-top: 12px;
+      margin-right: 135px;
+    }
+  }
 }

@@ -46,7 +46,8 @@
     <button class="outline-btn">Save</button>
   </div>
   <div class="simulation-item__content">
-    <app-simulation-table [items]="portfolioItems"></app-simulation-table>
+    <app-simulation-table #table [items]="portfolioItems" [columns]="columns">
+    </app-simulation-table>
     <button class="outline-btn" (click)="onAddNewLine()">Add Line</button>
   </div>
 </div>
