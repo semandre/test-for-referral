@@ -36,3 +36,18 @@
   color: $blue-secondary;
   border: 1px solid $blue-secondary;
 }
+
+.raised-btn {
+  background: $blue-secondary;
+  border: none;
+  border-radius: 4px;
+  display: -webkit-box;
+  display: flex;
+  align-items: center;
+  color: $white;
+  padding: 8px 10px;
+  letter-spacing: $ls-1;
+  line-height: 20px;
+  font-size: $font-size-default;
+  white-space: nowrap;
+}

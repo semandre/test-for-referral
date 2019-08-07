@@ -21,7 +21,7 @@
         <p>AsOfDate</p>
         <div class="datepicker">
           <mat-form-field>
-            <input matInput [matDatepicker]="picker" disabled>
+            <input matInput [matDatepicker]="picker" disabled [formControl]="dateControl">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker disabled="false"></mat-datepicker>
           </mat-form-field>
@@ -37,16 +37,15 @@
       <button class="report-btn">
         Generate report
       </button>
+      <button class="outline-btn">Save</button>
     </div>
   </div>
-  <div class="simulation-item__subheader">
-      <div class="input-block">
-        <input type="text" placeholder="Simulation Name" class="bond-input">
-      </div>
-    <button class="outline-btn">Save</button>
-  </div>
   <div class="simulation-item__content">
-    <app-simulation-table #table [items]="portfolioItems" [columns]="columns">
+    <app-simulation-table #table
+                          [items]="portfolioItems"
+                          [mainColumns]="mainColumns"
+                          [optionalColumns]="optionalColumns"
+    >
     </app-simulation-table>
     <button class="outline-btn" (click)="onAddNewLine()">Add Line</button>
   </div>

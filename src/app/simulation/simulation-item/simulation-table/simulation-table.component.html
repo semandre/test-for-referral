@@ -1,11 +1,19 @@
 <div class="table-header">
   <div class="table-header__block">
     <h3 class="head-title">Create Simulation</h3>
-    <button class="vertical">
-      <i class="material-icons">
-        more_vert
+    <button class="vertical" (click)="openMenu($event)">
+      <i class="material-icons-outlined">
+        settings
       </i>
     </button>
+    <div class="table-header__block__wrapper" >
+      <app-table-columns-dropdown
+        [columns]="optionalColumns"
+        [onMenuOpen]="onMenuOpen"
+        (columnsEmitter)="onUpdateColumns($event)"
+        (openMenuEmitter)="this.onMenuOpen = $event"
+      ></app-table-columns-dropdown>
+    </div>
   </div>
   <div class="table-header__block" *ngIf="selectedRows.length">
     <div class="table-header__block__content">
@@ -45,7 +53,7 @@
 <div class="flex-table">
   <div class="flex-table__row">
     <ng-container *ngFor="let column of columns">
-      <div class="flex-table__row__header" *ngIf="column.show">{{column.name}}</div>
+      <div class="flex-table__row__header" *ngIf="!column.hide">{{column.name}}</div>
     </ng-container>
   </div>
   <div class="flex-table__row"

@@ -4,16 +4,18 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SelectComponent } from './components/select/select.component';
 import { IgxExcelExporterService } from 'igniteui-angular';
+import { TableColumnsDropdownComponent } from './components/table-columns-dropdown/table-columns-dropdown.component';
 
 @NgModule({
-  declarations: [SelectComponent],
+  declarations: [SelectComponent, TableColumnsDropdownComponent],
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MatNativeDateModule,
     MatDatepickerModule,
     MatSelectModule,
@@ -23,6 +25,7 @@ import { IgxExcelExporterService } from 'igniteui-angular';
   ],
   exports: [
     FormsModule,
+    ReactiveFormsModule,
     MatNativeDateModule,
     MatDatepickerModule,
     MatSelectModule,
@@ -30,6 +33,7 @@ import { IgxExcelExporterService } from 'igniteui-angular';
     ScrollingModule,
     MatInputModule,
     SelectComponent,
+    TableColumnsDropdownComponent,
 
   ],
   providers: [IgxExcelExporterService],

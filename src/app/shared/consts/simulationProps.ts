@@ -1,12 +1,20 @@
-export const SIMULATION_PROPS = [
-  { name: 'CUSIP', value: 'cusip', show: true },
-  { name: 'Face amount', value: 'faceAmount', show: true },
-  { name: 'Market Place', value: 'marketPrice', show: true },
-  { name: 'Book Price', value: 'bookPrice', show: true },
-  { name: 'Book Value', value: 'bookValue', show: true },
-  { name: 'Maturity Date', value: 'maturityDate', show: true },
-  { name: 'Coupon Rate', value: 'couponRate', show: true },
-  { name: 'Par Value', value: 'parValue', show: true },
-  { name: 'Market Value', value: 'marketValue', show: true },
-  { name: 'Ave Life', value: 'aveLife', show: true },
+export const MAIN_COLUMNS = [
+  { name: 'CUSIP', value: 'cusip', hide: false },
+  { name: 'Face amount', value: 'faceAmount', hide: false },
+  { name: 'Market Place', value: 'marketPrice', hide: false },
+  { name: 'Book Price', value: 'bookPrice', hide: false },
+];
+
+export const OPTIONAL_COLUMNS = [
+  { name: 'Settlement Dates', value: 'settlementDates', hide: true },
+  { name: 'CUSIP Description', value: 'cusipDescr', hide: true },
+  { name: 'Book Value', value: 'bookValue', hide: true },
+  { name: 'Maturity Date', value: 'maturityDate', hide: true },
+  { name: 'Coupon Rate', value: 'couponRate', hide: true },
+  { name: 'Par Value', value: 'parValue', hide: true },
+  { name: 'Market Value', value: 'marketValue', hide: true },
+  { name: 'Ave Life', value: 'aveLife', hide: true },
+  { name: 'Effective Duration', value: 'effectiveDuration', hide: true },
+  { name: 'Next Call Date', value: 'nextCallDate', hide: true },
+  { name: 'Call Price', value: 'callPrice', hide: true },
 ];

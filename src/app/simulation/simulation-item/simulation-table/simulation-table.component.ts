@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, Input, OnInit } from '@angular/core';
 import { IgxExcelExporterOptions, IgxExcelExporterService } from 'igniteui-angular';
 
 import { TableColumn } from '../../../shared/types/tableColumnsModel';
-import { Portfolio } from '../../../shared/types/portfolioModel';
 
 @Component({
   selector: 'app-simulation-table',
@@ -14,19 +13,23 @@ export class SimulationTableComponent implements OnInit {
 
 
   @Input() items: any[];
-  @Input() columns: TableColumn[];
+  @Input() mainColumns: TableColumn[];
+  @Input() optionalColumns: TableColumn[];
 
+  onMenuOpen = false;
   objectKeys = Object.keys;
+  columns = [];
   selectedRows = [];
 
   constructor(private excelExportService: IgxExcelExporterService) {
   }
 
   ngOnInit(): void {
+    this.columns = this.initColumns();
   }
 
   checkForColumn(value: string): boolean {
-    return !!this.columns.find((data: any) => data.value === value && data.show);
+    return !!this.columns.find((data: any) => data.value === value && !data.hide);
   }
 
   checkIfSelected(id: any): boolean {
@@ -41,17 +44,34 @@ export class SimulationTableComponent implements OnInit {
     } else {
       this.selectedRows = [item];
     }
-    console.log(this.selectedRows);
+    event.stopPropagation();
   }
 
   onExport(): void {
     // Changing items keys name to have as in table view
-    const data = this.selectedRows.map((item: Portfolio) => {
+    const data = this.selectedRows.map((item: any) => {
       return this.columns.reduce((acc: any, cur: TableColumn) => {
-        return cur.show ? { ...acc, [cur.name]: item[cur.value] } : acc;
+        return !cur.hide ? { ...acc, [cur.name]: item[cur.value] } : acc;
       }, {});
     });
     this.excelExportService.exportData(data, new IgxExcelExporterOptions('ExportedDataFile'));
+  }
+
+  onUpdateColumns($event: TableColumn[]): void {
+    this.optionalColumns = $event;
+    this.columns = this.initColumns();
+  }
+
+  openMenu(): void {
+    this.onMenuOpen = !this.onMenuOpen;
+  }
+
+  @HostListener('document:click', []) onDocumentClick(): void {
+    this.selectedRows = [];
+  }
+
+  private initColumns(): TableColumn[] {
+    return [...this.mainColumns, ...this.optionalColumns];
   }
 
   private onCtrlKey(item: any): any[] {
@@ -64,13 +84,10 @@ export class SimulationTableComponent implements OnInit {
   private onShiftKey(item: any): any[] {
     const rowIndex = this.selectedRows.findIndex((data: any) => data.id === item.id);
     const lastIndex = this.items.findIndex((row: any) => row.id === item.id);
+    const index = this.items.findIndex((row: any) => row.id === this.selectedRows[0].id);
     if (rowIndex !== -1) {
-      console.log(1);
-      const index = this.items.findIndex((row: any) => row.id === this.selectedRows[0].id);
       return this.items.slice(index, lastIndex + 1);
     } else {
-      console.log(2);
-      const index = this.items.findIndex((row: any) => row.id === this.selectedRows.slice(-1)[0].id);
       return lastIndex <= index ? this.items.slice(lastIndex, index + 1) : this.items.slice(index, lastIndex + 1);
     }
   }

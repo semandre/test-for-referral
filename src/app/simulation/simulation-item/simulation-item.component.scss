@@ -12,11 +12,12 @@
     &__wrapper {
       display: flex;
       align-items: center;
-      width: 100%;
+      flex-grow: 2;
 
       &:last-child {
-        justify-content: flex-end;
+        justify-content: space-between;
         width: fit-content;
+        flex-grow: 1;
       }
 
       .report-btn {
@@ -95,18 +96,6 @@
     }
   }
 
-  &__subheader{
-    margin-top: 15px;
-
-    .input-block {
-      display: inline-block;
-      max-width: 380px;
-      border: 1px solid $light-grey;
-      margin: 0 55px;
-      padding: 8px 10px;
-    }
-  }
-
   &__content{
     width: 93%;
     .outline-btn {
@@ -141,5 +130,17 @@
 @media all and (max-width: 1400px){
   .simulation-item__content{
     width: 100%;
+  }
+}
+
+@media all and (max-width: 1000px){
+  .simulation-item__header{
+      flex-direction: column;
+
+      &__wrapper{
+        &:last-child{
+          width: 50%;
+        }
+      }
   }
 }

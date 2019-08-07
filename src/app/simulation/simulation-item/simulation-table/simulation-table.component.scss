@@ -17,6 +17,14 @@
   &__block {
     display: flex;
     align-items: center;
+    position: relative;
+
+    &__wrapper{
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      transform: translate(50%, 0%);
+    }
 
     button {
       background: transparent;
@@ -36,7 +44,6 @@
 
         i {
           position: absolute;
-          top: 66%;
           left: 50%;
           transform: translate(-50%, -50%);
         }
@@ -81,7 +88,6 @@
     }
 
     &:last-child {
-      padding-top: 12px;
       margin-right: 135px;
     }
   }

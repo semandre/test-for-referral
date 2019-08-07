@@ -10,7 +10,8 @@ import { Simulation } from '../../shared/types/simulation.model';
 import { Portfolio, PortfolioMaker } from '../../shared/types/portfolioModel';
 import { isEmpty } from '../../shared/helpers/isEmpty';
 import { TableColumn } from '../../shared/types/tableColumnsModel';
-import { SIMULATION_PROPS } from '../../shared/consts/simulationProps';
+import { MAIN_COLUMNS, OPTIONAL_COLUMNS } from '../../shared/consts/simulationProps';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-simulation-item',
@@ -23,8 +24,10 @@ export class SimulationItemComponent implements OnInit {
 
   selectedPortfolio: Simulation;
   portfolioItems: Portfolio[];
-  columns: TableColumn[] = SIMULATION_PROPS;
+  mainColumns: TableColumn[] = MAIN_COLUMNS;
+  optionalColumns: TableColumn[] = OPTIONAL_COLUMNS;
   list$: Observable<Simulation[]>;
+  dateControl: FormControl;
 
   private _destroy$ = new Subject<any>();
 
@@ -60,6 +63,7 @@ export class SimulationItemComponent implements OnInit {
         }),
         switchMap((simulation: Simulation) => {
           this.selectedPortfolio = simulation;
+          this.dateControl = new FormControl(new Date(simulation.date));
           this.portfolioFacade.fetchPortfolioList(simulation.id);
           return this.portfolioFacade.portfolioList$;
         }),
