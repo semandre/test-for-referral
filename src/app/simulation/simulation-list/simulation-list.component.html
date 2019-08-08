@@ -11,10 +11,18 @@
       <div class="flex-table__row">
         <div class="flex-table__row__header" *ngFor="let head of header">{{head}}</div>
       </div>
-      <a class="flex-table__row" *ngFor="let item of list$ | async" (click)="navigateToPortfolio(item.id)">
+      <a class="flex-table__row" *ngFor="let item of list$ | async; let i = index" (click)="navigateToPortfolio(item.id)">
         <div class="flex-table__row__content">{{item.name}}</div>
         <div class="flex-table__row__content">{{item.base}}</div>
         <div class="flex-table__row__content">{{item.date}}</div>
+        <div class="hover-btn" (click)="onMenuClick(i, $event)">
+          <i class="material-icons">more_horiz</i>
+        </div>
+        <ul id="menu-{{i}}">
+          <li>Duplicate</li>
+          <li>Export To Excel</li>
+          <li>Delete</li>
+        </ul>
       </a>
     </div>
   </div>

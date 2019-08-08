@@ -30,4 +30,14 @@ export class SimulationListComponent implements OnInit {
     this.simulationFacade.selectSimulation(id);
     this.router.navigate(['/', 'list', id]);
   }
+
+  onMenuClick(index: number, $event: MouseEvent): void {
+    const element = (document.querySelector(`#menu-${index}`) as HTMLElement);
+    element.style.top = `${$event.clientY + 17}px`;
+    element.style.left = `${$event.clientX + 10}px`;
+    console.log(element);
+    console.log();
+    console.log($event.clientY);
+    $event.stopPropagation();
+  }
 }
