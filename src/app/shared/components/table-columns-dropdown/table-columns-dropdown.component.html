@@ -1,0 +1,18 @@
+  <div class="dropdown-wrapper" [class.show]="onMenuOpen">
+    <h3>View Settings</h3>
+    <ul>
+      <li *ngFor="let column of copy; let i = index">
+        <label [for]="i">
+          <input type="checkbox" [id]="i" [checked]="!column.hide" (click)="onChange(i)">
+          <div class="checkmark" [class.checked]="!column.hide">
+            <i class="material-icons">done</i>
+          </div>
+          <span class="name">{{column.name}}</span>
+        </label>
+      </li>
+    </ul>
+    <div class="btn-wrapper">
+      <button class="outline-btn" (click)="onCancel()">Cancel</button>
+      <button class="raised-btn" (click)="onApply()">Apply</button>
+    </div>
+  </div>
