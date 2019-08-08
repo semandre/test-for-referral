@@ -21,7 +21,7 @@
         <p>AsOfDate</p>
         <div class="datepicker">
           <mat-form-field>
-            <input matInput [matDatepicker]="picker" disabled [formControl]="dateControl">
+            <input matInput [matDatepicker]="picker" [formControl]="dateControl">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker disabled="false"></mat-datepicker>
           </mat-form-field>
@@ -41,7 +41,7 @@
     </div>
   </div>
   <div class="simulation-item__content">
-    <app-simulation-table #table
+    <app-simulation-table
                           [items]="portfolioItems"
                           [mainColumns]="mainColumns"
                           [optionalColumns]="optionalColumns"

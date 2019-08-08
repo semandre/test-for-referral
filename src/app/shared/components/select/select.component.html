@@ -1,5 +1,5 @@
 <div class="selector__block" (click)="isOpen = !isOpen">
-  {{selectedItem[valueType]}}
+  {{selectedItem ? selectedItem[valueType] : ''}}
   <i class="material-icons" [class.open] = isOpen>
     keyboard_arrow_down
   </i>

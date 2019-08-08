@@ -1,30 +1,40 @@
 export interface Portfolio {
   id?: number;
-  cusip: string;
-  faceAmount: string;
-  marketPrice: string;
-  bookPrice: string;
-  bookValue: string;
-  maturityDate: string;
-  couponRate: string;
-  parValue: string;
-  marketValue: string;
-  aveLife: string;
+  CUSIP: string;
+  OriginalFace: string;
+  MarketPrice: string;
+  BookPrice: string;
+  BookValue: string;
+  MaturityDate: string;
+  CouponRate: string;
+  ParValue: string;
+  MarketValue: string;
+  AveLife: string;
+  EffectiveDuration: string;
+  CallDate: string;
+  CallPrice: string;
+  CUSIPDescription: string;
+  SettlementDates: string;
 }
 
 export class PortfolioMaker {
   static createEmpty(): Portfolio {
     return {
-      cusip: '',
-      faceAmount: '',
-      marketPrice: '',
-      bookPrice: '',
-      bookValue: '',
-      maturityDate: '',
-      couponRate: '',
-      parValue: '',
-      marketValue: '',
-      aveLife: ''
+      CUSIP: '',
+      OriginalFace: '',
+      MarketPrice: '',
+      BookPrice: '',
+      BookValue: '',
+      MaturityDate: '',
+      CouponRate: '',
+      ParValue: '',
+      MarketValue: '',
+      AveLife: '',
+      EffectiveDuration: '',
+      CallDate: '',
+      CallPrice: '',
+      CUSIPDescription: '',
+      SettlementDates: ''
     };
   }
 }

@@ -75,8 +75,10 @@ export class SimulationTableComponent implements OnInit {
   }
 
   onDocumentClick(): void {
-    this.selectedRows = [];
-    this.cdRef.detectChanges();
+    if (!this.cdRef['destroyed']) {
+      this.selectedRows = [];
+      this.cdRef.detectChanges();
+    }
   }
 
   private initColumns(): TableColumn[] {

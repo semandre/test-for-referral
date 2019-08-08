@@ -7,7 +7,7 @@
         settings
       </i>
     </button>
-    <div class="table-header__block__wrapper" >
+    <div class="table-header__block__wrapper">
       <app-table-columns-dropdown
         [columns]="optionalColumns"
         [onMenuOpen]="onMenuOpen"
@@ -59,10 +59,13 @@
   </div>
   <div class="flex-table__row"
        [class.selected]="checkIfSelected(item.id)"
+       [class.action]="true"
        *ngFor="let item of items"
        (click)="selectRow(item, $event)">
+
     <ng-container *ngFor="let key of objectKeys(item)">
-      <input class="flex-table__row__content" *ngIf="checkForColumn(key)" [(ngModel)]="item[key]">
+      <input class="flex-table__row__content" *ngIf="checkForColumn(key)"
+             [(ngModel)]="item[key]">
     </ng-container>
   </div>
 </div>

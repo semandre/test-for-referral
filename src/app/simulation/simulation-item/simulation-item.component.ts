@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { filter, switchMap, takeUntil } from 'rxjs/operators';
 
 import { SimulationFacade } from '../../@store/facades/simulation.facade';
 import { PortfolioFacade } from '../../@store/facades/portfolio.facade';
@@ -23,7 +23,7 @@ export class SimulationItemComponent implements OnInit {
 
 
   selectedPortfolio: Simulation;
-  portfolioItems: Portfolio[];
+  portfolioItems: Portfolio[] = [];
   dateControl: FormControl;
   mainColumns: TableColumn[] = MAIN_COLUMNS;
   optionalColumns: TableColumn[] = OPTIONAL_COLUMNS;
@@ -41,6 +41,7 @@ export class SimulationItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.dateControl = new FormControl({value: Date.now(), disabled: true});
     this.list$ = this.simulationFacade.simulationList$;
     this.fetchSelectedSimulation();
   }
@@ -50,7 +51,7 @@ export class SimulationItemComponent implements OnInit {
   }
 
   onAddNewLine(): void {
-    this.portfolioItems = isEmpty(this.portfolioItems.slice(-1)[0]) ?
+    this.portfolioItems = this.portfolioItems.length && isEmpty(this.portfolioItems.slice(-1)[0]) ?
       this.portfolioItems :
       [...this.portfolioItems, PortfolioMaker.createEmpty()];
   }
@@ -58,13 +59,14 @@ export class SimulationItemComponent implements OnInit {
   private fetchSelectedSimulation(): void {
     this.route.params
       .pipe(
+        filter((params: Params) => !!params.id),
         switchMap((params: Params) => {
           this.simulationFacade.selectSimulation(+params.id);
           return this.simulationFacade.selectedSimulation$;
         }),
         switchMap((simulation: Simulation) => {
           this.selectedPortfolio = simulation;
-          this.dateControl = new FormControl(new Date(simulation.date));
+          this.dateControl = new FormControl({value: new Date(simulation.date), disabled: true});
           this.portfolioFacade.fetchPortfolioList(simulation.id);
           return this.portfolioFacade.portfolioList$;
         }),

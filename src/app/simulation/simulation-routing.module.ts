@@ -21,6 +21,10 @@ const routes: Routes = [
         component: SimulationListComponent,
       },
       {
+        path: 'list/new',
+        component: SimulationItemComponent
+      },
+      {
         path: 'list/:id',
         component: SimulationItemComponent
       }

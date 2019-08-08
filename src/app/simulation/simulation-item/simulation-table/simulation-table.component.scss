@@ -1,7 +1,7 @@
 @import "assets/styles/variables";
 @import "assets/styles/components/table.component";
 
-.grey-bg{
+.grey-bg {
   background: rgba(196, 196, 196, 0.4);
   position: fixed;
   height: 100vh;
@@ -11,8 +11,31 @@
   display: none;
   z-index: 1;
 
-  &.show{
+  &.show {
     display: block;
+  }
+}
+
+.flex-table__row {
+  position: relative;
+
+  &.action{
+
+    .flex-table__row__content{
+      &:first-child{
+        //padding-left: 20px;
+      }
+    }
+  }
+
+  span {
+    border-radius: 50%;
+    border: 1px solid red;
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    top: 50%;
+    transform: translate(0%, -50%);
   }
 }
 
@@ -22,6 +45,10 @@
   font-size: $font-size-default;
   font-family: $font-default;
   background: transparent;
+
+  &.action {
+    margin-left: 20px;
+  }
 }
 
 .table-header {
@@ -34,7 +61,7 @@
     align-items: center;
     position: relative;
 
-    &__wrapper{
+    &__wrapper {
       position: absolute;
       top: 50%;
       left: 100%;
@@ -79,7 +106,7 @@
         height: 35px;
         transition: background-color .2s ease-in-out;
 
-        .hint{
+        .hint {
           opacity: 0;
           pointer-events: none;
           position: absolute;
@@ -95,7 +122,7 @@
         &:hover {
           background: $light-blue;
 
-          .hint{
+          .hint {
             pointer-events: all;
             opacity: 1;
           }
