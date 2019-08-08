@@ -138,6 +138,7 @@
       flex-direction: column;
 
       &__wrapper{
+        flex-wrap: wrap;
         &:last-child{
           width: 50%;
         }

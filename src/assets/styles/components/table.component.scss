@@ -9,6 +9,7 @@
 }
 
 .flex-table {
+  overflow: scroll;
 
   &__row {
     display: flex;
@@ -27,14 +28,14 @@
       line-height: 20px;
       letter-spacing: $ls-1;
       padding: 10px;
-      min-width: 10px;
+      min-width: 60px;
     }
 
     &__content {
       width: 100%;
       padding: 12px 10px;
       color: $dark-grey;
-      min-width: 10px;
+      min-width: 60px;
 
       &:first-child {
         font-weight: $medium;

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostListener, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, Input, NgZone, OnInit } from '@angular/core';
 import { IgxExcelExporterOptions, IgxExcelExporterService } from 'igniteui-angular';
 
 import { TableColumn } from '../../../shared/types/tableColumnsModel';
@@ -21,11 +21,18 @@ export class SimulationTableComponent implements OnInit {
   columns = [];
   selectedRows = [];
 
-  constructor(private excelExportService: IgxExcelExporterService) {
+  constructor(
+    private excelExportService: IgxExcelExporterService,
+    private ngZone: NgZone,
+    private cdRef: ChangeDetectorRef,
+  ) {
   }
 
   ngOnInit(): void {
     this.columns = this.initColumns();
+    this.ngZone.runOutsideAngular(() => {
+      document.addEventListener('click', this.onDocumentClick.bind(this));
+    });
   }
 
   checkForColumn(value: string): boolean {
@@ -44,6 +51,7 @@ export class SimulationTableComponent implements OnInit {
     } else {
       this.selectedRows = [item];
     }
+
     event.stopPropagation();
   }
 
@@ -66,8 +74,9 @@ export class SimulationTableComponent implements OnInit {
     this.onMenuOpen = !this.onMenuOpen;
   }
 
-  @HostListener('document:click', []) onDocumentClick(): void {
+  onDocumentClick(): void {
     this.selectedRows = [];
+    this.cdRef.detectChanges();
   }
 
   private initColumns(): TableColumn[] {

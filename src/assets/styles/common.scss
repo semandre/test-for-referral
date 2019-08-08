@@ -50,4 +50,25 @@
   line-height: 20px;
   font-size: $font-size-default;
   white-space: nowrap;
+  outline: none;
+}
+
+.btn-wrapper{
+  display: flex;
+  justify-content: flex-end;
+
+  button{
+    max-width: 110px;
+  }
+
+  .outline-btn{
+    margin: 0 20px;
+    border-color: $light-grey;
+    color: $color-default;
+  }
+
+  .raised-btn{
+    width: 100%;
+    justify-content: center;
+  }
 }
