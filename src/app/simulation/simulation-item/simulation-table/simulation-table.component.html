@@ -1,7 +1,8 @@
+<div class="grey-bg" [class.show]="onMenuOpen" (click)="onMenuOpen = false"></div>
 <div class="table-header">
   <div class="table-header__block">
     <h3 class="head-title">Create Simulation</h3>
-    <button class="vertical" (click)="openMenu($event)">
+    <button class="vertical" (click)="openMenu()">
       <i class="material-icons-outlined">
         settings
       </i>
@@ -11,7 +12,7 @@
         [columns]="optionalColumns"
         [onMenuOpen]="onMenuOpen"
         (columnsEmitter)="onUpdateColumns($event)"
-        (openMenuEmitter)="this.onMenuOpen = $event"
+        (openMenuEmitter)="onMenuOpen = $event"
       ></app-table-columns-dropdown>
     </div>
   </div>
