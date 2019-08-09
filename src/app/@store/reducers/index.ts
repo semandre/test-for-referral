@@ -1,16 +1,16 @@
 import { ActionReducerMap } from '@ngrx/store';
 
 import * as fromSimulation from './simulation.reducer';
-import * as fromPortfolio from './portfolio.reducer';
+import * as fromBond from './bond.reducer';
 
 export interface AppState {
   simulation: fromSimulation.SimulationState;
-  portfolio: fromPortfolio.PortfolioState;
+  bond: fromBond.BondState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   simulation: fromSimulation.simulationReducer,
-  portfolio: fromPortfolio.portfolioReducer
+  bond: fromBond.bondReducer
 };
 
 

@@ -13,16 +13,7 @@ $grey-shade: rgba(0, 0, 0, 0.54);;
 $blue-primary: #16C9EF;
 $blue-secondary: #2e7cd9;
 $red: #F23030;
-
-//$dark: #4A4A4A;
-//$color-light-grey: #D8D8D8;
-//$light-grey: #f0f0f0;
-//$middle-grey: #9B9B9B;
-//$light-blue: #64D1CC;
-//$lighter-blue: #2DE1CC;
-//$red: #D0021B;
-//$green: #28A745;
-//$yellow: #FFC107;
+$green: #0BA086;
 
 // Font Sizes
 $font-size-xs: 0.714rem; // 10 px
@@ -40,6 +31,7 @@ $shadow-2: 0px 2px 4px rgba(88, 87, 87, 0.2);
 // Letter Spacing
 $ls-1: -0.1px;
 $ls-2: -0.2px;
+$ls-4: -0.4px;
 
 
 // Font Weights
@@ -55,8 +47,6 @@ $font-icon-default: 1.57rem; // 22 px
 $font-icon-xs: 1.143rem; // 16 px
 $font-icon-sm: 1.285rem; // 18 px
 $font-icon-md: 2.29rem; // 32 px
-//$font-icon-lg: 2.52rem; // 36 px
-//$font-icon-xl: 3.57rem; // 50 px
 
 // Font family
 $font-default: 'Heebo', sans-serif;

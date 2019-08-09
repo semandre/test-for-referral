@@ -16,11 +16,12 @@ export const simulationItems = {
       CallDate: '105,629',
       CallPrice: '105,629',
       CUSIPDescription: '105,629',
-      SettlementDates: '105,629'
+      SettlementDates: '105,629',
+      Action: '',
     },
     {
       id: 2,
-      CUSIP: 'US646D132',
+      CUSIP: 'US646D133',
       OriginalFace: '4,000,000',
       MarketPrice: '95,235',
       BookPrice: '105,629',
@@ -34,11 +35,12 @@ export const simulationItems = {
       CallDate: '105,629',
       CallPrice: '105,629',
       CUSIPDescription: '105,629',
-      SettlementDates: '105,629'
+      SettlementDates: '105,629',
+      Action: 'sell',
     },
     {
       id: 3,
-      CUSIP: 'US646D132',
+      CUSIP: 'US646D134',
       OriginalFace: '4,000,000',
       MarketPrice: '95,235',
       BookPrice: '105,629',
@@ -52,11 +54,12 @@ export const simulationItems = {
       CallDate: '105,629',
       CallPrice: '105,629',
       CUSIPDescription: '105,629',
-      SettlementDates: '105,629'
+      SettlementDates: '105,629',
+      Action: 'buy',
     },
     {
       id: 4,
-      CUSIP: 'US646D132',
+      CUSIP: 'US646D135',
       OriginalFace: '4,000,000',
       MarketPrice: '95,235',
       BookPrice: '105,629',
@@ -70,11 +73,12 @@ export const simulationItems = {
       CallDate: '105,629',
       CallPrice: '105,629',
       CUSIPDescription: '105,629',
-      SettlementDates: '105,629'
+      SettlementDates: '105,629',
+      Action: '',
     },
     {
       id: 5,
-      CUSIP: 'US646D132',
+      CUSIP: 'US646D136',
       OriginalFace: '4,000,000',
       MarketPrice: '95,235',
       BookPrice: '105,629',
@@ -88,11 +92,12 @@ export const simulationItems = {
       CallDate: '105,629',
       CallPrice: '105,629',
       CUSIPDescription: '105,629',
-      SettlementDates: '105,629'
+      SettlementDates: '105,629',
+      Action: '',
     },
     {
       id: 6,
-      CUSIP: 'US646D132',
+      CUSIP: 'US646D137',
       OriginalFace: '4,000,000',
       MarketPrice: '95,235',
       BookPrice: '105,629',
@@ -106,11 +111,12 @@ export const simulationItems = {
       CallDate: '105,629',
       CallPrice: '105,629',
       CUSIPDescription: '105,629',
-      SettlementDates: '105,629'
+      SettlementDates: '105,629',
+      Action: '',
     },
     {
       id: 7,
-      CUSIP: 'US646D132',
+      CUSIP: 'US646D138',
       OriginalFace: '4,000,000',
       MarketPrice: '95,235',
       BookPrice: '105,629',
@@ -124,11 +130,12 @@ export const simulationItems = {
       CallDate: '105,629',
       CallPrice: '105,629',
       CUSIPDescription: '105,629',
-      SettlementDates: '105,629'
+      SettlementDates: '105,629',
+      Action: '',
     },
     {
       id: 8,
-      CUSIP: 'US646D132',
+      CUSIP: 'US646D139',
       OriginalFace: '4,000,000',
       MarketPrice: '95,235',
       BookPrice: '105,629',
@@ -142,7 +149,8 @@ export const simulationItems = {
       CallDate: '105,629',
       CallPrice: '105,629',
       CUSIPDescription: '105,629',
-      SettlementDates: '105,629'
+      SettlementDates: '105,629',
+      Action: '',
     }
   ],
   2: [
@@ -162,7 +170,8 @@ export const simulationItems = {
       CallDate: '105,629',
       CallPrice: '105,629',
       CUSIPDescription: '105,629',
-      SettlementDates: '105,629'
+      SettlementDates: '105,629',
+      Action: '',
     },
     {
       id: 2,
@@ -180,7 +189,8 @@ export const simulationItems = {
       CallDate: '105,629',
       CallPrice: '105,629',
       CUSIPDescription: '105,629',
-      SettlementDates: '105,629'
+      SettlementDates: '105,629',
+      Action: '',
     }
   ]
 };

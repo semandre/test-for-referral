@@ -1,4 +1,4 @@
-export interface Portfolio {
+export interface Bond {
   id?: number;
   CUSIP: string;
   OriginalFace: string;
@@ -15,10 +15,11 @@ export interface Portfolio {
   CallPrice: string;
   CUSIPDescription: string;
   SettlementDates: string;
+  Action: string;
 }
 
-export class PortfolioMaker {
-  static createEmpty(): Portfolio {
+export class BondMaker {
+  static createEmpty(): Bond {
     return {
       CUSIP: '',
       OriginalFace: '',
@@ -34,7 +35,8 @@ export class PortfolioMaker {
       CallDate: '',
       CallPrice: '',
       CUSIPDescription: '',
-      SettlementDates: ''
+      SettlementDates: '',
+      Action: '',
     };
   }
 }

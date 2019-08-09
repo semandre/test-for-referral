@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, Input, NgZone, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, NgZone, OnInit } from '@angular/core';
 import { IgxExcelExporterOptions, IgxExcelExporterService } from 'igniteui-angular';
 
 import { TableColumn } from '../../../shared/types/tableColumnsModel';
+import { Bond } from '../../../shared/types/bondModel';
 
 @Component({
   selector: 'app-simulation-table',
@@ -12,7 +13,7 @@ import { TableColumn } from '../../../shared/types/tableColumnsModel';
 export class SimulationTableComponent implements OnInit {
 
 
-  @Input() items: any[];
+  @Input() items: Bond[];
   @Input() mainColumns: TableColumn[];
   @Input() optionalColumns: TableColumn[];
 
@@ -36,14 +37,14 @@ export class SimulationTableComponent implements OnInit {
   }
 
   checkForColumn(value: string): boolean {
-    return !!this.columns.find((data: any) => data.value === value && !data.hide);
+    return !!this.columns.find((data: TableColumn) => data.value === value && !data.hide);
   }
 
-  checkIfSelected(id: any): boolean {
-    return !!this.selectedRows.find((data: any) => data.id === id);
+  checkIfSelected(id: number): boolean {
+    return !!this.selectedRows.find((data: Bond) => data.id === id);
   }
 
-  selectRow(item: any, event: MouseEvent): void {
+  selectRow(item: Bond, event: MouseEvent): void {
     if (event.shiftKey && this.selectedRows.length) {
       this.selectedRows = this.onShiftKey(item);
     } else if (event.ctrlKey) {
@@ -57,7 +58,7 @@ export class SimulationTableComponent implements OnInit {
 
   onExport(): void {
     // Changing items keys name to have as in table view
-    const data = this.selectedRows.map((item: any) => {
+    const data = this.selectedRows.map((item: Bond) => {
       return this.columns.reduce((acc: any, cur: TableColumn) => {
         return !cur.hide ? { ...acc, [cur.name]: item[cur.value] } : acc;
       }, {});
@@ -70,8 +71,16 @@ export class SimulationTableComponent implements OnInit {
     this.columns = this.initColumns();
   }
 
-  openMenu(): void {
-    this.onMenuOpen = !this.onMenuOpen;
+  onRowsRemove(): void {
+    this.items = this.items.filter((item: Bond) =>
+      !this.selectedRows.find((row: Bond) => row.id === item.id));
+  }
+
+  onMakeAction(action: string): void {
+    this.items = this.items.map((item: Bond) => {
+      const index = this.selectedRows.findIndex((row: Bond) => row.id === item.id);
+      return index > -1 ? { ...item, Action: action } : item;
+    });
   }
 
   onDocumentClick(): void {
@@ -85,17 +94,17 @@ export class SimulationTableComponent implements OnInit {
     return [...this.mainColumns, ...this.optionalColumns];
   }
 
-  private onCtrlKey(item: any): any[] {
-    return this.selectedRows.find((data: any) => data.id === item.id) ?
-      this.selectedRows.filter((data: any) => data.id !== item.id) :
+  private onCtrlKey(item: Bond): Bond[] {
+    return this.selectedRows.find((data: Bond) => data.id === item.id) ?
+      this.selectedRows.filter((data: Bond) => data.id !== item.id) :
       [...this.selectedRows, item];
   }
 
 
-  private onShiftKey(item: any): any[] {
-    const rowIndex = this.selectedRows.findIndex((data: any) => data.id === item.id);
-    const lastIndex = this.items.findIndex((row: any) => row.id === item.id);
-    const index = this.items.findIndex((row: any) => row.id === this.selectedRows[0].id);
+  private onShiftKey(item: Bond): Bond[] {
+    const rowIndex = this.selectedRows.findIndex((data: Bond) => data.id === item.id);
+    const lastIndex = this.items.findIndex((row: Bond) => row.id === item.id);
+    const index = this.items.findIndex((row: Bond) => row.id === this.selectedRows[0].id);
     if (rowIndex !== -1) {
       return this.items.slice(index, lastIndex + 1);
     } else {

@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 import { Observable, Subject } from 'rxjs';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
 
 import { SimulationFacade } from '../../@store/facades/simulation.facade';
-import { PortfolioFacade } from '../../@store/facades/portfolio.facade';
+import { BondFacade } from '../../@store/facades/bond.facade';
 import { Simulation } from '../../shared/types/simulation.model';
-import { Portfolio, PortfolioMaker } from '../../shared/types/portfolioModel';
+import { Bond, BondMaker } from '../../shared/types/bondModel';
 import { isEmpty } from '../../shared/helpers/isEmpty';
 import { TableColumn } from '../../shared/types/tableColumnsModel';
 import { MAIN_COLUMNS, OPTIONAL_COLUMNS } from '../../shared/consts/simulationProps';
-import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material';
 import { SimulationCreateComponent } from './simulation-create/simulation-create.component';
 
 @Component({
@@ -22,8 +22,8 @@ import { SimulationCreateComponent } from './simulation-create/simulation-create
 export class SimulationItemComponent implements OnInit {
 
 
-  selectedPortfolio: Simulation;
-  portfolioItems: Portfolio[] = [];
+  selectedBond: Simulation;
+  bondItems: Bond[] = [];
   dateControl: FormControl;
   mainColumns: TableColumn[] = MAIN_COLUMNS;
   optionalColumns: TableColumn[] = OPTIONAL_COLUMNS;
@@ -36,7 +36,7 @@ export class SimulationItemComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private simulationFacade: SimulationFacade,
-    private portfolioFacade: PortfolioFacade
+    private bondFacade: BondFacade
   ) {
   }
 
@@ -51,9 +51,9 @@ export class SimulationItemComponent implements OnInit {
   }
 
   onAddNewLine(): void {
-    this.portfolioItems = this.portfolioItems.length && isEmpty(this.portfolioItems.slice(-1)[0]) ?
-      this.portfolioItems :
-      [...this.portfolioItems, PortfolioMaker.createEmpty()];
+    this.bondItems = this.bondItems.length && isEmpty(this.bondItems.slice(-1)[0]) ?
+      this.bondItems :
+      [...this.bondItems, BondMaker.createEmpty()];
   }
 
   private fetchSelectedSimulation(): void {
@@ -65,15 +65,15 @@ export class SimulationItemComponent implements OnInit {
           return this.simulationFacade.selectedSimulation$;
         }),
         switchMap((simulation: Simulation) => {
-          this.selectedPortfolio = simulation;
+          this.selectedBond = simulation;
           this.dateControl = new FormControl({value: new Date(simulation.date), disabled: true});
-          this.portfolioFacade.fetchPortfolioList(simulation.id);
-          return this.portfolioFacade.portfolioList$;
+          this.bondFacade.fetchBondList(simulation.id);
+          return this.bondFacade.bondList$;
         }),
         takeUntil(this._destroy$)
       )
-      .subscribe((portfolioList: Portfolio[]) => {
-        this.portfolioItems = portfolioList;
+      .subscribe((bondList: Bond[]) => {
+        this.bondItems = bondList;
       });
   }
 

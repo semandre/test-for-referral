@@ -18,24 +18,74 @@
 
 .flex-table__row {
   position: relative;
+  justify-content: normal;
 
-  &.action{
+  &__block{
+    display: flex;
+    width: 100%;
 
-    .flex-table__row__content{
-      &:first-child{
-        //padding-left: 20px;
+    &:first-child{
+      input{
+        font-weight: $medium;
+        line-height: 21px;
+        letter-spacing: $ls-1;
+        color: $color-default;
       }
+    }
+
+    span{
+      display: none;
+      border-radius: 50%;
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      top: 50%;
+      transform: translate(0%, -50%);
+
+      &.add{
+        border: 2px solid $green;
+        color: $green;
+      }
+      &.remove{
+        border: 2px solid $red;
+        color: $red;
+      }
+
+      i{
+        font-size: 20px;
+      }
+    }
+
+    input{
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      font-family: "Heebo", sans-serif;
+      background: transparent;
+      width: 100%;
+      padding: 12px 10px;
+      color: $dark-grey;
+      min-width: 60px;
     }
   }
 
-  span {
-    border-radius: 50%;
-    border: 1px solid red;
-    position: absolute;
-    height: 25px;
-    width: 25px;
-    top: 50%;
-    transform: translate(0%, -50%);
+
+
+  &.action{
+
+    .flex-table__row__block{
+
+      &:first-child{
+        span{
+          display: block;
+        }
+
+        input{
+          padding-left: 30px;
+          min-width: 40px;
+        }
+      }
+    }
   }
 }
 
@@ -117,6 +167,7 @@
           transition: opacity .2s ease-in-out;
           color: $blue-secondary;
           border-radius: 4px;
+          z-index: 1;
         }
 
         &:hover {

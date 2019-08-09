@@ -10,7 +10,7 @@
         <p>Portfolio</p>
         <div class="selector">
           <app-select
-            [selectedItem]="selectedPortfolio"
+            [selectedItem]="selectedBond"
             [list]="list$ | async"
             [valueType]="'base'"
             (selectEmitter)="onSelectedData($event)"
@@ -42,7 +42,7 @@
   </div>
   <div class="simulation-item__content">
     <app-simulation-table
-                          [items]="portfolioItems"
+                          [items]="bondItems"
                           [mainColumns]="mainColumns"
                           [optionalColumns]="optionalColumns"
     >

@@ -2,7 +2,7 @@
 <div class="table-header">
   <div class="table-header__block">
     <h3 class="head-title">Create Simulation</h3>
-    <button class="vertical" (click)="openMenu()">
+    <button class="vertical" (click)="onMenuOpen = !onMenuOpen">
       <i class="material-icons-outlined">
         settings
       </i>
@@ -18,7 +18,7 @@
   </div>
   <div class="table-header__block" *ngIf="selectedRows.length">
     <div class="table-header__block__content">
-      <button>
+      <button (click)="onMakeAction('buy')">
         <i class="material-icons">
           add
         </i>
@@ -26,7 +26,7 @@
       </button>
     </div>
     <div class="table-header__block__content">
-      <button>
+      <button (click)="onMakeAction('sell')">
         <i class="material-icons">
           remove
         </i>
@@ -42,7 +42,7 @@
       </button>
     </div>
     <div class="table-header__block__content">
-      <button>
+      <button (click)="onRowsRemove()">
         <i class="material-icons-outlined">
           delete
         </i>
@@ -59,13 +59,23 @@
   </div>
   <div class="flex-table__row"
        [class.selected]="checkIfSelected(item.id)"
-       [class.action]="true"
+       [class.action]="item.Action"
        *ngFor="let item of items"
        (click)="selectRow(item, $event)">
 
     <ng-container *ngFor="let key of objectKeys(item)">
-      <input class="flex-table__row__content" *ngIf="checkForColumn(key)"
-             [(ngModel)]="item[key]">
+      <div class="flex-table__row__block" *ngIf="checkForColumn(key)">
+        <ng-container *ngIf="item.Action">
+          <span class="add" *ngIf="item.Action === 'buy'">
+            <i class="material-icons add">add</i>
+          </span>
+          <span class="remove" *ngIf="item.Action === 'sell'">
+            <i class="material-icons remove">remove</i>
+          </span>
+        </ng-container>
+
+        <input [(ngModel)]="item[key]">
+      </div>
     </ng-container>
   </div>
 </div>

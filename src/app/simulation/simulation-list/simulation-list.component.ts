@@ -26,18 +26,20 @@ export class SimulationListComponent implements OnInit {
     this.list$ = this.simulationFacade.simulationList$;
   }
 
-  navigateToPortfolio(id: number | string): void {
+  navigateToBond(id: number | string): void {
     this.simulationFacade.selectSimulation(id);
     this.router.navigate(['/', 'list', id]);
   }
 
-  onMenuClick(index: number, $event: MouseEvent): void {
-    const element = (document.querySelector(`#menu-${index}`) as HTMLElement);
-    element.style.top = `${$event.clientY + 17}px`;
-    element.style.left = `${$event.clientX + 10}px`;
-    console.log(element);
-    console.log();
-    console.log($event.clientY);
+  onDuplicate(item: Simulation, $event: MouseEvent): void {
+    $event.stopPropagation();
+  }
+
+  onExport(item: Simulation, $event: MouseEvent): void {
+    $event.stopPropagation();
+  }
+
+  onDelete(item: Simulation, $event: MouseEvent): void {
     $event.stopPropagation();
   }
 }

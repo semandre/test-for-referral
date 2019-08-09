@@ -1,4 +1,4 @@
 import { SimulationEffects } from './simulation.effects';
-import { PortfolioEffects } from './portfolio.effects';
+import { BondEffects } from './bond.effects';
 
-export const effects = [SimulationEffects, PortfolioEffects];
+export const effects = [SimulationEffects, BondEffects];

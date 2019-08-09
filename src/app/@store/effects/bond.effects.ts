@@ -3,20 +3,20 @@ import { SimulationService } from '../../shared/services/simulation.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap } from 'rxjs/operators';
 
-import { PortfolioActionTypes } from '../actions/portfolio.actions';
-import { Portfolio } from '../../shared/types/portfolioModel';
+import { BondActionTypes } from '../actions/bond.actions';
+import { Bond } from '../../shared/types/bondModel';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PortfolioEffects {
+export class BondEffects {
 
-  simulationList$ = createEffect(() =>
+  bondList$ = createEffect(() =>
     this.actions.pipe(
-      ofType(PortfolioActionTypes.LoadPortfolioData),
+      ofType(BondActionTypes.LoadBondData),
       switchMap((action: any) => this.simulationService.fetchSimulationData(action.payload)),
-      map((portfolios: Portfolio[]) => {
-        return { type: PortfolioActionTypes.PortfolioDataLoaded, payload: portfolios };
+      map((bondList: Bond[]) => {
+        return { type: BondActionTypes.BondDataLoaded, payload: bondList };
       })
     )
   );

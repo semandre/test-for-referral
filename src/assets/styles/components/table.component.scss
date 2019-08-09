@@ -9,11 +9,11 @@
 }
 
 .flex-table {
-  overflow: scroll;
+  overflow-x: scroll;
+  overflow-y: hidden;
 
   &__row {
     display: flex;
-    justify-content: space-between;
     text-decoration: none;
 
     &.selected {
