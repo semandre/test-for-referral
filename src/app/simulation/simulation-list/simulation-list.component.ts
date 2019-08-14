@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { Simulation } from '../../shared/types/simulation.model';
 import { SimulationService } from '../../shared/services/simulation.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-simulation-list',
   templateUrl: './simulation-list.component.html',
   styleUrls: ['./simulation-list.component.scss']
 })
-export class SimulationListComponent implements OnInit {
+export class SimulationListComponent implements OnInit, OnDestroy {
 
   list$: Observable<Simulation[]>;
 
-  header = ['Report name', 'Base portfolio', 'Date'];
+  header = ['Simulation name', 'Base portfolio', 'Date'];
+
+  private _destroy$ = new Subject<any>();
 
   constructor(
     private simulationService: SimulationService,
@@ -39,6 +42,17 @@ export class SimulationListComponent implements OnInit {
   }
 
   onDelete(item: Simulation, $event: MouseEvent): void {
+    console.log(item);
+    console.log($event);
+    this.simulationService.deleteSimulation(item.id).pipe(
+      takeUntil(this._destroy$)
+    ).subscribe( id => {
+      console.log(id);
+    });
     $event.stopPropagation();
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
   }
 }

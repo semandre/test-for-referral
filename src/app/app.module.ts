@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HeaderComponent } from './header/header.component';
+import {ApiService} from './shared/services/api.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { HeaderComponent } from './header/header.component';
     HttpClientModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -6,7 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
 
 import { Simulation, SimulationDetails } from '../../shared/types/simulation.model';
-import { Bond } from '../../shared/types/bondModel';
+import { CusipData } from '../../shared/types/cusipData';
 import { TableColumn } from '../../shared/types/tableColumnsModel';
 import { MAIN_COLUMNS, OPTIONAL_COLUMNS } from '../../shared/consts/simulationProps';
 import { SimulationCreateComponent } from './simulation-create/simulation-create.component';
@@ -20,8 +20,8 @@ import { SimulationService } from '../../shared/services/simulation.service';
 export class SimulationItemComponent implements OnInit {
 
 
-  selectedBond: Simulation;
-  bondItems: Bond[] = [];
+  selectedCusipData: Simulation;
+  cusipDataItems: CusipData[] = [];
   dateControl: FormControl;
   mainColumns: TableColumn[] = MAIN_COLUMNS;
   optionalColumns: TableColumn[] = OPTIONAL_COLUMNS;
@@ -59,7 +59,7 @@ export class SimulationItemComponent implements OnInit {
       )
       .subscribe((simulation: SimulationDetails) => {
         this.dateControl = new FormControl({value: new Date(simulation.dateAsOf), disabled: true});
-        this.bondItems = simulation.cusipData;
+        this.cusipDataItems = simulation.cusipData;
       });
   }
 

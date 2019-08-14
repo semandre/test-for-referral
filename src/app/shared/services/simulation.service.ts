@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import {Simulation, SimulationDetails} from '../types/simulation.model';
+import {simulationItems} from '../../../mocks/simulation-items';
+import { ApiService } from './api.service';
 
-import { Simulation, SimulationDetails } from '../types/simulation.model';
-import { simulationItems } from '../../../mocks/simulation-items';
 
 @Injectable({
   providedIn: 'root'
@@ -25,15 +26,19 @@ export class SimulationService {
 
   private bondList = simulationItems;
 
-  constructor() {
+  constructor(private apiService: ApiService) {
   }
 
   fetchSimulations(): Observable<Simulation[]> {
-    return of(this.list);
+    return this.apiService.get('simulations');
   }
 
   fetchSimulationData(id: number): Observable<SimulationDetails> {
-    return of(this.bondList.find(((list: SimulationDetails) => list.simulationId === id)));
+    return this.apiService.get(`simulations/${id}`);
+  }
+
+  deleteSimulation(id: number): Observable<number> {
+    return this.apiService.delete(`simulations/${id}`);
   }
 
 }

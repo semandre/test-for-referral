@@ -1,4 +1,4 @@
-export interface Bond {
+export interface CusipData {
   id?: number;
   cusip: string;
   originalFace: string;
@@ -18,8 +18,8 @@ export interface Bond {
   action: string;
 }
 
-export class BondMaker {
-  static createEmpty(): Bond {
+export class CusipDataMaker {
+  static createEmpty(): CusipData {
     return {
       cusip: '',
       originalFace: '',

@@ -1,4 +1,4 @@
-import { Bond } from './bondModel';
+import { CusipData } from './cusipData';
 
 export interface Simulation {
   id: number;
@@ -12,7 +12,7 @@ export interface SimulationDetails {
   simulationId: number;
   name: string;
   dateAsOf: string;
-  cusipData: Bond[];
+  cusipData: CusipData[];
 }
 
 

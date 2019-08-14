@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, NgZone, O
 import { IgxExcelExporterOptions, IgxExcelExporterService } from 'igniteui-angular';
 
 import { TableColumn } from '../../../shared/types/tableColumnsModel';
-import { Bond, BondMaker } from '../../../shared/types/bondModel';
+import { CusipData, CusipDataMaker } from '../../../shared/types/cusipData';
 import { isEmpty } from '../../../shared/helpers/isEmpty';
 
 @Component({
@@ -14,7 +14,7 @@ import { isEmpty } from '../../../shared/helpers/isEmpty';
 export class SimulationTableComponent implements OnInit {
 
 
-  @Input() items: Bond[];
+  @Input() items: CusipData[];
   @Input() mainColumns: TableColumn[];
   @Input() optionalColumns: TableColumn[];
 
@@ -42,10 +42,10 @@ export class SimulationTableComponent implements OnInit {
   }
 
   checkIfSelected(id: number): boolean {
-    return !!this.selectedRows.find((data: Bond) => data.id === id);
+    return !!this.selectedRows.find((data: CusipData) => data.id === id);
   }
 
-  selectRow(item: Bond, event: MouseEvent): void {
+  selectRow(item: CusipData, event: MouseEvent): void {
     if (event.shiftKey && this.selectedRows.length) {
       this.selectedRows = this.onShiftKey(item);
     } else if (event.ctrlKey) {
@@ -59,7 +59,7 @@ export class SimulationTableComponent implements OnInit {
 
   onExport(): void {
     // Changing items keys name to have as in table view
-    const data = this.selectedRows.map((item: Bond) => {
+    const data = this.selectedRows.map((item: CusipData) => {
       return this.columns.reduce((acc: any, cur: TableColumn) => {
         return !cur.hide ? { ...acc, [cur.name]: item[cur.value] } : acc;
       }, {});
@@ -73,13 +73,13 @@ export class SimulationTableComponent implements OnInit {
   }
 
   onRowsRemove(): void {
-    this.items = this.items.filter((item: Bond) =>
-      !this.selectedRows.find((row: Bond) => row.id === item.id));
+    this.items = this.items.filter((item: CusipData) =>
+      !this.selectedRows.find((row: CusipData) => row.id === item.id));
   }
 
   onMakeAction(action: string): void {
-    this.items = this.items.map((item: Bond) => {
-      const index = this.selectedRows.findIndex((row: Bond) => row.id === item.id);
+    this.items = this.items.map((item: CusipData) => {
+      const index = this.selectedRows.findIndex((row: CusipData) => row.id === item.id);
       return index > -1 ? { ...item, action } : item;
     });
   }
@@ -94,24 +94,24 @@ export class SimulationTableComponent implements OnInit {
   onAddNewLine(): void {
     this.items = this.items.length && isEmpty(this.items.slice(-1)[0]) ?
       this.items :
-      [...this.items, BondMaker.createEmpty()];
+      [...this.items, CusipDataMaker.createEmpty()];
   }
 
   private initColumns(): TableColumn[] {
     return [...this.mainColumns, ...this.optionalColumns];
   }
 
-  private onCtrlKey(item: Bond): Bond[] {
-    return this.selectedRows.find((data: Bond) => data.id === item.id) ?
-      this.selectedRows.filter((data: Bond) => data.id !== item.id) :
+  private onCtrlKey(item: CusipData): CusipData[] {
+    return this.selectedRows.find((data: CusipData) => data.id === item.id) ?
+      this.selectedRows.filter((data: CusipData) => data.id !== item.id) :
       [...this.selectedRows, item];
   }
 
 
-  private onShiftKey(item: Bond): Bond[] {
-    const rowIndex = this.selectedRows.findIndex((row: Bond) => row.id === item.id);
-    const lastIndex = this.items.findIndex((row: Bond) => row.id === item.id);
-    const index = this.items.findIndex((row: Bond) => row.id === this.selectedRows[0].id);
+  private onShiftKey(item: CusipData): CusipData[] {
+    const rowIndex = this.selectedRows.findIndex((row: CusipData) => row.id === item.id);
+    const lastIndex = this.items.findIndex((row: CusipData) => row.id === item.id);
+    const index = this.items.findIndex((row: CusipData) => row.id === this.selectedRows[0].id);
     if (rowIndex !== -1) {
       return lastIndex <= index ? this.items.slice(lastIndex, index + 1) : this.items.slice(index, lastIndex + 1);
     } else {
