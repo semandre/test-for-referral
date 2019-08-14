@@ -13,8 +13,8 @@
       </div>
       <a class="flex-table__row" *ngFor="let item of list$ | async; let i = index" (click)="navigateToBond(item.id)">
         <div class="flex-table__row__content">{{item.name}}</div>
-        <div class="flex-table__row__content">{{item.base}}</div>
-        <div class="flex-table__row__content">{{item.date}}</div>
+        <div class="flex-table__row__content">{{item.portfolio}}</div>
+        <div class="flex-table__row__content">{{item.dateAsOf}}</div>
         <div class="hover-btn">
           <ul id="menu-{{i}}">
             <li (click)="onDuplicate(item, $event)">Duplicate</li>

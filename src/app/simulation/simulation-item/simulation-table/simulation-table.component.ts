@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, NgZone, O
 import { IgxExcelExporterOptions, IgxExcelExporterService } from 'igniteui-angular';
 
 import { TableColumn } from '../../../shared/types/tableColumnsModel';
-import { Bond } from '../../../shared/types/bondModel';
+import { Bond, BondMaker } from '../../../shared/types/bondModel';
+import { isEmpty } from '../../../shared/helpers/isEmpty';
 
 @Component({
   selector: 'app-simulation-table',
@@ -79,7 +80,7 @@ export class SimulationTableComponent implements OnInit {
   onMakeAction(action: string): void {
     this.items = this.items.map((item: Bond) => {
       const index = this.selectedRows.findIndex((row: Bond) => row.id === item.id);
-      return index > -1 ? { ...item, Action: action } : item;
+      return index > -1 ? { ...item, action } : item;
     });
   }
 
@@ -88,6 +89,12 @@ export class SimulationTableComponent implements OnInit {
       this.selectedRows = [];
       this.cdRef.detectChanges();
     }
+  }
+
+  onAddNewLine(): void {
+    this.items = this.items.length && isEmpty(this.items.slice(-1)[0]) ?
+      this.items :
+      [...this.items, BondMaker.createEmpty()];
   }
 
   private initColumns(): TableColumn[] {
@@ -102,11 +109,11 @@ export class SimulationTableComponent implements OnInit {
 
 
   private onShiftKey(item: Bond): Bond[] {
-    const rowIndex = this.selectedRows.findIndex((data: Bond) => data.id === item.id);
+    const rowIndex = this.selectedRows.findIndex((row: Bond) => row.id === item.id);
     const lastIndex = this.items.findIndex((row: Bond) => row.id === item.id);
     const index = this.items.findIndex((row: Bond) => row.id === this.selectedRows[0].id);
     if (rowIndex !== -1) {
-      return this.items.slice(index, lastIndex + 1);
+      return lastIndex <= index ? this.items.slice(lastIndex, index + 1) : this.items.slice(index, lastIndex + 1);
     } else {
       return lastIndex <= index ? this.items.slice(lastIndex, index + 1) : this.items.slice(index, lastIndex + 1);
     }

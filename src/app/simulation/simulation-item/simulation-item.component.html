@@ -12,7 +12,7 @@
           <app-select
             [selectedItem]="selectedBond"
             [list]="list$ | async"
-            [valueType]="'base'"
+            [valueType]="'portfolio'"
             (selectEmitter)="onSelectedData($event)"
           ></app-select>
         </div>
@@ -47,6 +47,5 @@
                           [optionalColumns]="optionalColumns"
     >
     </app-simulation-table>
-    <button class="outline-btn" (click)="onAddNewLine()">Add Line</button>
   </div>
 </div>

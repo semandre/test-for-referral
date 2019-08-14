@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { Simulation } from '../../shared/types/simulation.model';
-import { SimulationFacade } from '../../@store/facades/simulation.facade';
+import { SimulationService } from '../../shared/services/simulation.service';
 
 @Component({
   selector: 'app-simulation-list',
@@ -17,17 +17,16 @@ export class SimulationListComponent implements OnInit {
   header = ['Report name', 'Base portfolio', 'Date'];
 
   constructor(
-    private simulationFacade: SimulationFacade,
+    private simulationService: SimulationService,
     private router: Router
   ) {
   }
 
   ngOnInit(): void {
-    this.list$ = this.simulationFacade.simulationList$;
+    this.list$ = this.simulationService.fetchSimulations();
   }
 
   navigateToBond(id: number | string): void {
-    this.simulationFacade.selectSimulation(id);
     this.router.navigate(['/', 'list', id]);
   }
 

@@ -5,14 +5,12 @@ import { MatDialog } from '@angular/material';
 import { Observable, Subject } from 'rxjs';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
 
-import { SimulationFacade } from '../../@store/facades/simulation.facade';
-import { BondFacade } from '../../@store/facades/bond.facade';
-import { Simulation } from '../../shared/types/simulation.model';
-import { Bond, BondMaker } from '../../shared/types/bondModel';
-import { isEmpty } from '../../shared/helpers/isEmpty';
+import { Simulation, SimulationDetails } from '../../shared/types/simulation.model';
+import { Bond } from '../../shared/types/bondModel';
 import { TableColumn } from '../../shared/types/tableColumnsModel';
 import { MAIN_COLUMNS, OPTIONAL_COLUMNS } from '../../shared/consts/simulationProps';
 import { SimulationCreateComponent } from './simulation-create/simulation-create.component';
+import { SimulationService } from '../../shared/services/simulation.service';
 
 @Component({
   selector: 'app-simulation-item',
@@ -35,25 +33,18 @@ export class SimulationItemComponent implements OnInit {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    private simulationFacade: SimulationFacade,
-    private bondFacade: BondFacade
+    private simulationService: SimulationService
   ) {
   }
 
   ngOnInit(): void {
     this.dateControl = new FormControl({value: Date.now(), disabled: true});
-    this.list$ = this.simulationFacade.simulationList$;
+    this.list$ = this.simulationService.fetchSimulations();
     this.fetchSelectedSimulation();
   }
 
   onSelectedData($event: any): void {
-    this.router.navigate(['/', 'list', $event.id]);
-  }
-
-  onAddNewLine(): void {
-    this.bondItems = this.bondItems.length && isEmpty(this.bondItems.slice(-1)[0]) ?
-      this.bondItems :
-      [...this.bondItems, BondMaker.createEmpty()];
+    // this.router.navigate(['/', 'list', $event.id]);
   }
 
   private fetchSelectedSimulation(): void {
@@ -61,19 +52,14 @@ export class SimulationItemComponent implements OnInit {
       .pipe(
         filter((params: Params) => !!params.id),
         switchMap((params: Params) => {
-          this.simulationFacade.selectSimulation(+params.id);
-          return this.simulationFacade.selectedSimulation$;
+          return this.simulationService.fetchSimulationData(+params.id);
         }),
-        switchMap((simulation: Simulation) => {
-          this.selectedBond = simulation;
-          this.dateControl = new FormControl({value: new Date(simulation.date), disabled: true});
-          this.bondFacade.fetchBondList(simulation.id);
-          return this.bondFacade.bondList$;
-        }),
+        filter((simulation: SimulationDetails) => !!simulation),
         takeUntil(this._destroy$)
       )
-      .subscribe((bondList: Bond[]) => {
-        this.bondItems = bondList;
+      .subscribe((simulation: SimulationDetails) => {
+        this.dateControl = new FormControl({value: new Date(simulation.dateAsOf), disabled: true});
+        this.bondItems = simulation.cusipData;
       });
   }
 

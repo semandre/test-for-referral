@@ -1,42 +1,42 @@
 export interface Bond {
   id?: number;
-  CUSIP: string;
-  OriginalFace: string;
-  MarketPrice: string;
-  BookPrice: string;
-  BookValue: string;
-  MaturityDate: string;
-  CouponRate: string;
-  ParValue: string;
-  MarketValue: string;
-  AveLife: string;
-  EffectiveDuration: string;
-  CallDate: string;
-  CallPrice: string;
-  CUSIPDescription: string;
-  SettlementDates: string;
-  Action: string;
+  cusip: string;
+  originalFace: string;
+  remainingFace: string;
+  marketPrice: string;
+  bookPrice: string;
+  bookValue: string;
+  maturityDate: string;
+  couponRate: string;
+  parValue: string;
+  marketValue: string;
+  aveLife: string;
+  effectiveDuration: string;
+  nextCallDateAndCallPrice: string;
+  cusipDescription: string;
+  settlementDate: string;
+  action: string;
 }
 
 export class BondMaker {
   static createEmpty(): Bond {
     return {
-      CUSIP: '',
-      OriginalFace: '',
-      MarketPrice: '',
-      BookPrice: '',
-      BookValue: '',
-      MaturityDate: '',
-      CouponRate: '',
-      ParValue: '',
-      MarketValue: '',
-      AveLife: '',
-      EffectiveDuration: '',
-      CallDate: '',
-      CallPrice: '',
-      CUSIPDescription: '',
-      SettlementDates: '',
-      Action: '',
+      cusip: '',
+      originalFace: '',
+      remainingFace: '',
+      marketPrice: '',
+      bookPrice: '',
+      bookValue: '',
+      maturityDate: '',
+      couponRate: '',
+      parValue: '',
+      marketValue: '',
+      aveLife: '',
+      effectiveDuration: '',
+      nextCallDateAndCallPrice: '',
+      cusipDescription: '',
+      settlementDate: '',
+      action: '',
     };
   }
 }
