@@ -1,12 +1,12 @@
 <div class="selector__block" (click)="isOpen = !isOpen">
-  {{selectedItem ? selectedItem[valueType] : ''}}
+  {{selectedItem ? selectedItem : ''}}
   <i class="material-icons" [class.open] = isOpen>
     keyboard_arrow_down
   </i>
 </div>
 <div class="select-menu" [class.open]="isOpen" [style.height.px]="isOpen ? visibleOptions * 44 : 0">
     <cdk-virtual-scroll-viewport itemSize="44">
-      <div *ngIf="!list.length">No results found...</div>
+      <div *ngIf="list && !list.length">No results found...</div>
       <div class="select-menu__item"
         *cdkVirtualFor="let option of list"
         (click)="select(option)">

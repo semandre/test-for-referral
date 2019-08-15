@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -13,9 +13,18 @@ export class SimulationCreateComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<SimulationCreateComponent>,
               @Inject(MAT_DIALOG_DATA) public data: { name: string }) {
+    this.name = data.name;
   }
 
   ngOnInit(): void {
+  }
+
+  saveSimulation() {
+    this.dialogRef.close({name: this.name});
+  }
+
+  cancel() {
+    this.dialogRef.close();
   }
 
 }

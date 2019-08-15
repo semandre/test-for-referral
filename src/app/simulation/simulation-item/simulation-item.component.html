@@ -10,10 +10,10 @@
         <p>Portfolio</p>
         <div class="selector">
           <app-select
-            [selectedItem]="selectedCusipData"
-            [list]="list$ | async"
-            [valueType]="'portfolio'"
-            (selectEmitter)="onSelectedData($event)"
+            [selectedItem]="selectedPortfolio"
+            [list]="portfolios$ | async"
+            [valueType]="'name'"
+            (selectEmitter)="onSelectedPortfolio($event)"
           ></app-select>
         </div>
       </div>
@@ -21,7 +21,7 @@
         <p>AsOfDate</p>
         <div class="datepicker">
           <mat-form-field>
-            <input matInput [matDatepicker]="picker" [formControl]="dateControl">
+            <input matInput [matDatepicker]="picker" [formControl]="dateControl" (dateChange)="onSelectedDate($event)">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker disabled="false"></mat-datepicker>
           </mat-form-field>
@@ -42,7 +42,7 @@
   </div>
   <div class="simulation-item__content">
     <app-simulation-table
-                          [items]="cusipDataItems"
+                          [simulationDetails]="simulationDetails"
                           [mainColumns]="mainColumns"
                           [optionalColumns]="optionalColumns"
     >

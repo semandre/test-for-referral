@@ -13,7 +13,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class SimulationListComponent implements OnInit, OnDestroy {
 
-  list$: Observable<Simulation[]>;
+  list: Simulation[];
 
   header = ['Simulation name', 'Base portfolio', 'Date'];
 
@@ -26,7 +26,11 @@ export class SimulationListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.list$ = this.simulationService.fetchSimulations();
+    this.simulationService.fetchSimulations().pipe(
+      takeUntil(this._destroy$)
+    ).subscribe(simulations => {
+      this.list = simulations;
+    });
   }
 
   navigateToBond(id: number | string): void {
@@ -42,12 +46,11 @@ export class SimulationListComponent implements OnInit, OnDestroy {
   }
 
   onDelete(item: Simulation, $event: MouseEvent): void {
-    console.log(item);
-    console.log($event);
     this.simulationService.deleteSimulation(item.id).pipe(
       takeUntil(this._destroy$)
     ).subscribe( id => {
       console.log(id);
+      this.list = this.list.filter(simulation => simulation.id !== id);
     });
     $event.stopPropagation();
   }

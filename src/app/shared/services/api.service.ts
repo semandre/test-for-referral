@@ -5,9 +5,7 @@ import { catchError } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 
-@Injectable ({
-  providedIn: 'root'
-})
+@Injectable ()
 export class ApiService {
 
   constructor(private http: HttpClient) {

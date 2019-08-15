@@ -11,7 +11,7 @@
       <div class="flex-table__row">
         <div class="flex-table__row__header" *ngFor="let head of header">{{head}}</div>
       </div>
-      <a class="flex-table__row" *ngFor="let item of list$ | async; let i = index" (click)="navigateToBond(item.id)">
+      <a class="flex-table__row" *ngFor="let item of list; let i = index" (click)="navigateToBond(item.id)">
         <div class="flex-table__row__content">{{item.name}}</div>
         <div class="flex-table__row__content">{{item.portfolio}}</div>
         <div class="flex-table__row__content">{{item.dateAsOf | date : "MM/dd/yyyy"}}</div>

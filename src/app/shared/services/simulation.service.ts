@@ -1,32 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import {Simulation, SimulationDetails} from '../types/simulation.model';
-import {simulationItems} from '../../../mocks/simulation-items';
 import { ApiService } from './api.service';
+import { CusipData } from '../types/cusipData';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SimulationService {
 
-  private list = [
-    {
-      id: 1,
-      name: 'US646D132',
-      portfolio: 'TestCust',
-      dateAsOf: '11.10.2018'
-    },
-    {
-      id: 2,
-      name: '0S646D132',
-      portfolio: 'TestCust1',
-      dateAsOf: '11.10.2019'
-    }];
-
-  private bondList = simulationItems;
-
   constructor(private apiService: ApiService) {
+  }
+
+  fetchSimulationsTemplate(portfolio: string, dateAsOf: any): Observable<CusipData[]> {
+    return this.apiService.get(`cusipDataTemplate?portfolio=${portfolio}&dateAsOf=${dateAsOf}`);
   }
 
   fetchSimulations(): Observable<Simulation[]> {
@@ -35,6 +21,13 @@ export class SimulationService {
 
   fetchSimulationData(id: number): Observable<SimulationDetails> {
     return this.apiService.get(`simulations/${id}`);
+  }
+
+  updateSimulation(simulationDetails: SimulationDetails): Observable<SimulationDetails> {
+    return this.apiService.put(`simulations`, simulationDetails);
+  }
+  saveSimulation(simulationDetails: SimulationDetails): Observable<SimulationDetails> {
+    return this.apiService.post(`simulations`, simulationDetails);
   }
 
   deleteSimulation(id: number): Observable<number> {

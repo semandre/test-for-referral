@@ -9,6 +9,7 @@ import { SimulationItemComponent } from './simulation-item/simulation-item.compo
 import { SimulationTableComponent } from './simulation-item/simulation-table/simulation-table.component';
 import { SimulationCreateComponent } from './simulation-item/simulation-create/simulation-create.component';
 import { SimulationService } from '../shared/services/simulation.service';
+import { PortfolioService } from '../shared/services/portfolio.service';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { SimulationService } from '../shared/services/simulation.service';
     SharedModule
   ],
   providers: [
-    SimulationService
+    SimulationService,
+    PortfolioService
   ]
 })
 export class SimulationModule {

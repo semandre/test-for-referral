@@ -1,9 +1,19 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, NgZone, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  NgZone,
+  OnChanges,
+  OnInit,
+  SimpleChanges
+} from '@angular/core';
 import { IgxExcelExporterOptions, IgxExcelExporterService } from 'igniteui-angular';
 
 import { TableColumn } from '../../../shared/types/tableColumnsModel';
 import { CusipData, CusipDataMaker } from '../../../shared/types/cusipData';
 import { isEmpty } from '../../../shared/helpers/isEmpty';
+import { SimulationDetails } from '../../../shared/types/simulation.model';
 
 @Component({
   selector: 'app-simulation-table',
@@ -11,10 +21,10 @@ import { isEmpty } from '../../../shared/helpers/isEmpty';
   styleUrls: ['./simulation-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SimulationTableComponent implements OnInit {
+export class SimulationTableComponent implements OnInit, OnChanges {
 
 
-  @Input() items: CusipData[];
+  @Input() simulationDetails: SimulationDetails;
   @Input() mainColumns: TableColumn[];
   @Input() optionalColumns: TableColumn[];
 
@@ -31,10 +41,15 @@ export class SimulationTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.columns = this.initColumns();
     this.ngZone.runOutsideAngular(() => {
       document.addEventListener('click', this.onDocumentClick.bind(this));
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['simulationDetails']) {
+      this.columns = this.initColumns();
+    }
   }
 
   checkForColumn(value: string): boolean {
@@ -58,7 +73,7 @@ export class SimulationTableComponent implements OnInit {
   }
 
   onExport(): void {
-    // Changing items keys name to have as in table view
+    // Changing simulationDetails.cusipData keys name to have as in table view
     const data = this.selectedRows.map((item: CusipData) => {
       return this.columns.reduce((acc: any, cur: TableColumn) => {
         return !cur.hide ? { ...acc, [cur.name]: item[cur.value] } : acc;
@@ -73,12 +88,12 @@ export class SimulationTableComponent implements OnInit {
   }
 
   onRowsRemove(): void {
-    this.items = this.items.filter((item: CusipData) =>
+    this.simulationDetails.cusipData = this.simulationDetails.cusipData.filter((item: CusipData) =>
       !this.selectedRows.find((row: CusipData) => row.id === item.id));
   }
 
   onMakeAction(action: string): void {
-    this.items = this.items.map((item: CusipData) => {
+    this.simulationDetails.cusipData = this.simulationDetails.cusipData.map((item: CusipData) => {
       const index = this.selectedRows.findIndex((row: CusipData) => row.id === item.id);
       return index > -1 ? { ...item, action } : item;
     });
@@ -92,9 +107,9 @@ export class SimulationTableComponent implements OnInit {
   }
 
   onAddNewLine(): void {
-    this.items = this.items.length && isEmpty(this.items.slice(-1)[0]) ?
-      this.items :
-      [...this.items, CusipDataMaker.createEmpty()];
+    this.simulationDetails.cusipData = this.simulationDetails.cusipData.length && isEmpty(this.simulationDetails.cusipData.slice(-1)[0]) ?
+      this.simulationDetails.cusipData :
+      [...this.simulationDetails.cusipData, CusipDataMaker.createEmpty()];
   }
 
   private initColumns(): TableColumn[] {
@@ -110,12 +125,14 @@ export class SimulationTableComponent implements OnInit {
 
   private onShiftKey(item: CusipData): CusipData[] {
     const rowIndex = this.selectedRows.findIndex((row: CusipData) => row.id === item.id);
-    const lastIndex = this.items.findIndex((row: CusipData) => row.id === item.id);
-    const index = this.items.findIndex((row: CusipData) => row.id === this.selectedRows[0].id);
+    const lastIndex = this.simulationDetails.cusipData.findIndex((row: CusipData) => row.id === item.id);
+    const index = this.simulationDetails.cusipData.findIndex((row: CusipData) => row.id === this.selectedRows[0].id);
     if (rowIndex !== -1) {
-      return lastIndex <= index ? this.items.slice(lastIndex, index + 1) : this.items.slice(index, lastIndex + 1);
+      return lastIndex <= index ?
+        this.simulationDetails.cusipData.slice(lastIndex, index + 1) : this.simulationDetails.cusipData.slice(index, lastIndex + 1);
     } else {
-      return lastIndex <= index ? this.items.slice(lastIndex, index + 1) : this.items.slice(index, lastIndex + 1);
+      return lastIndex <= index ?
+        this.simulationDetails.cusipData.slice(lastIndex, index + 1) : this.simulationDetails.cusipData.slice(index, lastIndex + 1);
     }
   }
 }

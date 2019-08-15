@@ -22,6 +22,7 @@
       color: $grey;
       transform: translate(0, -50%);
       transition: transform .3s ease-in-out;
+      user-select: none;
 
       &.open {
         transform: rotate(180deg) translate(0, 50%);

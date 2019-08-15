@@ -1,13 +1,13 @@
 import { CusipData } from './cusipData';
 
-export interface Simulation {
+export interface ISimulation {
   id: number;
   name: string;
   portfolio: string;
   dateAsOf: string;
 }
 
-export interface SimulationDetails {
+export interface ISimulationDetails {
   portfolio: string;
   simulationId: number;
   name: string;
@@ -15,8 +15,43 @@ export interface SimulationDetails {
   cusipData: CusipData[];
 }
 
-
-export interface Portfolio {
+export interface IPortfolio {
   name: string;
   account: string;
+}
+
+export class Portfolio implements IPortfolio {
+  name: string;
+  account: string;
+
+  constructor() {
+    this.name = '';
+    this.account = '';
+  }
+}
+
+export class Simulation implements ISimulation {
+  id: number;
+  name: string;
+  portfolio: string;
+  dateAsOf: string;
+
+  constructor() {
+    this.name = '';
+    this.portfolio = '';
+  }
+}
+
+export class SimulationDetails implements ISimulationDetails {
+  cusipData: CusipData[];
+  dateAsOf: string;
+  name: string;
+  portfolio: string;
+  simulationId: number;
+
+  constructor() {
+    this.cusipData = [];
+    this.name = '';
+    this.portfolio = '';
+  }
 }

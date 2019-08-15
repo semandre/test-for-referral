@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 
 @Component({
   selector: 'app-select',
@@ -6,7 +15,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
   styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectComponent implements OnInit {
+export class SelectComponent implements OnInit, OnChanges {
 
   @Output() selectEmitter: EventEmitter<any> = new EventEmitter<any>();
 
@@ -15,13 +24,23 @@ export class SelectComponent implements OnInit {
   @Input() selectedItem: any;
 
   isOpen: boolean;
-  visibleOptions = 3;
+  visibleOptions: number;
+
+  maxVisibleOptions = 3;
+
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this.visibleOptions = this.list.length >= 3 ? this.visibleOptions : this.list.length;
+
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['list']) {
+      this.visibleOptions = this.list && this.list.length >= this.maxVisibleOptions ?
+        this.maxVisibleOptions : (this.list ? this.list.length : 1);
+    }
   }
 
   select(option: any): void {

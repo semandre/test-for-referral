@@ -22,3 +22,7 @@ p, h1, h2{
 
 @include igx-core();
 @include igx-theme($default-palette);
+
+button {
+  cursor: pointer;
+}

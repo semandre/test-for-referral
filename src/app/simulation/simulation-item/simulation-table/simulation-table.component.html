@@ -1,7 +1,7 @@
 <div class="grey-bg" [class.show]="onMenuOpen" (click)="onMenuOpen = false"></div>
 <div class="table-header">
   <div class="table-header__block">
-    <h3 class="head-title">Create Simulation</h3>
+    <h3 class="head-title">{{simulationDetails?.name ? 'Simulation ' + simulationDetails.name : 'Create Simulation'}}</h3>
     <button class="vertical" (click)="onMenuOpen = !onMenuOpen">
       <i class="material-icons-outlined">
         settings
@@ -60,7 +60,7 @@
   <div class="flex-table__row"
        [class.selected]="checkIfSelected(item.id)"
        [class.action]="item.action"
-       *ngFor="let item of items"
+       *ngFor="let item of simulationDetails?.cusipData"
        (click)="selectRow(item, $event)">
 
     <ng-container *ngFor="let key of objectKeys(item)">

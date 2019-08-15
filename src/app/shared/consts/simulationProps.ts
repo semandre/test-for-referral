@@ -1,6 +1,7 @@
 export const MAIN_COLUMNS = [
   { name: 'CUSIP', value: 'cusip', hide: false },
   { name: 'Face Amount', value: 'originalFace', hide: false },
+  { name: 'Remaining Face', value: 'remainingFace', hide: false },
   { name: 'Market Price', value: 'marketPrice', hide: false },
   { name: 'Book Price', value: 'bookPrice', hide: false },
 ];
@@ -9,7 +10,6 @@ export const OPTIONAL_COLUMNS = [
   { name: 'Settlement Dates', value: 'settlementDate', hide: true },
   { name: 'CUSIP Description', value: 'cusipDescription', hide: true },
   { name: 'Book Value', value: 'bookValue', hide: true },
-  { name: 'Remaining Face', value: 'remainingFace', hide: true },
   { name: 'Maturity Date', value: 'maturityDate', hide: true },
   { name: 'Coupon Rate', value: 'couponRate', hide: true },
   { name: 'Par Value', value: 'parValue', hide: true },

@@ -4,7 +4,7 @@
     <input type="text" placeholder="Simulation name" [(ngModel)]="name">
   </div>
   <div class="btn-wrapper">
-    <button class="outline-btn">Cancel</button>
-    <button class="raised-btn">Apply</button>
+    <button class="outline-btn" (click)="cancel()">Cancel</button>
+    <button class="raised-btn" (click)="saveSimulation()">Apply</button>
   </div>
 </div>
