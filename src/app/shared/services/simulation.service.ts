@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import {Simulation, SimulationDetails} from '../types/simulation.model';
+
+import { Simulation, SimulationDetails } from '../types/simulation.model';
 import { ApiService } from './api.service';
 import { CusipData } from '../types/cusipData';
+import { Simulations } from '../../../mocks/simulations';
+import { simulationItems } from '../../../mocks/simulation-items';
 
 
 @Injectable()
@@ -13,19 +16,23 @@ export class SimulationService {
 
   fetchSimulationsTemplate(portfolio: string, dateAsOf: any): Observable<CusipData[]> {
     return this.apiService.get(`cusipDataTemplate?portfolio=${portfolio}&dateAsOf=${dateAsOf}`);
+    // return of(simulationItems.cusipData);
   }
 
   fetchSimulations(): Observable<Simulation[]> {
-    return this.apiService.get('simulations');
+    // return this.apiService.get('simulations');
+    return of(Simulations);
   }
 
-  fetchSimulationData(id: number): Observable<SimulationDetails> {
-    return this.apiService.get(`simulations/${id}`);
+  fetchSimulationData(id: number): Observable<any> {
+    // return this.apiService.get(`simulations/${id}`);
+    return of(simulationItems);
   }
 
   updateSimulation(simulationDetails: SimulationDetails): Observable<SimulationDetails> {
     return this.apiService.put(`simulations`, simulationDetails);
   }
+
   saveSimulation(simulationDetails: SimulationDetails): Observable<SimulationDetails> {
     return this.apiService.post(`simulations`, simulationDetails);
   }

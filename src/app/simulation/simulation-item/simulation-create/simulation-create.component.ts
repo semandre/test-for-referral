@@ -19,11 +19,11 @@ export class SimulationCreateComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  saveSimulation() {
+  saveSimulation(): void {
     this.dialogRef.close({name: this.name});
   }
 
-  cancel() {
+  cancel(): void {
     this.dialogRef.close();
   }
 

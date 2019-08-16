@@ -1,18 +1,19 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Observable, of, Subject } from 'rxjs';
-import { filter, switchMap, take, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 
-import { Portfolio, Simulation, SimulationDetails } from '../../shared/types/simulation.model';
+import { Portfolio, SimulationDetails } from '../../shared/types/simulation.model';
 import { CusipData } from '../../shared/types/cusipData';
 import { TableColumn } from '../../shared/types/tableColumnsModel';
 import { MAIN_COLUMNS, OPTIONAL_COLUMNS } from '../../shared/consts/simulationProps';
 import { SimulationCreateComponent } from './simulation-create/simulation-create.component';
 import { SimulationService } from '../../shared/services/simulation.service';
 import { PortfolioService } from '../../shared/services/portfolio.service';
-import { SimulationTableComponent } from './simulation-table/simulation-table.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { SimulationReportsComponent } from '../simulation-reports/simulation-reports.component';
 
 @Component({
   selector: 'app-simulation-item',
@@ -37,65 +38,21 @@ export class SimulationItemComponent implements OnInit {
     private router: Router,
     private simulationService: SimulationService,
     private portfolioService: PortfolioService,
-    private cdRef: ChangeDetectorRef
   ) {
   }
 
-  ngOnInit(): void {
-    this.dateControl = new FormControl({value: Date.now(), disabled: true});
-    this.portfolios$ = this.portfolioService.fetchPortfolios();
-    this.fetchSelectedSimulation();
-  }
-
   onSelectedPortfolio($event: any): void {
-    console.log($event);
     this.selectedPortfolio = $event.name;
   }
 
   onSelectedDate($event: any): void {
     if (this.selectedPortfolio) {
-      console.log($event.value.toISOString());
       this.fetchSimulationTemplate($event.value.toISOString());
     }
   }
 
-  private fetchSimulationTemplate(dateAsOf: any) {
-    this.simulationService.fetchSimulationsTemplate(this.selectedPortfolio, dateAsOf)
-      .pipe(takeUntil(this._destroy$))
-      .subscribe(templates => {
-        this.simulationDetails.cusipData = templates.map((template, index) => {
-          template.id = index;
-          return template;
-        }) as Array<CusipData>;
-        this.simulationDetails.portfolio = this.selectedPortfolio;
-        this.simulationDetails.dateAsOf = dateAsOf;
-        console.log(this.simulationDetails);
-        this.simulationDetails = Object.assign(new SimulationDetails(), this.simulationDetails);
-        // this.simulationsTable.updateTable();
-      });
-  }
-
-  private fetchSelectedSimulation(): void {
-    this.route.params
-      .pipe(
-        switchMap((params: Params) => !params.id ? of(new SimulationDetails()) : this.simulationService.fetchSimulationData(+params.id)),
-        // filter((simulation: SimulationDetails) => !!simulation),
-        takeUntil(this._destroy$)
-      )
-      .subscribe((simulation: SimulationDetails) => {
-        console.log(simulation)
-        simulation.cusipData = simulation.cusipData.map((cusipData, index) => {
-          cusipData.id = index;
-          return cusipData;
-        }) as Array<CusipData>;
-        this.dateControl = new FormControl({value: new Date(simulation.dateAsOf), disabled: true});
-        this.simulationDetails = simulation;
-        this.selectedPortfolio = simulation.portfolio;
-      });
-  }
-
   openDialog(): void {
-    const dialogRef = this.dialog.open(SimulationCreateComponent, {
+    this.dialog.open(SimulationCreateComponent, {
       width: '370px',
       data: {
         name: this.simulationDetails.name
@@ -103,7 +60,7 @@ export class SimulationItemComponent implements OnInit {
     })
       .afterClosed()
       .pipe(takeUntil(this._destroy$))
-      .subscribe(response => {
+      .subscribe((response: any) => {
         if (response && response.name) {
           this.simulationDetails.name = response.name;
           if (this.simulationDetails.simulationId) {
@@ -115,7 +72,62 @@ export class SimulationItemComponent implements OnInit {
       });
   }
 
-  private updateSimulationDetails(simulationDetails: SimulationDetails) {
+  openReportsDialog(): void {
+    if (!this.simulationDetails.simulationId) {
+      return;
+    }
+
+    this.dialog.open(SimulationReportsComponent, {
+      width: '100%',
+      height: '100%',
+      maxWidth: '100vw',
+      panelClass: 'reports-dialog',
+      data: {
+        id: this.simulationDetails.simulationId
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    this.dateControl = new FormControl({ value: Date.now(), disabled: true });
+    this.portfolios$ = this.portfolioService.fetchPortfolios();
+    this.fetchSelectedSimulation();
+  }
+
+  private fetchSimulationTemplate(dateAsOf: any): void {
+    this.simulationService.fetchSimulationsTemplate(this.selectedPortfolio, dateAsOf)
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(templates => {
+        this.simulationDetails.cusipData = templates.map((template, index) => {
+          template.id = index;
+          return template;
+        }) as Array<CusipData>;
+        this.simulationDetails.portfolio = this.selectedPortfolio;
+        this.simulationDetails.dateAsOf = dateAsOf;
+        this.simulationDetails = Object.assign(new SimulationDetails(), this.simulationDetails);
+      });
+  }
+
+  private fetchSelectedSimulation(): void {
+    this.route.params
+      .pipe(
+        switchMap((params: Params) => !params.id ?
+          of(new SimulationDetails()) :
+          this.simulationService.fetchSimulationData(+params.id)),
+        takeUntil(this._destroy$)
+      )
+      .subscribe((simulation: SimulationDetails) => {
+        simulation.cusipData = simulation.cusipData.map((cusipData, index) => {
+          cusipData.id = index;
+          return cusipData;
+        }) as Array<CusipData>;
+        this.dateControl = new FormControl({ value: new Date(simulation.dateAsOf), disabled: true });
+        this.simulationDetails = simulation;
+        this.selectedPortfolio = simulation.portfolio;
+      });
+  }
+
+  private updateSimulationDetails(simulationDetails: SimulationDetails): void {
     if (!simulationDetails) {
       return;
     }
@@ -123,19 +135,18 @@ export class SimulationItemComponent implements OnInit {
       .pipe(
         takeUntil(this._destroy$)
       )
-      .subscribe(response => {
-        console.log(response);
-        response.cusipData = response.cusipData.map((cusipData, index) => {
+      .subscribe((response: SimulationDetails) => {
+        response.cusipData = response.cusipData.map((cusipData: CusipData, index: number) => {
           cusipData.id = index;
           return cusipData;
         }) as Array<CusipData>;
         this.simulationDetails = Object.assign(new SimulationDetails(), response as SimulationDetails);
-      }, error => {
+      }, (error: HttpErrorResponse) => {
         console.error(error);
       });
   }
 
-  private saveSimulationDetails(simulationDetails: SimulationDetails) {
+  private saveSimulationDetails(simulationDetails: SimulationDetails): void {
     if (!simulationDetails) {
       return;
     }
@@ -143,9 +154,7 @@ export class SimulationItemComponent implements OnInit {
       .pipe(
         takeUntil(this._destroy$)
       )
-      .subscribe(response => {
-        console.log(response);
-       // Object.assign(this.simulationDetails, response as SimulationDetails);
+      .subscribe((response: SimulationDetails) => {
         this.router.navigateByUrl(`list/${response.simulationId}`);
       }, error => {
         console.error(error);

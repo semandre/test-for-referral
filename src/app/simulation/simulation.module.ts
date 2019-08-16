@@ -10,6 +10,11 @@ import { SimulationTableComponent } from './simulation-item/simulation-table/sim
 import { SimulationCreateComponent } from './simulation-item/simulation-create/simulation-create.component';
 import { SimulationService } from '../shared/services/simulation.service';
 import { PortfolioService } from '../shared/services/portfolio.service';
+import { SimulationReportsComponent } from './simulation-reports/simulation-reports.component';
+import { TransactionDetailsComponent } from './simulation-reports/transaction-details/transaction-details.component';
+import { TransactionInfoComponent } from './simulation-reports/transaction-info/transaction-info.component';
+import { StressedComponent } from './simulation-reports/stressed/stressed.component';
+import { CashFlowComponent } from './simulation-reports/cash-flow/cash-flow.component';
 
 
 @NgModule({
@@ -19,8 +24,13 @@ import { PortfolioService } from '../shared/services/portfolio.service';
     SimulationItemComponent,
     SimulationTableComponent,
     SimulationCreateComponent,
+    SimulationReportsComponent,
+    TransactionDetailsComponent,
+    TransactionInfoComponent,
+    StressedComponent,
+    CashFlowComponent,
   ],
-  entryComponents: [SimulationCreateComponent],
+  entryComponents: [SimulationCreateComponent, SimulationReportsComponent],
   imports: [
     CommonModule,
     SimulationRoutingModule,

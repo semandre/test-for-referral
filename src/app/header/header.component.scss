@@ -1,6 +1,8 @@
 @import "assets/styles/variables";
 
 .header {
+  width: 100%;
+  position: fixed;
   display: flex;
   justify-content: space-between;
   box-shadow: $shadow-1;
@@ -8,6 +10,8 @@
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
   flex-wrap: wrap;
+  background: $white;
+  z-index: 1000;
 
   &__content {
     display: flex;

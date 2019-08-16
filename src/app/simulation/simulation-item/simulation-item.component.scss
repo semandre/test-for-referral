@@ -121,6 +121,15 @@
   .mat-input-element:disabled {
     color: $color-default;
   }
+
+  .reports-dialog{
+
+    .mat-dialog-container{
+      border-radius: 0;
+      background: $white;
+      color: $color-default;
+    }
+  }
 }
 
 @media all and (max-width: 1400px){

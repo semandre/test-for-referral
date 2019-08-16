@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SimulationComponent } from './simulation.component';
 import { SimulationListComponent } from './simulation-list/simulation-list.component';
 import { SimulationItemComponent } from './simulation-item/simulation-item.component';
+import { SimulationReportsComponent } from './simulation-reports/simulation-reports.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
         path: 'list/:id',
         component: SimulationItemComponent
+      },
+      {
+        path: 'list/:id/reports',
+        component: SimulationReportsComponent
       }
     ]
   }

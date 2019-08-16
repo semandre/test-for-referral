@@ -1,8 +1,9 @@
 .wrapper{
   display: flex;
+  padding-top: 72px;
 
   &__sidebar{
-    position: absolute;
+    position: fixed;
   }
 
   &__content{
