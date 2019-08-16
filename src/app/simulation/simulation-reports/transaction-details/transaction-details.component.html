@@ -1,0 +1,17 @@
+<div class="flex-table" *ngFor="let item of items">
+<!--  <div class="flex-table__row">-->
+<!--    <ng-container *ngFor="let column of columns">-->
+<!--      <div class="flex-table__row__header">{{column.name}}</div>-->
+<!--      -->
+<!--    </ng-container>-->
+<!--  </div>-->
+<!--  <div class="flex-table__row" >-->
+<!--    <ng-container *ngFor="let key of objectKeys(item)">-->
+<!--        <div class="flex-table__row__content" *ngIf="checkForColumn(key)">{{item[key]}}</div>-->
+<!--    </ng-container>-->
+<!--  </div>-->
+  <div class="flex-table__column" *ngFor="let column of columns">
+    <div class="flex-table__column__header">{{column.name}}</div>
+      <div class="flex-table__column__content" *ngIf="item[column.value]">{{item[column.value]}}</div>
+  </div>
+</div>

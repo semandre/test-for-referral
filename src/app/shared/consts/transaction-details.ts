@@ -1,0 +1,18 @@
+export const TRANSACTION_DETAILS = [
+  {name: 'Sell Settlement', value: 'action'},
+  {name: 'Face amount', value: 'faceAmt'},
+  {name: 'Security', value: 'securityDesc'},
+  {name: 'Coupon', value: 'coupon'},
+  {name: 'Current par', value: 'currentPar'},
+  {name: 'Maturity', value: 'maturity'},
+  {name: 'Book price', value: 'bookPrice'},
+  {name: 'Book Value', value: 'bookVal'},
+  {name: 'Gain/loss', value: 'gainLoss'},
+  {name: 'Market yield', value: 'mktYield'},
+  {name: 'Book yield', value: 'bookYield'},
+  {name: 'Avg life', value: 'avgLife'},
+  {name: 'Effective Duration', value: 'effDuration'},
+  {name: 'Annual income', value: 'annualIncome'},
+  {name: 'Annual amortization', value: 'annualAmortization'},
+  {name: 'Annual accretion', value: 'annualAccretion'},
+];

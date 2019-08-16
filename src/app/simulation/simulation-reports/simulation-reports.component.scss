@@ -1,0 +1,61 @@
+@import "assets/styles/variables";
+
+.report {
+
+  &__header {
+    text-align: right;
+    margin-right: 80px;
+    margin-top: 10px;
+
+    .close-btn {
+      position: absolute;
+      left: 25px;
+      top: 26px;
+      background: transparent;
+      outline: none;
+      color: grey;
+      border: none;
+
+      i {
+        font-size: 36px;
+      }
+    }
+  }
+
+  &__tabs {
+    text-align: center;
+    padding: 30px 0;
+
+    button {
+      border: none;
+      background: transparent;
+      outline: none;
+      border-right: 1px solid $light-grey;
+      border-top: 1px solid $light-grey;
+      border-bottom: 1px solid $light-grey;
+      padding: 8px 10px;
+      font-weight: $medium;
+      font-size: $font-size-default;
+      letter-spacing: $ls-1;
+      line-height: 20px;
+      min-width: 140px;
+
+      &:first-child {
+        border-left: 1px solid $light-grey;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+
+      &:last-child {
+        border-bottom-right-radius: 4px;
+        border-top-right-radius: 4px;
+      }
+
+      &.selected {
+        background-color: $blue-secondary;
+        color: $white;
+      }
+
+    }
+  }
+}
