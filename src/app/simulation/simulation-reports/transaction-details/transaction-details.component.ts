@@ -14,16 +14,11 @@ export class TransactionDetailsComponent implements OnInit {
   @Input() items: TransactionDetails[];
 
   columns = TRANSACTION_DETAILS;
-  objectKeys = Object.keys;
 
   constructor() {
   }
 
-  ngOnInit() {
-  }
-
-  checkForColumn(value: string): boolean {
-    return !!this.columns.find((data: TableColumn) => data.value === value);
+  ngOnInit(): void {
   }
 
 }

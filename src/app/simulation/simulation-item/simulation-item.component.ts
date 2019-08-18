@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
@@ -14,6 +14,7 @@ import { SimulationService } from '../../shared/services/simulation.service';
 import { PortfolioService } from '../../shared/services/portfolio.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SimulationReportsComponent } from '../simulation-reports/simulation-reports.component';
+import { SimulationTableComponent } from './simulation-table/simulation-table.component';
 
 @Component({
   selector: 'app-simulation-item',
@@ -22,6 +23,7 @@ import { SimulationReportsComponent } from '../simulation-reports/simulation-rep
 })
 export class SimulationItemComponent implements OnInit {
 
+  @ViewChild('simTable', { static: true }) simTable: SimulationTableComponent;
 
   selectedPortfolio: string;
   simulationDetails: SimulationDetails;
@@ -160,4 +162,8 @@ export class SimulationItemComponent implements OnInit {
         console.error(error);
       });
   }
+
+  // private observeCusipData(): void {
+  //   Object.observe()
+  // }
 }

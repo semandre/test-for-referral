@@ -1,1 +1,30 @@
-<p>cash-flow works!</p>
+<div class="table-wrapper">
+  <h3 class="head-title">12 Month Horizon</h3>
+    <app-reports-table [columns]="columns" [items]="items?.reportCashFlow12Month" [styles]="styles"></app-reports-table>
+</div>
+<div class="table-wrapper">
+  <h3 class="head-title">5 Year Horizon</h3>
+  <app-reports-table [columns]="columns" [items]="items?.reportCashFlow5Year" [styles]="styles"></app-reports-table>
+</div>
+<div class="chart-wrapper">
+  <div class="header-wrapper">
+    <h3>Swapped items cashflow</h3>
+    <div class="btn-wrapper">
+      <div class="report__tabs">
+        <button (click)="selectedTab = '5y'" [ngClass]="{'selected': selectedTab === '5y'}">
+          5 YEARS
+        </button>
+        <button (click)="selectedTab = '12m'" [ngClass]="{'selected': selectedTab === '12m'}">
+          12 MONTH
+        </button>
+      </div>
+    </div>
+  </div>
+  <igx-category-chart [dataSource]="selectedTab === '12m' ? monthChartData : yearChartData"
+                      xAxisInterval="1"
+                      [brushes]="['#F23030', '#FFECEC']"
+                      outlines=""
+                      width="700px"
+                      height="300px">
+  </igx-category-chart>
+</div>

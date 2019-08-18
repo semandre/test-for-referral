@@ -7,6 +7,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { IgxExcelExporterService } from 'igniteui-angular';
+import { IgxCategoryChartModule } from 'igniteui-angular-charts/ES2015/igx-category-chart-module';
 
 import { SelectComponent } from './components/select/select.component';
 import { TableColumnsDropdownComponent } from './components/table-columns-dropdown/table-columns-dropdown.component';
@@ -24,6 +25,7 @@ import { TableColumnsDropdownComponent } from './components/table-columns-dropdo
     MatInputModule,
     MatDialogModule,
     ScrollingModule,
+    IgxCategoryChartModule,
   ],
   exports: [
     FormsModule,
@@ -35,9 +37,9 @@ import { TableColumnsDropdownComponent } from './components/table-columns-dropdo
     MatDialogModule,
     MatInputModule,
     ScrollingModule,
+    IgxCategoryChartModule,
     SelectComponent,
     TableColumnsDropdownComponent,
-
   ],
   providers: [IgxExcelExporterService],
 })

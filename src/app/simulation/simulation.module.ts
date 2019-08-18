@@ -15,6 +15,7 @@ import { TransactionDetailsComponent } from './simulation-reports/transaction-de
 import { TransactionInfoComponent } from './simulation-reports/transaction-info/transaction-info.component';
 import { StressedComponent } from './simulation-reports/stressed/stressed.component';
 import { CashFlowComponent } from './simulation-reports/cash-flow/cash-flow.component';
+import { ReportsTableComponent } from './simulation-reports/reports-table/reports-table.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { CashFlowComponent } from './simulation-reports/cash-flow/cash-flow.comp
     TransactionInfoComponent,
     StressedComponent,
     CashFlowComponent,
+    ReportsTableComponent,
   ],
   entryComponents: [SimulationCreateComponent, SimulationReportsComponent],
   imports: [

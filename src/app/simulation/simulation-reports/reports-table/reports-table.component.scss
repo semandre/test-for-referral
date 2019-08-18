@@ -1,0 +1,42 @@
+@import "assets/styles/variables";
+
+.flex-table {
+  display: flex;
+
+  &__column{
+    flex: 1;
+
+    &__header{
+      width: 100%;
+      background: $lighter-grey;
+      font-weight: $medium;
+      line-height: 20px;
+      letter-spacing: $ls-1;
+      padding: 10px;
+      white-space: nowrap;
+    }
+
+    &__content{
+      width: 100%;
+      padding: 12px 10px;
+      color: $dark-grey;
+      white-space: nowrap;
+
+      input{
+        border: none;
+        outline: none;
+        font-size: $font-size-default;
+        font-family: $font-default;
+        background: transparent;
+        width: 100%;
+      }
+
+      &:first-child {
+        font-weight: $medium;
+        line-height: 21px;
+        letter-spacing: $ls-1;
+        color: $color-default;
+      }
+    }
+  }
+}
