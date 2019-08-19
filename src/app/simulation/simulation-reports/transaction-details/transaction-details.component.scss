@@ -1,1 +1,35 @@
+@import "assets/styles/variables";
+@import "assets/styles/components/table.component";
 
+.transaction-details {
+  overflow: auto;
+
+  .col-flex-table {
+    &__column {
+      &:first-child {
+        font-weight: $medium;
+      }
+
+      &__add {
+        margin-top: 46px;
+        border-top: 1px solid $light-grey;
+      }
+
+      &__content {
+        min-height: 21px;
+        font-weight: inherit;
+      }
+
+      .buy-wrapper {
+        margin-top: 60px;
+
+        &.change {
+          border-radius: 4px;
+          .col-flex-table__column__content {
+            background-color: $light-grey;
+          }
+        }
+      }
+    }
+  }
+}

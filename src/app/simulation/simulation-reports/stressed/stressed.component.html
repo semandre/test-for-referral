@@ -1,1 +1,63 @@
-<p>stressed works!</p>
+<div class="stressed">
+  <h3 class="head-title">Instantaneous Rate Shift Gain / Loss</h3>
+  <app-reports-table
+    [columns]="gainLossColumns"
+    [items]="items?.gainLoss"
+    [styles]="styles"
+    [boldCol]="true"
+  >
+  </app-reports-table>
+  <div class="table-wrapper">
+    <div class="table-block__basis">
+      <div class="col-flex-table">
+        <div class="col-flex-table__column">
+          <div class="col-flex-table__column__header">Shift</div>
+          <div *ngFor="let item of items.shift"
+               class="col-flex-table__column__content">{{item}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="table-block__basis">
+      <h3 class="head-title">Before</h3>
+      <app-reports-table
+        [columns]="beforeColumns"
+        [items]="items?.before"
+        [styles]="styles"
+      >
+      </app-reports-table>
+    </div>
+  </div>
+  <div class="table-wrapper">
+    <div class="table-block">
+      <h3 class="head-title">After</h3>
+      <app-reports-table
+        [columns]="columns"
+        [items]="items?.after"
+        [styles]="styles"
+      >
+      </app-reports-table>
+    </div>
+    <div class="table-block">
+      <h3 class="head-title">Change</h3>
+      <app-reports-table
+        [columns]="columns"
+        [items]="items?.change"
+        [styles]="styles"
+      >
+      </app-reports-table>
+    </div>
+  </div>
+  <div class="chart-wrapper">
+    <h3>Stressed market values</h3>
+    <igx-category-chart [dataSource]="chartsData"
+                        xAxisInterval="1"
+                        yAxisMajorStrokeThickness="0"
+                        isHorizontalZoomEnabled="false"
+                        isVerticalZoomEnabled="false"
+                        [brushes]="['#F23030', '#FFECEC']"
+                        outlines=""
+                        width="100%"
+                        height="300px">
+    </igx-category-chart>
+  </div>
+</div>

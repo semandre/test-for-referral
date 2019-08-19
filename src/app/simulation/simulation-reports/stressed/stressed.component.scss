@@ -1,0 +1,52 @@
+@import "assets/styles/variables";
+@import "assets/styles/components/table.component";
+
+
+.stressed {
+  padding: 0 10%;
+
+  h3 {
+    font-weight: $medium;
+    font-size: $font-size-md;
+    line-height: 26px;
+    letter-spacing: $ls-2;
+    min-height: 26px;
+  }
+
+  .table-wrapper {
+    display: flex;
+    margin-top: 40px;
+
+    .table-block {
+      flex: 1 1 0;
+
+      &:first-child{
+        margin-right: 60px;
+      }
+
+      &__basis{
+        &:first-child{
+          margin-top: 66px;
+          flex-basis: 160px;
+          margin-right: 60px;
+        }
+
+        &:last-child{
+          flex: 1 1 0;
+        }
+      }
+    }
+  }
+  .chart-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 110px;
+
+    igx-category-chart{
+      max-width: 900px;
+    }
+  }
+
+}

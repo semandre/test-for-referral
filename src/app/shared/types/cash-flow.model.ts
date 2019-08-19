@@ -1,6 +1,6 @@
 export interface CashFlowDetails {
-  reportCashFlow12Month: any;
-  reportCashFlow5Year: any;
+  reportCashFlow12Month: CashFlow[];
+  reportCashFlow5Year: CashFlow[];
 }
 
 export interface CashFlow {

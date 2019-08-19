@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { TRANSACTION_DETAILS } from '../../../shared/consts/transaction-details';
-import { TransactionDetails } from '../../../shared/types/transaction.model';
-import { TableColumn } from '../../../shared/types/tableColumnsModel';
+import { TransactionDetailsView } from '../../../shared/types/transaction.model';
 
 @Component({
   selector: 'app-transaction-details',
@@ -11,7 +10,7 @@ import { TableColumn } from '../../../shared/types/tableColumnsModel';
 })
 export class TransactionDetailsComponent implements OnInit {
 
-  @Input() items: TransactionDetails[];
+  @Input() items: TransactionDetailsView;
 
   columns = TRANSACTION_DETAILS;
 

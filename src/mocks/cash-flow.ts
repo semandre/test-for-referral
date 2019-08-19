@@ -3,8 +3,8 @@ export const CASH_FLOW = {
     {
       cusip: '31347AMY',
       action: 'Sell',
-      // dateAsOf: '2017-09-30T00:00:00',
       month: '2017-09',
+      // dateAsOf: '2017-09-30T00:00:00',
       zBefore: 0.0,
       zAfter: 204276700.0
     },

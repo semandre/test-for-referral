@@ -1,37 +1,53 @@
 @import "assets/styles/variables";
 @import "assets/styles/components/reports";
 
-.table-wrapper{
-  width: 50%;
-}
+.cash-flow {
+  padding: 0 10%;
 
-.chart-wrapper{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 210px;
+  .table-wrapper {
+    width: 50%;
+  }
 
-  .header-wrapper{
+  h3 {
+    font-weight: $medium;
+    font-size: $font-size-md;
+    line-height: 26px;
+    letter-spacing: $ls-2;
+  }
+
+  .chart-wrapper {
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    width: 700px;
+    flex-direction: column;
+    margin-top: 210px;
 
-    h3{
-      font-weight: $medium;
-      font-size: $font-size-md;
-      line-height: 26px;
-      letter-spacing: $ls-2;
+    igx-category-chart {
+      max-width: 900px;
     }
 
-    .btn-wrapper{
-      .report__tabs{
-        button{
-          font-size: $font-size-sm;
-          min-width: 110px;
+    .header-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 700px;
+
+      .btn-wrapper {
+        .report__tabs {
+          button {
+            font-size: $font-size-sm;
+            min-width: 110px;
+          }
         }
       }
+    }
+  }
+}
+
+@media all and (max-width: 768px) {
+  .cash-flow{
+    .table-wrapper {
+      width: 100%;
     }
   }
 }

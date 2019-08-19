@@ -11,6 +11,7 @@ import { IgxCategoryChartModule } from 'igniteui-angular-charts/ES2015/igx-categ
 
 import { SelectComponent } from './components/select/select.component';
 import { TableColumnsDropdownComponent } from './components/table-columns-dropdown/table-columns-dropdown.component';
+import { IgxExcelModule } from 'igniteui-angular-excel/ES2015/igx-excel-module';
 
 @NgModule({
   declarations: [SelectComponent, TableColumnsDropdownComponent],
@@ -26,6 +27,7 @@ import { TableColumnsDropdownComponent } from './components/table-columns-dropdo
     MatDialogModule,
     ScrollingModule,
     IgxCategoryChartModule,
+    IgxExcelModule,
   ],
   exports: [
     FormsModule,
@@ -38,6 +40,7 @@ import { TableColumnsDropdownComponent } from './components/table-columns-dropdo
     MatInputModule,
     ScrollingModule,
     IgxCategoryChartModule,
+    IgxExcelModule,
     SelectComponent,
     TableColumnsDropdownComponent,
   ],

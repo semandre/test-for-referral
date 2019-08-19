@@ -9,8 +9,10 @@ import { TableColumn } from '../../../shared/types/tableColumnsModel';
 export class ReportsTableComponent implements OnInit {
 
   @Input() columns: TableColumn[];
+  @Input() boldCol: boolean;
   @Input() items: any[];
   @Input() styles: any;
+  @Input() additionalData: any;
 
   constructor() {
   }

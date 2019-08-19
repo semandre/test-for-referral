@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/cor
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Details } from '../../../mocks/details';
 import { CASH_FLOW } from '../../../mocks/cash-flow';
+import { STRESSED } from '../../../mocks/stressedMock';
 
 @Component({
   selector: 'app-simulation-reports',
@@ -20,6 +21,7 @@ export class SimulationReportsComponent implements OnInit {
   selectedTab = 'info';
   transactionDetails = Details;
   cashFlow = CASH_FLOW;
+  stressed = STRESSED;
 
   ngOnInit(): void {
   }

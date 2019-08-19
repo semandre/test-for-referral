@@ -1,3 +1,11 @@
+export interface TransactionDetailsView {
+  buy: TransactionDetails[];
+  sell: TransactionDetails[];
+  totalBuy: TransactionDetails;
+  totalSell: TransactionDetails;
+  difference: TransactionDetails[];
+}
+
 export interface TransactionDetails {
   action: string;
   faceAmt: number;

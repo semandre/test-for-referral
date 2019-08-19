@@ -1,8 +1,6 @@
-<div class="flex-table" [ngStyle]="styles">
-  <div class="flex-table__column" *ngFor="let column of columns">
-    <div class="flex-table__column__header">{{column.name}}</div>
-    <ng-container *ngFor="let item of items">
-      <div class="flex-table__column__content">{{item[column.value]}}</div>
-    </ng-container>
+<div class="col-flex-table" [ngStyle]="styles" [ngClass]="{'bold': boldCol}">
+  <div class="col-flex-table__column" *ngFor="let column of columns">
+    <div class="col-flex-table__column__header">{{column.name}}</div>
+    <div *ngFor="let item of items" class="col-flex-table__column__content">{{item[column.value]}}</div>
   </div>
 </div>
