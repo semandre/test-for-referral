@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HeaderComponent } from './header/header.component';
 import {ApiService} from './shared/services/api.service';
+import { IgxExcelModule } from 'igniteui-angular-excel/ES5/igx-excel-module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {ApiService} from './shared/services/api.service';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    IgxExcelModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

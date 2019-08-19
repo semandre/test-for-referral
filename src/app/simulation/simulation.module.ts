@@ -36,7 +36,7 @@ import { ReportsTableComponent } from './simulation-reports/reports-table/report
   imports: [
     CommonModule,
     SimulationRoutingModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
     SimulationService,

@@ -5,7 +5,7 @@
         close
       </i>
     </button>
-    <button class="outline-btn">Export to Excel</button>
+    <button class="outline-btn" (click)="onExport()">Export to Excel</button>
   </div>
   <div class="report__tabs">
     <button (click)="selectedTab = 'detail'" [ngClass]="{'selected': selectedTab === 'detail'}">
