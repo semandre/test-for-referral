@@ -31,6 +31,7 @@ export class SimulationReportsComponent implements OnInit {
   ) {
   }
 
+  isLoading = false;
   selectedTab = 'info';
   transactionDetails = Details;
   transactionDetailsCol = TRANSACTION_DETAILS;
@@ -54,7 +55,11 @@ export class SimulationReportsComponent implements OnInit {
     const sheet3 = workbook.worksheets().add('CashFlow');
     this.transactionDetailsPage(workbook);
 
-    ExcelUtility.save(workbook, 'report');
+    this.isLoading = true;
+    ExcelUtility
+      .save(workbook, 'report')
+      .then(() => this.isLoading = false)
+      .catch(() => this.isLoading = false);
   }
 
 
