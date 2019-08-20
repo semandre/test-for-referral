@@ -21,6 +21,7 @@ export class StressedComponent implements OnInit, OnChanges {
   beforeColumns = STRESSED_BEFORE_COL;
   columns = STRESSED_VALUE_COL;
   chartsData = [];
+  array = Array;
 
   constructor() {
   }

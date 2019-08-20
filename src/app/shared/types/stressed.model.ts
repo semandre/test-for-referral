@@ -1,5 +1,5 @@
 export interface StressedDetails {
-  gainLoss: any[];
+  mainInfo: any[];
   shift?: any[];
   before?: any[];
   after?: any[];

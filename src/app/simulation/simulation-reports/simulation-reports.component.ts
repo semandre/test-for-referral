@@ -1,21 +1,21 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Details } from '../../../mocks/details';
-import { CASH_FLOW } from '../../../mocks/cash-flow';
-import { STRESSED } from '../../../mocks/stressedMock';
 import {
   ChartType,
   IWorkbookFont,
-  Sheet,
   Workbook,
   WorkbookFormat,
-  Worksheet
 } from 'igniteui-angular-excel/ES5/excel.core';
+
 import { ExcelUtility } from '../../shared/helpers/excel-utility';
 import { upperCaseAlp } from '../../shared/consts/alphabet';
 import { TRANSACTION_DETAILS } from '../../shared/consts/transaction-details';
-import { TableColumn } from '../../shared/types/tableColumnsModel';
-import { TransactionDetails } from '../../shared/types/transaction.model';
+import { CASH_FLOW_COL } from '../../shared/consts/cash-flow';
+import { ExcelExporterService } from '../../shared/services/excel-exporter.service';
+import { ChartOptions } from '../../shared/types/chart-options.model';
+import { Details } from '../../../mocks/details';
+import { CASH_FLOW } from '../../../mocks/cash-flow';
+import { STRESSED } from '../../../mocks/stressedMock';
 
 @Component({
   selector: 'app-simulation-reports',
@@ -27,6 +27,7 @@ export class SimulationReportsComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<SimulationReportsComponent>,
+    private excelService: ExcelExporterService,
     @Inject(MAT_DIALOG_DATA) public data: { id: number }
   ) {
   }
@@ -36,6 +37,7 @@ export class SimulationReportsComponent implements OnInit {
   transactionDetails = Details;
   transactionDetailsCol = TRANSACTION_DETAILS;
   cashFlow = CASH_FLOW;
+  cashFlowCol = CASH_FLOW_COL;
   stressed = STRESSED;
   alphabet = upperCaseAlp;
 
@@ -52,8 +54,8 @@ export class SimulationReportsComponent implements OnInit {
     font.name = 'Times New Roman';
     font.height = 16 * 20;
     const sheet2 = workbook.worksheets().add('Stressed');
-    const sheet3 = workbook.worksheets().add('CashFlow');
     this.transactionDetailsPage(workbook);
+    this.cashFlowPage(workbook);
 
     this.isLoading = true;
     ExcelUtility
@@ -70,40 +72,68 @@ export class SimulationReportsComponent implements OnInit {
     const buyLength = this.transactionDetails.buy.length;
     header.value = 'Transaction Details';
 
-    this.generateColumnCells(this.transactionDetailsCol, sheet, 4);
-    this.generateSellBuyCells(this.transactionDetails.sell, this.transactionDetailsCol, sheet, 5);
-    this.generateTotalSellBuyCells(this.transactionDetails.totalSell, this.transactionDetailsCol, sheet, sellLength + 6);
+    this.excelService
+      .setColumns(this.transactionDetailsCol, sheet, 4, 0);
+    this.excelService
+      .setCellsWithNestedData(this.transactionDetails.sell, this.transactionDetailsCol, sheet, 5, 0);
+    this.excelService
+      .setCells(this.transactionDetails.totalSell, this.transactionDetailsCol, sheet, sellLength + 6);
 
-    this.generateColumnCells(this.transactionDetailsCol, sheet, sellLength + 8);
-    this.generateSellBuyCells(this.transactionDetails.buy, this.transactionDetailsCol, sheet, sellLength + 9);
-    this.generateTotalSellBuyCells(this.transactionDetails.totalBuy, this.transactionDetailsCol, sheet, sellLength + buyLength + 10);
+    this.excelService
+      .setColumns(this.transactionDetailsCol, sheet, sellLength + 8, 0);
+    this.excelService
+      .setCellsWithNestedData(this.transactionDetails.buy, this.transactionDetailsCol, sheet, sellLength + 9, 0);
+    this.excelService
+      .setCells(this.transactionDetails.totalBuy, this.transactionDetailsCol, sheet, sellLength + buyLength + 10);
 
-    this.generateTotalSellBuyCells(this.transactionDetails.difference, this.transactionDetailsCol, sheet, sellLength + buyLength + 12);
+    this.excelService
+      .setCells(this.transactionDetails.difference, this.transactionDetailsCol, sheet, sellLength + buyLength + 12);
 
   }
 
-  private generateColumnCells(columns: TableColumn[], sheet: Worksheet, offset: number): void {
-    columns.forEach((data: TableColumn, index: number) =>
-      sheet.getCell(`${this.alphabet[index]}${offset}`).value = data.name);
-  }
+  private cashFlowPage(workbook: Workbook): void {
+    const sheet = workbook.worksheets().add('CashFlow');
+    const yearLength = this.cashFlow.reportCashFlow5Year.length;
+    const monthLength = this.cashFlow.reportCashFlow12Month.length;
+    const cashFLowColLength = this.cashFlowCol.length;
+    const header = sheet.getCell('A3');
+    const monthHeader = sheet.getCell('A7');
+    const yearHeader = sheet.getCell(`${this.alphabet[cashFLowColLength + 3]}7`);
+    const startRow = 11 + monthLength;
+    header.value = 'Horizon Cashflow';
+    monthHeader.value = '12 Month Horizon';
+    yearHeader.value = '5 Year Horizon';
 
-  private generateSellBuyCells(array: TransactionDetails[], columns: TableColumn[], sheet: Worksheet, offset: number): void {
-    array
-      .forEach((cur: TransactionDetails, index: number) => {
-        Object
-          .keys(cur)
-          .filter((res: string) => columns.find((val: TableColumn) => val.value === res))
-          .forEach((data: string, i: number) => {
-            sheet.getCell(`${this.alphabet[i]}${index + offset}`).value = cur[data];
-          });
-      });
-  }
+    this.excelService
+      .setColumns(this.cashFlowCol, sheet, 9, 0);
+    this.excelService
+      .setCellsWithNestedData(this.cashFlow.reportCashFlow12Month, this.cashFlowCol, sheet, 10, 0);
 
-  private generateTotalSellBuyCells(object: TransactionDetails, columns: TableColumn[], sheet: Worksheet, offset: number): void {
-    Object
-      .keys(object)
-      .filter((res: string) => columns.find((val: TableColumn) => val.value === res))
-      .forEach((data: string, index: number) =>
-        sheet.getCell(`${this.alphabet[index]}${offset}`).value = object[data]);
+    this.excelService
+      .setColumns(this.cashFlowCol, sheet, 9, cashFLowColLength + 3);
+    this.excelService
+      .setCellsWithNestedData(this.cashFlow.reportCashFlow5Year, this.cashFlowCol, sheet, 10, cashFLowColLength + 3);
+    const monthChart: ChartOptions = {
+      startRow,
+      endRow: startRow + 10,
+      chartType: ChartType.ColumnClustered,
+      startCell: 0,
+      endCell: 5,
+      byRows: false,
+      dataRange: `${this.alphabet[0]}9:${this.alphabet[cashFLowColLength]}${10 + monthLength}`
+    };
+    sheet.getCell(`A${startRow - 1}`).value = '';
+    this.excelService.generateChart(sheet, monthChart);
+
+    const yearChart: ChartOptions = {
+      startRow,
+      endRow: startRow + 10,
+      chartType: ChartType.ColumnClustered,
+      startCell: 7,
+      endCell: 12,
+      byRows: false,
+      dataRange: `${this.alphabet[cashFLowColLength + 3]}9:${this.alphabet[cashFLowColLength + 6]}${10 + yearLength}`
+    };
+    this.excelService.generateChart(sheet, yearChart);
   }
 }

@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 
 import { CashFlow, CashFlowDetails } from '../../../shared/types/cash-flow.model';
 import { CASH_FLOW_COL } from '../../../shared/consts/cash-flow';
+import { ChartType } from 'igniteui-angular-excel/ES5/excel.core';
 
 @Component({
   selector: 'app-cash-flow',
@@ -17,6 +18,7 @@ export class CashFlowComponent implements OnInit, OnChanges {
   selectedTab = '5y';
   yearChartData = [];
   monthChartData = [];
+  chartType = ChartType.ColumnStacked;
 
   constructor() {
   }

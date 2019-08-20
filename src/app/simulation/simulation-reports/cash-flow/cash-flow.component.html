@@ -22,11 +22,11 @@
       </div>
     </div>
     <igx-category-chart [dataSource]="selectedTab === '12m' ? monthChartData : yearChartData"
+                        [brushes]="['#F23030', '#FFECEC']"
                         xAxisInterval="1"
                         yAxisMajorStrokeThickness="0"
                         isHorizontalZoomEnabled="false"
                         isVerticalZoomEnabled="false"
-                        [brushes]="['#F23030', '#FFECEC']"
                         outlines=""
                         width="100%"
                         height="300px">

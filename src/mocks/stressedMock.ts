@@ -46,36 +46,42 @@ export const STRESSED = {
   shift: [-100, 0, 100, 200, 300, 400],
   before: [
     {
+      shift: -100,
       rate: 16.12,
       bookValue: 234324,
       marketValue: 234324,
       gainLoss: 43
     },
     {
+      shift: 0,
       rate: 324,
       bookValue: 234324,
       marketValue: 234324,
       gainLoss: 43
     },
     {
+      shift: 100,
       rate: 243.132,
       bookValue: 234324,
       marketValue: 234324,
       gainLoss: 43
     },
     {
+      shift: 200,
       rate: 126.12,
       bookValue: 234324,
       marketValue: 234324,
       gainLoss: 43
     },
     {
+      shift: 300,
       rate: 16.12,
       bookValue: 234324,
       marketValue: 234324,
       gainLoss: 43
     },
     {
+      shift: 400,
       rate: 16.12,
       bookValue: 234324,
       marketValue: 234324,
@@ -84,31 +90,37 @@ export const STRESSED = {
   ],
   after: [
     {
+      shift: -100,
       bookValue: 234324,
       marketValue: 234324,
       gainLoss: 43
     },
     {
+      shift: 0,
       bookValue: 234324,
       marketValue: 234324,
       gainLoss: 43
     },
     {
+      shift: 100,
       bookValue: 234324,
       marketValue: 234324,
       gainLoss: 43
     },
     {
+      shift: 200,
       bookValue: 234324,
       marketValue: 234324,
       gainLoss: 43
     },
     {
+      shift: 300,
       bookValue: 234324,
       marketValue: 234324,
       gainLoss: 43
     },
     {
+      shift: 400,
       bookValue: 234324,
       marketValue: 234324,
       gainLoss: 43
@@ -116,31 +128,37 @@ export const STRESSED = {
   ],
   change: [
     {
+      shift: -100,
       bookValue: 234324,
       marketValue: 234324,
       gainLoss: 43
     },
     {
+      shift: 0,
       bookValue: 234324,
       marketValue: 234324,
       gainLoss: 43
     },
     {
+      shift: 100,
       bookValue: 234324,
       marketValue: 234324,
       gainLoss: 43
     },
     {
+      shift: 200,
       bookValue: 234324,
       marketValue: 234324,
       gainLoss: 43
     },
     {
+      shift: 300,
       bookValue: 234324,
       marketValue: 234324,
       gainLoss: 43
     },
     {
+      shift: 400,
       bookValue: 234324,
       marketValue: 234324,
       gainLoss: 43
