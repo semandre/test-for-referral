@@ -1,7 +1,8 @@
 <div class="grey-bg" [class.show]="onMenuOpen" (click)="onMenuOpen = false"></div>
 <div class="table-header">
   <div class="table-header__block">
-    <h3 class="head-title">{{simulationDetails?.name ? 'Simulation ' + simulationDetails.name : 'Create Simulation'}}</h3>
+    <h3
+      class="head-title">{{simulationDetails?.name ? 'Simulation ' + simulationDetails.name : 'Create Simulation'}}</h3>
     <button class="vertical" (click)="onMenuOpen = !onMenuOpen">
       <i class="material-icons-outlined">
         settings
@@ -63,20 +64,59 @@
        *ngFor="let item of simulationDetails?.cusipData"
        (click)="selectRow(item, $event)">
 
-    <ng-container *ngFor="let key of objectKeys(item)">
-      <div class="flex-table__row__block" *ngIf="checkForColumn(key)">
-        <ng-container *ngIf="item.action">
+    <div class="flex-table__row__block" *ngIf="checkForColumn('cusip')">
+      <ng-container *ngIf="item.action">
           <span class="add" *ngIf="item.action === 'Buy'">
             <i class="material-icons add">add</i>
           </span>
-          <span class="remove" *ngIf="item.action === 'Sell'">
+        <span class="remove" *ngIf="item.action === 'Sell'">
             <i class="material-icons remove">remove</i>
           </span>
-        </ng-container>
-
-        <input [(ngModel)]="item[key]">
-      </div>
-    </ng-container>
+      </ng-container>
+      <input [(ngModel)]="item['cusip']">
+    </div>
+    <div class="flex-table__row__block" *ngIf="checkForColumn('originalFace')">
+      <input type="number" [(ngModel)]="item['originalFace']">
+    </div>
+    <div class="flex-table__row__block" *ngIf="checkForColumn('remainingFace')">
+      <input type="number" [(ngModel)]="item['remainingFace']">
+    </div>
+    <div class="flex-table__row__block" *ngIf="checkForColumn('marketPrice')">
+      <input type="number" [(ngModel)]="item['marketPrice']">
+    </div>
+    <div class="flex-table__row__block" *ngIf="checkForColumn('bookPrice')">
+      <input type="number" [(ngModel)]="item['bookPrice']">
+    </div>
+    <div class="flex-table__row__block" *ngIf="checkForColumn('bookValue')">
+      <input type="number" [(ngModel)]="item['bookValue']">
+    </div>
+    <div class="flex-table__row__block" *ngIf="checkForColumn('maturityDate')">
+      <input type="text" [(ngModel)]="item['maturityDate']">
+    </div>
+    <div class="flex-table__row__block" *ngIf="checkForColumn('couponRate')">
+      <input [(ngModel)]="item['couponRate']">
+    </div>
+    <div class="flex-table__row__block" *ngIf="checkForColumn('parValue')">
+      <input type="number" [(ngModel)]="item['parValue']">
+    </div>
+    <div class="flex-table__row__block" *ngIf="checkForColumn('marketValue')">
+      <input type="number" [(ngModel)]="item['marketValue']">
+    </div>
+    <div class="flex-table__row__block" *ngIf="checkForColumn('aveLife')">
+      <input [(ngModel)]="item['aveLife']">
+    </div>
+    <div class="flex-table__row__block" *ngIf="checkForColumn('effectiveDuration')">
+      <input [(ngModel)]="item['effectiveDuration']">
+    </div>
+    <div class="flex-table__row__block" *ngIf="checkForColumn('nextCallDateAndCallPrice')">
+      <input [(ngModel)]="item['nextCallDateAndCallPrice']">
+    </div>
+    <div class="flex-table__row__block" *ngIf="checkForColumn('settlementDate')">
+      <input [(ngModel)]="item['settlementDate']">
+    </div>
+    <div class="flex-table__row__block" *ngIf="checkForColumn('cusipDescription')">
+      <input [(ngModel)]="item['cusipDescription']">
+    </div>
   </div>
 </div>
 <button class="outline-btn" (click)="onAddNewLine()">Add Line</button>

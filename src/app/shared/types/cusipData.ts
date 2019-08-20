@@ -1,15 +1,15 @@
 export interface CusipData {
   id?: number;
   cusip: string;
-  originalFace: string;
-  remainingFace: string;
-  marketPrice: string;
-  bookPrice: string;
-  bookValue: string;
+  originalFace: number;
+  remainingFace: number;
+  marketPrice: number;
+  bookPrice: number;
+  bookValue: number;
   maturityDate: string;
   couponRate: string;
-  parValue: string;
-  marketValue: string;
+  parValue: number;
+  marketValue: number;
   aveLife: string;
   effectiveDuration: string;
   nextCallDateAndCallPrice: string;
@@ -22,15 +22,15 @@ export class CusipDataMaker {
   static createEmpty(): CusipData {
     return {
       cusip: '',
-      originalFace: '',
-      remainingFace: '',
-      marketPrice: '',
-      bookPrice: '',
-      bookValue: '',
+      originalFace: 0,
+      remainingFace: 0,
+      marketPrice: 0,
+      bookPrice: 0,
+      bookValue: 0,
       maturityDate: '',
       couponRate: '',
-      parValue: '',
-      marketValue: '',
+      parValue: 0,
+      marketValue: 0,
       aveLife: '',
       effectiveDuration: '',
       nextCallDateAndCallPrice: '',

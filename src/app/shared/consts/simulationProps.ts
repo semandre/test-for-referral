@@ -7,8 +7,6 @@ export const MAIN_COLUMNS = [
 ];
 
 export const OPTIONAL_COLUMNS = [
-  { name: 'Settlement Dates', value: 'settlementDate', hide: true },
-  { name: 'CUSIP Description', value: 'cusipDescription', hide: true },
   { name: 'Book Value', value: 'bookValue', hide: true },
   { name: 'Maturity Date', value: 'maturityDate', hide: true },
   { name: 'Coupon Rate', value: 'couponRate', hide: true },
@@ -17,4 +15,6 @@ export const OPTIONAL_COLUMNS = [
   { name: 'Ave Life', value: 'aveLife', hide: true },
   { name: 'Effective Duration', value: 'effectiveDuration', hide: true },
   { name: 'Next Call Date And Call Price', value: 'nextCallDateAndCallPrice', hide: true },
+  { name: 'Settlement Dates', value: 'settlementDate', hide: true },
+  { name: 'CUSIP Description', value: 'cusipDescription', hide: true },
 ];
