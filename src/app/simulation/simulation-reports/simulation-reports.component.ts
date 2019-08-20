@@ -16,6 +16,7 @@ import { ChartOptions } from '../../shared/types/chart-options.model';
 import { Details } from '../../../mocks/details';
 import { CASH_FLOW } from '../../../mocks/cash-flow';
 import { STRESSED } from '../../../mocks/stressedMock';
+import { GAIN_LOSS_COL, STRESSED_BEFORE_COL, STRESSED_VALUE_COL } from '../../shared/consts/stressed';
 
 @Component({
   selector: 'app-simulation-reports',
@@ -39,6 +40,9 @@ export class SimulationReportsComponent implements OnInit {
   cashFlow = CASH_FLOW;
   cashFlowCol = CASH_FLOW_COL;
   stressed = STRESSED;
+  gainLossCol = GAIN_LOSS_COL;
+  stressedBeforeCol = STRESSED_BEFORE_COL;
+  stressedBaseCol = STRESSED_VALUE_COL;
   alphabet = upperCaseAlp;
 
   ngOnInit(): void {
@@ -53,8 +57,8 @@ export class SimulationReportsComponent implements OnInit {
     const font: IWorkbookFont = workbook.styles().normalStyle.styleFormat.font;
     font.name = 'Times New Roman';
     font.height = 16 * 20;
-    const sheet2 = workbook.worksheets().add('Stressed');
     this.transactionDetailsPage(workbook);
+    this.stressedPage(workbook);
     this.cashFlowPage(workbook);
 
     this.isLoading = true;
@@ -89,6 +93,30 @@ export class SimulationReportsComponent implements OnInit {
     this.excelService
       .setCells(this.transactionDetails.difference, this.transactionDetailsCol, sheet, sellLength + buyLength + 12);
 
+  }
+
+  private stressedPage(workbook: Workbook): void {
+    const sheet = workbook.worksheets().add('Stressed');
+    const header = sheet.getCell('A3');
+    const secondRowOffset = this.stressed.gainLoss.length + 7;
+    const firstColOffset = this.stressedBeforeCol.length + 3;
+    const secondColOffset = this.stressedBaseCol.length + firstColOffset + 1;
+    header.value = 'Instantaneous Rate Shift Gain / Loss';
+
+    this.excelService.setColumns(this.gainLossCol, sheet, 5, 1);
+    this.excelService.setCellsWithNestedData(this.stressed.gainLoss, this.gainLossCol, sheet, 6, 1);
+
+    sheet.getCell(`A${secondRowOffset}`).value = 'Shift';
+    this.excelService.setCellWithDataArray(this.stressed.shift, sheet, secondRowOffset, 0);
+
+    this.excelService.setColumns(this.stressedBeforeCol, sheet, secondRowOffset, 2);
+    this.excelService.setCellsWithNestedData(this.stressed.before, this.stressedBeforeCol, sheet, secondRowOffset + 1, 2);
+
+    this.excelService.setColumns(this.stressedBaseCol, sheet, secondRowOffset, firstColOffset);
+    this.excelService.setCellsWithNestedData(this.stressed.after, this.stressedBaseCol, sheet, secondRowOffset + 1, firstColOffset);
+
+    this.excelService.setColumns(this.stressedBaseCol, sheet, secondRowOffset, secondColOffset);
+    this.excelService.setCellsWithNestedData(this.stressed.change, this.stressedBaseCol, sheet, secondRowOffset + 1, secondColOffset);
   }
 
   private cashFlowPage(workbook: Workbook): void {

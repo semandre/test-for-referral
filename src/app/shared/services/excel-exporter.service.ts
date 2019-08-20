@@ -54,6 +54,16 @@ export class ExcelExporterService {
       });
   }
 
+  setCellWithDataArray(
+    array: any[],
+    sheet: Worksheet,
+    rowOffset: number,
+    columnOffset: number,
+  ): void {
+    array.forEach((cur: any, i: number) =>
+      sheet.getCell(`${this.alphabet[columnOffset]}${i + rowOffset}`).value = cur);
+  }
+
   generateChart(sheet: Worksheet, opts: ChartOptions): void {
     const chart = sheet.shapes().addChart(opts.chartType,
       sheet.rows(opts.startRow || 0).cells(opts.startCell || 0), { x: 0, y: 0 },
