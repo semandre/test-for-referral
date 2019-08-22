@@ -1,15 +1,12 @@
 <div class="stressed">
   <h3 class="head-title">Instantaneous Rate Shift Gain / Loss</h3>
-  <div class="col-flex-table" [ngStyle]="styles">
-    <div class="col-flex-table__column">
-      <div class="col-flex-table__column__header"></div>
-    </div>
-    <div class="col-flex-table__column" *ngFor="let column of columns">
-      <div class="col-flex-table__column__header">{{column.name}}</div>
-      <div *ngFor="let item of items?.mainInfo" class="col-flex-table__column__content">{{item[column.value]}}</div>
-    </div>
-  </div>
-
+  <app-reports-table
+    [columns]="gainLossColumns"
+    [items]="items?.gainLoss"
+    [styles]="styles"
+    [boldCol]="true"
+  >
+  </app-reports-table>
 
   <div class="table-wrapper">
     <div class="table-block__basis">
@@ -43,14 +40,12 @@
     </div>
     <div class="table-block">
       <h3 class="head-title">Change</h3>
-      <div class="col-flex-table" [ngStyle]="styles">
-        <div class="col-flex-table__column" *ngFor="let column of columns">
-          <div class="col-flex-table__column__header">{{column.name}}</div>
-          <div *ngFor="let item of items?.change[column.value]" class="col-flex-table__column__content">
-            {{item}}
-          </div>
-        </div>
-      </div>
+      <app-reports-table
+        [columns]="columns"
+        [items]="items?.change"
+        [styles]="styles"
+      >
+      </app-reports-table>
     </div>
   </div>
   <div class="chart-wrapper">

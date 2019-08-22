@@ -17,6 +17,8 @@
 }
 
 .flex-table__row {
+  width: 100%;
+  min-width: fit-content;
   position: relative;
   justify-content: normal;
 
@@ -65,7 +67,16 @@
       width: 100%;
       padding: 12px 10px;
       color: $dark-grey;
-      min-width: 60px;
+      min-width: 75px;
+    }
+
+    input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type="number"] {
+      -moz-appearance: textfield;
     }
   }
 
@@ -82,7 +93,7 @@
 
         input{
           padding-left: 30px;
-          min-width: 40px;
+          min-width: 55px;
         }
       }
     }

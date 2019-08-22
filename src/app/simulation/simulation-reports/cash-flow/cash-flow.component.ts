@@ -1,15 +1,14 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { CashFlow, CashFlowDetails } from '../../../shared/types/cash-flow.model';
 import { CASH_FLOW_COL } from '../../../shared/consts/cash-flow';
-import { ChartType } from 'igniteui-angular-excel/ES5/excel.core';
 
 @Component({
   selector: 'app-cash-flow',
   templateUrl: './cash-flow.component.html',
   styleUrls: ['./cash-flow.component.scss']
 })
-export class CashFlowComponent implements OnInit, OnChanges {
+export class CashFlowComponent implements OnChanges {
 
   @Input() items: CashFlowDetails;
 
@@ -18,13 +17,6 @@ export class CashFlowComponent implements OnInit, OnChanges {
   selectedTab = '5y';
   yearChartData = [];
   monthChartData = [];
-  chartType = ChartType.ColumnStacked;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.items) {
