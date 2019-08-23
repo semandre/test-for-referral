@@ -1,0 +1,48 @@
+@import "assets/styles/variables";
+
+.info-wrapper {
+  display: flex;
+  justify-content: center;
+
+  .info-wrapper__block {
+    width: 100%;
+    max-width: 740px;
+
+    .content {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    h2 {
+      font-weight: $medium;
+      font-size: $font-size-md;
+      line-height: 26px;
+      letter-spacing: $ls-2;
+      margin-bottom: 20px;
+    }
+
+    &__header {
+      @extend .content;
+      padding-right: 40px;
+    }
+
+    &__content {
+      @extend .content;
+      padding: 0 10px;
+
+      &.bold {
+        p {
+          font-weight: $semi-bold;
+        }
+      }
+
+      p {
+        margin-bottom: 15px;
+
+        &.change{
+          color: $red;
+        }
+      }
+    }
+  }
+}

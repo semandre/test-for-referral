@@ -21,6 +21,8 @@ import {
   STRESSED_BEFORE_COL,
   STRESSED_VALUE_COL
 } from '../../shared/consts/stressed';
+import { TRANSACTION_INFO_MOCK } from '../../../mocks/transaction-info-mock';
+import { transactionInfoPage } from './transaction-info/transaction-info-excel';
 
 @Component({
   selector: 'app-simulation-reports',
@@ -47,6 +49,7 @@ export class SimulationReportsComponent implements OnInit {
   gainLossCol = GAIN_LOSS_COL;
   stressedBeforeCol = STRESSED_BEFORE_COL;
   stressedBaseCol = STRESSED_VALUE_COL;
+  transactionInfo = TRANSACTION_INFO_MOCK;
   alphabet = upperCaseAlp;
 
   ngOnInit(): void {
@@ -62,6 +65,7 @@ export class SimulationReportsComponent implements OnInit {
     font.name = 'Verdana';
     font.height = 16 * 10;
     this.transactionDetailsPage(workbook);
+    transactionInfoPage(workbook, this.transactionInfo);
     this.stressedPage(workbook);
     this.cashFlowPage(workbook);
 
@@ -126,28 +130,17 @@ export class SimulationReportsComponent implements OnInit {
 
     this.excelService.setColumns(this.stressedBaseCol, sheet, secondRowOffset, secondColOffset, colWidth);
     this.excelService.setCellsWithNestedData(this.stressed.change, this.stressedBaseCol, sheet, secondRowOffset + 1, secondColOffset);
-
-    // const yearChart: ChartOptions = {
-    //   startRow: secondRowOffset + 4 + this.stressedBaseCol.length,
-    //   endRow: secondRowOffset + 14 + this.stressedBaseCol.length,
-    //   chartType: ChartType.ColumnClustered,
-    //   startCell: 7,
-    //   endCell: 12,
-    //   byRows: false,
-    //   dataRange: `I15:I20`
-    // };
-    // this.excelService.generateChart(sheet, yearChart);
   }
 
-  private generateChartWithDummyData(sheet: Worksheet): void {
-    const start = 100;
-    sheet.getCell(`${this.alphabet.slice(-1)[2]}${start}`).value = 'Shift';
-    sheet.getCell(`${this.alphabet.slice(-1)[1]}${start}`).value = 'Before';
-    sheet.getCell(`${this.alphabet.slice(-1)[0]}${start}`).value = 'After';
-    this.stressed.shift.forEach((shift: number, index: number) => {
-      sheet.getCell(`${this.alphabet.slice(-1)[0]}${start}`).value = 'After';
-    });
-  }
+  // private generateChartWithDummyData(sheet: Worksheet): void {
+  //   const start = 100;
+  //   sheet.getCell(`${this.alphabet.slice(-1)[2]}${start}`).value = 'Shift';
+  //   sheet.getCell(`${this.alphabet.slice(-1)[1]}${start}`).value = 'Before';
+  //   sheet.getCell(`${this.alphabet.slice(-1)[0]}${start}`).value = 'After';
+  //   this.stressed.shift.forEach((shift: number, index: number) => {
+  //     sheet.getCell(`${this.alphabet.slice(-1)[0]}${start}`).value = 'After';
+  //   });
+  // }
 
   private cashFlowPage(workbook: Workbook): void {
     const sheet = workbook.worksheets().add('CashFlow');

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { TransactionInfo } from '../../../shared/types/transaction-info.model';
 
 @Component({
   selector: 'app-transaction-info',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./transaction-info.component.scss']
 })
 export class TransactionInfoComponent {
+
+  @Input() info: TransactionInfo;
 
 }

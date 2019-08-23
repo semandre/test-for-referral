@@ -4,9 +4,11 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'negNumber'
 })
 export class NegativeNumberPipe implements PipeTransform {
-
   transform(value: any, ...args: any[]): any {
-    return typeof value === 'number' && value < 0 ? `(${Math.abs(value)})` : value;
+    if (typeof value === 'number') {
+      return value < 0 ? `(${Math.abs(value).toLocaleString()})` : value.toLocaleString();
+    } else {
+      return value;
+    }
   }
-
 }

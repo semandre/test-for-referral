@@ -1,0 +1,20 @@
+export const TRANSACTION_INFO_MOCK = {
+  sale: 10000163,
+  taxBasis: 9900162,
+  grossGainLoss: 100002,
+  taxSavings: -34001,
+  afterTax: 66001,
+  availableFunds: 9966163,
+  purchasedCosts: 9998814,
+  remainingFunds: -32651,
+  annualChange: 103975,
+  recoveryTime: 0.63,
+  weightedHoldings: 4.07,
+  difference: -3.44,
+  increasedRevenue: 423.676,
+  netIncreasedRevenue: 489677,
+  afterTaxPresentHolding: 120163,
+  annualNetGain: 16197,
+  annualAmountRecovered: 103966,
+  breakEven: 1.043
+};
