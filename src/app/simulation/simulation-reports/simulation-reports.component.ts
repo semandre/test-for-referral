@@ -166,7 +166,7 @@ export class SimulationReportsComponent implements OnInit {
       startCell: 7,
       endCell: 12,
       byRows: false,
-      dataRange: `X100:Z106`
+      dataRange: `X101:Z106`
     };
     this.excelService.generateChart(sheet, chart);
   }
@@ -205,7 +205,7 @@ export class SimulationReportsComponent implements OnInit {
       startCell: 0,
       endCell: 5,
       byRows: false,
-      dataRange: `${this.alphabet[0]}9:${this.alphabet[cashFLowColLength - 2]}${10 + monthLength}`
+      dataRange: `${this.alphabet[0]}10:${this.alphabet[cashFLowColLength - 2]}${10 + monthLength}`
     };
     sheet.getCell(`A${startRow - 1}`).value = '12 Month Swapped Items Cashflow Comparison';
     sheet.rows(startRow - 2).cells(0).cellFormat.font.bold = true;
@@ -218,7 +218,7 @@ export class SimulationReportsComponent implements OnInit {
       startCell: 7,
       endCell: 12,
       byRows: false,
-      dataRange: `${this.alphabet[cashFLowColLength + 3]}9:${this.alphabet[cashFLowColLength + 5]}${10 + yearLength}`
+      dataRange: `${this.alphabet[cashFLowColLength + 3]}10:${this.alphabet[cashFLowColLength + 5]}${10 + yearLength}`
     };
     sheet.getCell(`${this.alphabet[7]}${startRow - 1}`).value = '12 Month Swapped Items Cashflow Comparison';
     sheet.rows(startRow - 2).cells(7).cellFormat.font.bold = true;
