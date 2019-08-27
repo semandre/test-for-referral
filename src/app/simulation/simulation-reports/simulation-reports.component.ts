@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import {
   ChartType,
   IWorkbookFont,
-  Workbook,
+  Workbook, WorkbookColorInfo,
   WorkbookFormat, Worksheet,
 } from 'igniteui-angular-excel/ES5/excel.core';
 
@@ -35,6 +35,7 @@ export class SimulationReportsComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<SimulationReportsComponent>,
     private excelService: ExcelExporterService,
+    private cdRef: ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data: { id: number }
   ) {
   }
@@ -72,8 +73,14 @@ export class SimulationReportsComponent implements OnInit {
     this.isLoading = true;
     ExcelUtility
       .save(workbook, 'report')
-      .then(() => this.isLoading = false)
-      .catch(() => this.isLoading = false);
+      .then(() => {
+        this.isLoading = false;
+        this.cdRef.markForCheck();
+      })
+      .catch(() => {
+        this.isLoading = false;
+        this.cdRef.markForCheck();
+      });
   }
 
 
@@ -130,17 +137,39 @@ export class SimulationReportsComponent implements OnInit {
 
     this.excelService.setColumns(this.stressedBaseCol, sheet, secondRowOffset, secondColOffset, colWidth);
     this.excelService.setCellsWithNestedData(this.stressed.change, this.stressedBaseCol, sheet, secondRowOffset + 1, secondColOffset);
+
+    this.generateStressedChart(sheet);
   }
 
-  // private generateChartWithDummyData(sheet: Worksheet): void {
-  //   const start = 100;
-  //   sheet.getCell(`${this.alphabet.slice(-1)[2]}${start}`).value = 'Shift';
-  //   sheet.getCell(`${this.alphabet.slice(-1)[1]}${start}`).value = 'Before';
-  //   sheet.getCell(`${this.alphabet.slice(-1)[0]}${start}`).value = 'After';
-  //   this.stressed.shift.forEach((shift: number, index: number) => {
-  //     sheet.getCell(`${this.alphabet.slice(-1)[0]}${start}`).value = 'After';
-  //   });
-  // }
+  private generateStressedChart(sheet: Worksheet): void {
+    const start = 100;
+    sheet.getCell(`${this.alphabet.slice(-3)[0]}${start}`).value = 'Shift';
+    sheet.getCell(`${this.alphabet.slice(-3)[1]}${start}`).value = 'Before';
+    sheet.getCell(`${this.alphabet.slice(-3)[2]}${start}`).value = 'After';
+    sheet.rows(start - 1).cells(23).cellFormat.font.colorInfo = WorkbookColorInfo.l_op_Implicit_WorkbookColorInfo_Color('white');
+    sheet.rows(start - 1).cells(24).cellFormat.font.colorInfo = WorkbookColorInfo.l_op_Implicit_WorkbookColorInfo_Color('white');
+    sheet.rows(start - 1).cells(25).cellFormat.font.colorInfo = WorkbookColorInfo.l_op_Implicit_WorkbookColorInfo_Color('white');
+    this.stressed.shift.forEach((shift: number, index: number) => {
+      sheet.getCell(`${this.alphabet.slice(-3)[0]}${start + index + 1}`).value = shift.toString();
+      sheet.getCell(`${this.alphabet.slice(-3)[1]}${start + index + 1}`).value = this.stressed.before[index].marketValue;
+      sheet.getCell(`${this.alphabet.slice(-3)[2]}${start + index + 1}`).value = this.stressed.after[index].marketValue;
+      sheet.rows(start + index).cells(23).cellFormat.font.colorInfo = WorkbookColorInfo.l_op_Implicit_WorkbookColorInfo_Color('white');
+      sheet.rows(start + index).cells(24).cellFormat.font.colorInfo = WorkbookColorInfo.l_op_Implicit_WorkbookColorInfo_Color('white');
+      sheet.rows(start + index).cells(25).cellFormat.font.colorInfo = WorkbookColorInfo.l_op_Implicit_WorkbookColorInfo_Color('white');
+
+    });
+
+    const chart: ChartOptions = {
+      startRow: 23,
+      endRow: 33,
+      chartType: ChartType.ColumnClustered,
+      startCell: 7,
+      endCell: 12,
+      byRows: false,
+      dataRange: `X100:Z106`
+    };
+    this.excelService.generateChart(sheet, chart);
+  }
 
   private cashFlowPage(workbook: Workbook): void {
     const sheet = workbook.worksheets().add('CashFlow');
@@ -176,7 +205,7 @@ export class SimulationReportsComponent implements OnInit {
       startCell: 0,
       endCell: 5,
       byRows: false,
-      dataRange: `${this.alphabet[0]}10:${this.alphabet[cashFLowColLength - 1]}${10 + monthLength}`
+      dataRange: `${this.alphabet[0]}9:${this.alphabet[cashFLowColLength - 2]}${10 + monthLength}`
     };
     sheet.getCell(`A${startRow - 1}`).value = '12 Month Swapped Items Cashflow Comparison';
     sheet.rows(startRow - 2).cells(0).cellFormat.font.bold = true;
@@ -189,7 +218,7 @@ export class SimulationReportsComponent implements OnInit {
       startCell: 7,
       endCell: 12,
       byRows: false,
-      dataRange: `${this.alphabet[cashFLowColLength + 3]}10:${this.alphabet[cashFLowColLength + 5]}${10 + yearLength}`
+      dataRange: `${this.alphabet[cashFLowColLength + 3]}9:${this.alphabet[cashFLowColLength + 5]}${10 + yearLength}`
     };
     sheet.getCell(`${this.alphabet[7]}${startRow - 1}`).value = '12 Month Swapped Items Cashflow Comparison';
     sheet.rows(startRow - 2).cells(7).cellFormat.font.bold = true;
