@@ -1,1 +1,112 @@
-<p>simulations-info works!</p>
+<div class="info-wrapper">
+  <div class="info-wrapper__block">
+    <div class="info-wrapper__block__header">
+      <h2>Gain/Loss on Sale</h2>
+      <h2>Transaction Information</h2>
+    </div>
+    <div class="info-wrapper__block__content">
+      <p>Sale Proceeds</p>
+      <p>{{info.sale | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content">
+      <p>Tax Basis of Holdings (Book value of Present Holdings)</p>
+      <p>{{info.taxBasis | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content">
+      <p>Gross Gain / Loss on this Transaction</p>
+      <p>{{info.grossGainLoss | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content">
+      <p>Tax Savings</p>
+      <p class="change">{{info.taxSavings | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content">
+      <p>After Tax Net Gain / Loss</p>
+      <p>{{info.afterTax | negNumber}}</p>
+    </div>
+    <h2>Funds Available for Reinvestment</h2>
+    <div class="info-wrapper__block__content">
+      <p>Sale Proceeds</p>
+      <p>{{info.sale | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content">
+      <p>Tax Savings</p>
+      <p class="change">{{info.taxSavings | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content">
+      <p>Funds Available for Reinvestment</p>
+      <p>{{info.availableFunds | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content">
+      <p>Cost of Securities Purchased</p>
+      <p>{{info.purchasedCosts | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content">
+      <p>Funds Remaining (Required)</p>
+      <p>{{info.remainingFunds | negNumber}}</p>
+    </div>
+    <h2>Loss Recovery Time</h2>
+    <div class="info-wrapper__block__content">
+      <p>Change in Annual Revenue</p>
+      <p>{{info.annualChange | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content">
+      <p>After Tax Net Gain / Loss</p>
+      <p>{{info.afterTax | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content bold">
+      <p>Recovery Time (Yrs)</p>
+      <p>{{info.recoveryTime | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content">
+      <p>Weighted Avg Life Present Holdings (Yrs)</p>
+      <p>{{info.weightedHoldings | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content">
+      <p>Difference</p>
+      <p>{{info.difference | negNumber}}</p>
+    </div>
+    <h2>Increased Return On Swap</h2>
+    <div class="info-wrapper__block__content">
+      <p>Change in Annual Revenue</p>
+      <p>{{info.annualChange | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content">
+      <p>Weighted Avg Life Present Holdings (Yrs)</p>
+      <p>{{info.weightedHoldings | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content">
+      <p>Increased Revenue</p>
+      <p>{{info.increasedRevenue | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content">
+      <p>After Tax Net Loss</p>
+      <p>{{info.afterTax | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content bold" >
+      <p>Net Increased Revenue</p>
+      <p>{{info.netIncreasedRevenue | negNumber}}</p>
+    </div>
+    <h2>Break-Even Calculations</h2>
+    <div class="info-wrapper__block__content">
+      <p>After Tax Annual Revenue on Present Holding</p>
+      <p>{{info.afterTaxPresentHolding | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content">
+      <p>Annual Net Gain /(Loss) (Tax Adjusted)</p>
+      <p>{{info.annualNetGain | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content">
+      <p>Annual Amount Recovered</p>
+      <p>{{info.annualAmountRecovered | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content">
+      <p>Funds Available for Reinvestment</p>
+      <p>{{info.availableFunds | negNumber}}</p>
+    </div>
+    <div class="info-wrapper__block__content bold">
+      <p>BreakEven Yield</p>
+      <p>{{info.breakEven | negNumber}}</p>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { StressedDetails } from '../../../shared/types/stressed.model';
 import {
@@ -12,7 +12,7 @@ import {
   templateUrl: './stressed.component.html',
   styleUrls: ['./stressed.component.scss']
 })
-export class StressedComponent implements OnInit, OnChanges {
+export class StressedComponent implements OnChanges {
 
   @Input() items: StressedDetails;
   @Input() styles: any;
@@ -21,16 +21,9 @@ export class StressedComponent implements OnInit, OnChanges {
   beforeColumns = STRESSED_BEFORE_COL;
   columns = STRESSED_VALUE_COL;
   chartsData = [];
-  array = Array;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.chartsData = this.items.shift.reduce((acc, cur, ind) => ([...acc, {
+    this.chartsData = this.items.shift.reduce((acc: any[], cur: number, ind: number) => ([...acc, {
       shift: cur,
       before: this.items.before[ind].marketValue,
       after: this.items.after[ind].marketValue

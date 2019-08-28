@@ -24,7 +24,7 @@
   <div class="report__content">
     <ng-container [ngSwitch]="selectedTab">
       <app-transaction-details [items]="transactionDetails" *ngSwitchCase="'detail'"></app-transaction-details>
-      <app-transaction-info *ngSwitchCase="'info'"></app-transaction-info>
+      <app-transaction-info [info]="transactionInfo" *ngSwitchCase="'info'"></app-transaction-info>
       <app-stressed [items]="stressed" *ngSwitchCase="'stressed'"></app-stressed>
       <app-cash-flow [items]="cashFlow" *ngSwitchCase="'cashFlow'"></app-cash-flow>
     </ng-container>

@@ -11,10 +11,10 @@ import { IgxCategoryChartModule } from 'igniteui-angular-charts/ES5/igx-category
 
 import { SelectComponent } from './components/select/select.component';
 import { TableColumnsDropdownComponent } from './components/table-columns-dropdown/table-columns-dropdown.component';
-import { IgxExcelModule } from 'igniteui-angular-excel/ES2015/igx-excel-module';
+import { NegativeNumberPipe } from './pipes/negative-number.pipe';
 
 @NgModule({
-  declarations: [SelectComponent, TableColumnsDropdownComponent],
+  declarations: [SelectComponent, TableColumnsDropdownComponent, NegativeNumberPipe],
   imports: [
     CommonModule,
     FormsModule,
@@ -41,6 +41,7 @@ import { IgxExcelModule } from 'igniteui-angular-excel/ES2015/igx-excel-module';
     IgxCategoryChartModule,
     SelectComponent,
     TableColumnsDropdownComponent,
+    NegativeNumberPipe,
   ],
   providers: [IgxExcelExporterService],
 })
