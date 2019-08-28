@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { TableColumn } from '../types/tableColumnsModel';
 import { CellFill, Worksheet } from 'igniteui-angular-excel/ES5/excel.core';
-import { upperCaseAlp } from '../consts/alphabet';
+
+import { TableColumn } from '../types/tableColumnsModel';
 import { ChartOptions } from '../types/chart-options.model';
+import { upperCaseAlp } from '../consts/alphabet';
 
 @Injectable({
   providedIn: 'root'

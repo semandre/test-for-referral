@@ -5,6 +5,7 @@ import { SimulationComponent } from './simulation.component';
 import { SimulationListComponent } from './simulation-list/simulation-list.component';
 import { SimulationItemComponent } from './simulation-item/simulation-item.component';
 import { SimulationReportsComponent } from './simulation-reports/simulation-reports.component';
+import { CanDeactivateGuard } from '../shared/helpers/canDeactivate';
 
 
 const routes: Routes = [
@@ -23,11 +24,13 @@ const routes: Routes = [
       },
       {
         path: 'list/new',
-        component: SimulationItemComponent
+        component: SimulationItemComponent,
+        canDeactivate: [CanDeactivateGuard]
       },
       {
         path: 'list/:id',
-        component: SimulationItemComponent
+        component: SimulationItemComponent,
+        canDeactivate: [CanDeactivateGuard]
       },
       {
         path: 'list/:id/reports',

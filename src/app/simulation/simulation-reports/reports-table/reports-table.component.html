@@ -1,6 +1,6 @@
 <div class="col-flex-table" [ngStyle]="styles" [ngClass]="{'bold': boldCol}">
   <div class="col-flex-table__column" *ngFor="let column of columns">
     <div class="col-flex-table__column__header">{{column.name}}</div>
-    <div *ngFor="let item of items" class="col-flex-table__column__content">{{item[column.value]}}</div>
+    <div *ngFor="let item of items" class="col-flex-table__column__content">{{item[column.value] | negNumber}}</div>
   </div>
 </div>

@@ -1,0 +1,31 @@
+@import "assets/styles/variables";
+
+h3{
+  font-weight: $medium;
+  font-size: $font-size-lg;
+  line-height: 32px;
+  color: $color-default;
+  letter-spacing: $ls-4;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+p{
+  color: $color-default;
+  margin-bottom: 10px;
+  font-size: $font-size-regular;
+  line-height: 32px;
+  letter-spacing: $ls-4;
+}
+
+.btn-wrapper{
+  padding-top: 15px;
+}
+
+::ng-deep{
+  .mat-dialog-container{
+    background-color: $white;
+    padding: 15px;
+    overflow: hidden;
+  }
+}
