@@ -1,27 +1,43 @@
 # BondSwapFrontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9.
+## First Setup
+
+For the first setup you should go to `https://nodejs.org/uk/` and download the newest nodejs package
+(it needs v12+ to start the project). After node installation type `npm install`. It will install you all the required packages.
+In file `enivronments/environment.ts` change the ApiURL to the URL where backend hosted.
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Project Pages
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Simulation list - first page of the app where all the simulations are stored.
+Simulation item - Simulation details page.
+Simulation reports - used like a modal with tabs of subcomponents.
 
-## Build
+## Project Shared Files
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+`Select component` - re-sharable select that is presented in simulation details page.
+You should pass here preselectedItem, the object property you're checking for (if it`s needed) and the list of items.
+Event emitter throws back you selectedItem
 
-## Running unit tests
+`Table-columns-dropdown` - is used for the columns you wnt to hide and show
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+`Neg-number-pipe` - is preferred to use over simple number pipe because it can validate every data and wom`t throw any type error.
+it transforms your negative number to: `(|x|)`
 
-## Running end-to-end tests
+`Excel Utility` - utility that provides you an export for the excel with a file-saver package.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+`isEmpty` - checks if object is full empty. Now used to check if we can add new row to add cusipData.
 
-## Further help
+## Styles Components
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+`variables.scss` - Theme that is used in the app. Use and store all the colors, box-shadows, fonts, etc. there
+
+`common.scss` - styles for buttons and inputs
+
+`reports.scss` - re-sharable style for reports (tabs styles and header)
+
+`table.component.scss` - styles for table (row-based-table and column-based-table)
+
