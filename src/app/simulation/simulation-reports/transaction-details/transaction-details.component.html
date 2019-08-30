@@ -2,13 +2,13 @@
   <div class="col-flex-table bold">
     <div class="col-flex-table__column" *ngFor="let column of columns">
       <div class="col-flex-table__column__header">{{column.name}}</div>
-      <div *ngFor="let item of items?.sell" class="col-flex-table__column__content">{{item[column.value] | negNumber}}</div>
+      <div *ngFor="let item of items?.sell" class="col-flex-table__column__content">{{(column.type == 'date' ? (item[column.value] | date : "MM/dd/yyyy") : item[column.value]) | negNumber}}</div>
       <div class="col-flex-table__column__add">
         <div class="col-flex-table__column__content">{{items?.totalSell[column.value]}}</div>
       </div>
       <div class="buy-wrapper">
         <div class="col-flex-table__column__header">{{column.name}}</div>
-        <div *ngFor="let item of items?.buy" class="col-flex-table__column__content">{{item[column.value] | negNumber}}</div>
+        <div *ngFor="let item of items?.buy" class="col-flex-table__column__content">{{(column.type == 'date' ? (item[column.value] | date : "MM/dd/yyyy") : item[column.value]) | negNumber}}</div>
       </div>
       <div class="col-flex-table__column__add">
         <div class="col-flex-table__column__content">{{items?.totalBuy[column.value] | negNumber}}</div>

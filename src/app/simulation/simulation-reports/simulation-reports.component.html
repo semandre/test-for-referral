@@ -1,32 +1,32 @@
 <div class="report">
-  <div class="report__header">
-    <button class="close-btn" (click)="onClose()">
-      <i class="material-icons">
-        close
-      </i>
-    </button>
-    <button class="outline-btn" (click)="onExport()" [disabled]="isLoading">Export to Excel</button>
-  </div>
-  <div class="report__tabs">
-    <button (click)="selectedTab = 'detail'" [ngClass]="{'selected': selectedTab === 'detail'}">
-      Transaction detail
-    </button>
-    <button (click)="selectedTab = 'info'" [ngClass]="{'selected': selectedTab === 'info'}">
-      Transaction info
-    </button>
-    <button (click)="selectedTab = 'stressed'" [ngClass]="{'selected': selectedTab === 'stressed'}">
-      Stressed
-    </button>
-    <button (click)="selectedTab = 'cashFlow'" [ngClass]="{'selected': selectedTab === 'cashFlow'}">Cash
-      flow
-    </button>
-  </div>
-  <div class="report__content" *ngIf="!isLoading">
-    <ng-container [ngSwitch]="selectedTab">
-      <app-transaction-details [items]="transactionDetails" *ngSwitchCase="'detail'"></app-transaction-details>
-      <app-transaction-info [info]="transactionInfo" *ngSwitchCase="'info'"></app-transaction-info>
-      <app-stressed [items]="stressed" *ngSwitchCase="'stressed'"></app-stressed>
-      <app-cash-flow [items]="cashFlow" *ngSwitchCase="'cashFlow'"></app-cash-flow>
-    </ng-container>
-  </div>
+    <div class="report__header">
+      <button class="close-btn" (click)="onClose()">
+        <i class="material-icons">
+          close
+        </i>
+      </button>
+      <button class="outline-btn" (click)="onExport()" [disabled]="isLoading">Export to Excel</button>
+    </div>
+    <div class="report__tabs">
+      <button (click)="selectedTab = 'detail'" [ngClass]="{'selected': selectedTab === 'detail'}">
+        Transaction detail
+      </button>
+      <button (click)="selectedTab = 'info'" [ngClass]="{'selected': selectedTab === 'info'}">
+        Transaction info
+      </button>
+      <button (click)="selectedTab = 'stressed'" [ngClass]="{'selected': selectedTab === 'stressed'}">
+        Stressed
+      </button>
+      <button (click)="selectedTab = 'cashFlow'" [ngClass]="{'selected': selectedTab === 'cashFlow'}">Cash
+        flow
+      </button>
+    </div>
+    <div class="report__content" *ngIf="!isLoading">
+      <ng-container [ngSwitch]="selectedTab">
+        <app-transaction-details [items]="transactionDetails" *ngSwitchCase="'detail'"></app-transaction-details>
+        <app-transaction-info [info]="transactionInfo" *ngSwitchCase="'info'"></app-transaction-info>
+        <app-stressed [items]="stressed" *ngSwitchCase="'stressed'"></app-stressed>
+        <app-cash-flow [items]="cashFlow" *ngSwitchCase="'cashFlow'"></app-cash-flow>
+      </ng-container>
+    </div>
 </div>

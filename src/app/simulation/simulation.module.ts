@@ -17,6 +17,7 @@ import { StressedComponent } from './simulation-reports/stressed/stressed.compon
 import { CashFlowComponent } from './simulation-reports/cash-flow/cash-flow.component';
 import { ReportsTableComponent } from './simulation-reports/reports-table/reports-table.component';
 import { SimulationReportsService } from '../shared/services/simulation-reports.service';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { SimulationReportsService } from '../shared/services/simulation-reports.
     CommonModule,
     SimulationRoutingModule,
     SharedModule,
+    PerfectScrollbarModule,
   ],
   providers: [
     SimulationService,

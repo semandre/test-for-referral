@@ -2,7 +2,7 @@ export interface CashFlowDetails {
   cashFlow5Year: CashFlow[];
   cashFlow12Month: CashFlow[];
   total12Month: CashFlow;
-  Total5Year: CashFlow;
+  total5Year: CashFlow;
 }
 
 export interface CashFlow {

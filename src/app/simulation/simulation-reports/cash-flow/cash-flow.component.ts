@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { CashFlow, CashFlowDetails } from '../../../shared/types/cash-flow.model';
-import { CASH_FLOW_COL } from '../../../shared/consts/cash-flow';
+import { CASH_FLOW_COL, CASH_FLOW_TOTAL_COL } from '../../../shared/consts/cash-flow';
 
 @Component({
   selector: 'app-cash-flow',
@@ -13,6 +13,7 @@ export class CashFlowComponent implements OnChanges {
   @Input() items: CashFlowDetails;
 
   columns = CASH_FLOW_COL;
+  totalColumns = CASH_FLOW_TOTAL_COL;
   styles = { overflow: 'hidden', marginTop: 0 };
   selectedTab = '5y';
   yearChartData = [];

@@ -11,7 +11,8 @@ export class ReportsTableComponent {
   @Input() columns: TableColumn[];
   @Input() boldCol: boolean;
   @Input() items: any[];
-  @Input() total: any;
+  @Input() totalItems: any;
+  @Input() totalColumns: TableColumn[];
   @Input() styles: any;
   @Input() additionalData: any;
 

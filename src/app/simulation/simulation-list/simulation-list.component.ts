@@ -6,6 +6,8 @@ import { Simulation } from '../../shared/types/simulation.model';
 import { SimulationService } from '../../shared/services/simulation.service';
 import { takeUntil } from 'rxjs/operators';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { SimulationReportsComponent } from '../simulation-reports/simulation-reports.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-simulation-list',
@@ -23,6 +25,7 @@ export class SimulationListComponent implements OnInit, OnDestroy {
   constructor(
     private simulationService: SimulationService,
     private router: Router,
+    public dialog: MatDialog,
     private ngxLoaderService: NgxUiLoaderService
   ) {
   }
@@ -49,6 +52,21 @@ export class SimulationListComponent implements OnInit, OnDestroy {
   }
 
   onExport(item: Simulation, $event: MouseEvent): void {
+    if (!item || !item.id) {
+      return;
+    }
+
+    this.dialog.open(SimulationReportsComponent, {
+      width: '100%',
+      height: '100%',
+      maxWidth: '100vw',
+      panelClass: 'reports-dialog',
+      data: {
+        id: item.id,
+        portfolio: item.portfolio,
+        dateAsOf: item.dateAsOf
+      }
+    });
     $event.stopPropagation();
   }
 

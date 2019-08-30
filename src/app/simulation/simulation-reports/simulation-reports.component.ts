@@ -76,13 +76,7 @@ export class SimulationReportsComponent implements OnInit {
     this.isLoading = true;
     this.simulationReportsService.fetchReport(this._portfolio, this._dateAsOf, this._simulationId)
       .pipe(
-        takeUntil(this._destroy$),
-        map( (result: ReportViewModel) => {
-          result.reportInstantaneousRateShift.shift = [
-            -100, 0, 200, 300, 400, 500
-          ];
-          return result;
-        })
+        takeUntil(this._destroy$)
       )
       .subscribe( (report: ReportViewModel) => {
         console.log(report);
@@ -114,16 +108,13 @@ export class SimulationReportsComponent implements OnInit {
     this.stressedPage(workbook);
     this.cashFlowPage(workbook);
 
-    // this.isLoading = true;
     ExcelUtility
       .save(workbook, 'report')
       .then(() => {
-        // this.isLoading = false;
         this.ngxLoaderService.stopLoader('main-content-loader');
         this.cdRef.markForCheck();
       })
       .catch(() => {
-        // this.isLoading = false;
         this.cdRef.markForCheck();
       });
   }
@@ -143,17 +134,17 @@ export class SimulationReportsComponent implements OnInit {
     this.excelService
       .setCellsWithNestedData(this.transactionDetails.sell, this.transactionDetailsCol, sheet, 5, 0);
     this.excelService
-      .setCells(this.transactionDetails.totalSell, this.transactionDetailsCol, sheet, sellLength + 6);
+      .setCells(this.transactionDetails.totalSell, this.transactionDetailsCol, sheet, 0, sellLength + 6 );
 
     this.excelService
       .setColumns(this.transactionDetailsCol, sheet, sellLength + 8, 0, colWidth);
     this.excelService
       .setCellsWithNestedData(this.transactionDetails.buy, this.transactionDetailsCol, sheet, sellLength + 9, 0);
     this.excelService
-      .setCells(this.transactionDetails.totalBuy, this.transactionDetailsCol, sheet, sellLength + buyLength + 10);
+      .setCells(this.transactionDetails.totalBuy, this.transactionDetailsCol, sheet, 0, sellLength + buyLength + 10);
 
     this.excelService
-      .setCells(this.transactionDetails.difference, this.transactionDetailsCol, sheet, sellLength + buyLength + 12);
+      .setCells(this.transactionDetails.difference, this.transactionDetailsCol, sheet, 0, sellLength + buyLength + 12, );
 
   }
 
@@ -175,7 +166,7 @@ export class SimulationReportsComponent implements OnInit {
     this.excelService.setCellWithDataArray(this.stressed.shift, sheet, secondRowOffset + 1, 0);
 
     this.excelService.setColumns(this.stressedBeforeCol, sheet, secondRowOffset, 2, colWidth);
-    this.excelService.setCellsWithNestedData(this.stressed.before, this.stressedBeforeCol, sheet, secondRowOffset + 1, 2);
+    const res = this.excelService.setCellsWithNestedData(this.stressed.before, this.stressedBeforeCol, sheet, secondRowOffset + 1, 2);
 
     this.excelService.setColumns(this.stressedBaseCol, sheet, secondRowOffset, firstColOffset, colWidth);
     this.excelService.setCellsWithNestedData(this.stressed.after, this.stressedBaseCol, sheet, secondRowOffset + 1, firstColOffset);
@@ -196,8 +187,8 @@ export class SimulationReportsComponent implements OnInit {
     sheet.rows(start - 1).cells(25).cellFormat.font.colorInfo = WorkbookColorInfo.l_op_Implicit_WorkbookColorInfo_Color('white');
     this.stressed.shift.forEach((shift: number, index: number) => {
       sheet.getCell(`${this.alphabet.slice(-3)[0]}${start + index + 1}`).value = shift.toString();
-      sheet.getCell(`${this.alphabet.slice(-3)[1]}${start + index + 1}`).value = this.stressed.before[index].marketValue;
-      sheet.getCell(`${this.alphabet.slice(-3)[2]}${start + index + 1}`).value = this.stressed.after[index].marketValue;
+      sheet.getCell(`${this.alphabet.slice(-3)[1]}${start + index + 1}`).applyFormula(`=E${15 + index}`);
+      sheet.getCell(`${this.alphabet.slice(-3)[2]}${start + index + 1}`).applyFormula(`=I${15 + index}`);
       sheet.rows(start + index).cells(23).cellFormat.font.colorInfo = WorkbookColorInfo.l_op_Implicit_WorkbookColorInfo_Color('white');
       sheet.rows(start + index).cells(24).cellFormat.font.colorInfo = WorkbookColorInfo.l_op_Implicit_WorkbookColorInfo_Color('white');
       sheet.rows(start + index).cells(25).cellFormat.font.colorInfo = WorkbookColorInfo.l_op_Implicit_WorkbookColorInfo_Color('white');
@@ -224,7 +215,7 @@ export class SimulationReportsComponent implements OnInit {
     const header = sheet.getCell('A3');
     const monthHeader = sheet.getCell('A7');
     const yearHeader = sheet.getCell(`${this.alphabet[cashFLowColLength + 3]}7`);
-    const startRow = 12 + monthLength;
+    const startRow = 14 + monthLength;
     const colWidth = 3000;
     header.value = 'Horizon Cashflow';
     monthHeader.value = '12 Month Horizon';
@@ -239,10 +230,16 @@ export class SimulationReportsComponent implements OnInit {
     this.excelService
       .setCellsWithNestedData(this.cashFlow.cashFlow12Month, this.cashFlowCol, sheet, 10, 0);
 
+    this.excelService.setCells(this.cashFlow.total12Month, this.cashFlowCol, sheet, 0, this.cashFlow.cashFlow12Month.length + 10);
+
     this.excelService
       .setColumns(this.cashFlowCol, sheet, 9, cashFLowColLength + 3, colWidth);
     this.excelService
       .setCellsWithNestedData(this.cashFlow.cashFlow5Year, this.cashFlowCol, sheet, 10, cashFLowColLength + 3);
+
+    this.excelService
+      .setCells(this.cashFlow.total5Year, this.cashFlowCol, sheet, cashFLowColLength + 3, this.cashFlow.cashFlow5Year.length + 10);
+
     const monthChart: ChartOptions = {
       startRow,
       endRow: startRow + 10,
@@ -250,7 +247,7 @@ export class SimulationReportsComponent implements OnInit {
       startCell: 0,
       endCell: 5,
       byRows: false,
-      dataRange: `${this.alphabet[0]}10:${this.alphabet[cashFLowColLength - 2]}${10 + monthLength}`
+      dataRange: `${this.alphabet[0]}10:${this.alphabet[cashFLowColLength - 2]}${9 + monthLength}`
     };
     sheet.getCell(`A${startRow - 1}`).value = '12 Month Swapped Items Cashflow Comparison';
     sheet.rows(startRow - 2).cells(0).cellFormat.font.bold = true;
@@ -263,7 +260,7 @@ export class SimulationReportsComponent implements OnInit {
       startCell: 7,
       endCell: 12,
       byRows: false,
-      dataRange: `${this.alphabet[cashFLowColLength + 3]}10:${this.alphabet[cashFLowColLength + 5]}${10 + yearLength}`
+      dataRange: `${this.alphabet[cashFLowColLength + 3]}10:${this.alphabet[cashFLowColLength + 5]}${9 + yearLength}`
     };
     sheet.getCell(`${this.alphabet[7]}${startRow - 1}`).value = '12 Month Swapped Items Cashflow Comparison';
     sheet.rows(startRow - 2).cells(7).cellFormat.font.bold = true;
