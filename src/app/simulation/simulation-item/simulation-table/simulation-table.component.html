@@ -76,19 +76,37 @@
       <input [(ngModel)]="item['cusip']">
     </div>
     <div class="flex-table__row__block" *ngIf="checkForColumn('originalFace')">
-      <input type="number" [(ngModel)]="item['originalFace']">
+      <input type="text"
+             [ngModel]="item['originalFace'] | number"
+             (keypress)="inputHandler($event)"
+             (ngModelChange)="item['originalFace'] = numberParser($event)"
+      >
     </div>
     <div class="flex-table__row__block" *ngIf="checkForColumn('remainingFace')">
-      <input type="number" [(ngModel)]="item['remainingFace']">
+      <input type="text" [ngModel]="item['remainingFace'] | number"
+             (keypress)="inputHandler($event)"
+             (ngModelChange)="item['remainingFace'] = numberParser($event)"
+      >
     </div>
     <div class="flex-table__row__block" *ngIf="checkForColumn('marketPrice')">
-      <input type="number" [(ngModel)]="item['marketPrice']">
+      <input type="text" [ngModel]="item['marketPrice'] | number"
+             (keypress)="inputHandler($event)"
+             (ngModelChange)="item['marketPrice'] = numberParser($event)"
+      >
     </div>
     <div class="flex-table__row__block" *ngIf="checkForColumn('bookPrice')">
-      <input type="number" [(ngModel)]="item['bookPrice']">
+      <input type="text"
+             [ngModel]="item['bookPrice'] | number"
+             (keypress)="inputHandler($event)"
+             (ngModelChange)="item['bookPrice'] = numberParser($event)"
+      >
     </div>
     <div class="flex-table__row__block" *ngIf="checkForColumn('bookValue')">
-      <input type="number" [(ngModel)]="item['bookValue']">
+      <input type="text"
+             [ngModel]="item['bookValue'] | number"
+             (keypress)="inputHandler($event)"
+             (ngModelChange)="item['bookValue'] = numberParser($event)"
+      >
     </div>
     <div class="flex-table__row__block" *ngIf="checkForColumn('maturityDate')">
       <input type="text" [(ngModel)]="item['maturityDate']">
@@ -97,10 +115,18 @@
       <input [(ngModel)]="item['couponRate']">
     </div>
     <div class="flex-table__row__block" *ngIf="checkForColumn('parValue')">
-      <input type="number" [(ngModel)]="item['parValue']">
+      <input type="text"
+             [ngModel]="item['parValue'] | number"
+             (keypress)="inputHandler($event)"
+             (ngModelChange)="item['parValue'] = numberParser($event)"
+      >
     </div>
     <div class="flex-table__row__block" *ngIf="checkForColumn('marketValue')">
-      <input type="number" [(ngModel)]="item['marketValue']">
+      <input type="text"
+             [ngModel]="item['marketValue'] | number"
+             (keypress)="inputHandler($event)"
+             (ngModelChange)="item['marketValue'] = numberParser($event)"
+      >
     </div>
     <div class="flex-table__row__block" *ngIf="checkForColumn('aveLife')">
       <input [(ngModel)]="item['aveLife']">

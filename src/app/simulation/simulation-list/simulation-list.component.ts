@@ -73,9 +73,8 @@ export class SimulationListComponent implements OnInit, OnDestroy {
   onDelete(item: Simulation, $event: MouseEvent): void {
     this.simulationService.deleteSimulation(item.id).pipe(
       takeUntil(this._destroy$)
-    ).subscribe(id => {
-      console.log(id);
-      this.list = this.list.filter(simulation => simulation.id !== id);
+    ).subscribe( (id: number | string) => {
+      this.list = this.list.filter((simulation: Simulation) => simulation.id !== id);
     });
     $event.stopPropagation();
   }

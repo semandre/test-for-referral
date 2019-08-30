@@ -5,5 +5,6 @@
       {{column.type == 'date' ? (item[column.value] | date : "MMM - yy") : item[column.value]}}
     </div>
     <div class="col-flex-table__column__header" *ngIf="totalItems">{{totalItems[column.value]}}</div>
+    <div *ngFor="let item of items" class="col-flex-table__column__content">{{item[column.value] | negNumber}}</div>
   </div>
 </div>

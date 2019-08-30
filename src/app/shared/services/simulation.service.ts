@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { Simulation, SimulationDetails } from '../types/simulation.model';
 import { ApiService } from './api.service';
+import { Simulation, SimulationDetails } from '../types/simulation.model';
 import { CusipData } from '../types/cusipData';
 import { Simulations } from '../../../mocks/simulations';
 import { simulationItems } from '../../../mocks/simulation-items';

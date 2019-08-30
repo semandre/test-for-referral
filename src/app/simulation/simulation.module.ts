@@ -18,6 +18,7 @@ import { CashFlowComponent } from './simulation-reports/cash-flow/cash-flow.comp
 import { ReportsTableComponent } from './simulation-reports/reports-table/reports-table.component';
 import { SimulationReportsService } from '../shared/services/simulation-reports.service';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { ConfirmLeaveComponent } from './simulation-item/confirm-leave/confirm-leave.component';
 
 
 @NgModule({
@@ -33,8 +34,13 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     StressedComponent,
     CashFlowComponent,
     ReportsTableComponent,
+    ConfirmLeaveComponent,
   ],
-  entryComponents: [SimulationCreateComponent, SimulationReportsComponent],
+  entryComponents: [
+    SimulationCreateComponent,
+    SimulationReportsComponent,
+    ConfirmLeaveComponent
+  ],
   imports: [
     CommonModule,
     SimulationRoutingModule,
