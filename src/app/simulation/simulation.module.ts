@@ -18,7 +18,8 @@ import { CashFlowComponent } from './simulation-reports/cash-flow/cash-flow.comp
 import { ReportsTableComponent } from './simulation-reports/reports-table/reports-table.component';
 import { SimulationReportsService } from '../shared/services/simulation-reports.service';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { ConfirmLeaveComponent } from './simulation-item/confirm-leave/confirm-leave.component';
+import { ConfirmComponent } from '../shared/components/confirm/confirm.component';
+import { CanDeactivateGuard } from '../shared/helpers/canDeactivate';
 
 
 @NgModule({
@@ -34,12 +35,10 @@ import { ConfirmLeaveComponent } from './simulation-item/confirm-leave/confirm-l
     StressedComponent,
     CashFlowComponent,
     ReportsTableComponent,
-    ConfirmLeaveComponent,
   ],
   entryComponents: [
     SimulationCreateComponent,
-    SimulationReportsComponent,
-    ConfirmLeaveComponent
+    SimulationReportsComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +49,8 @@ import { ConfirmLeaveComponent } from './simulation-item/confirm-leave/confirm-l
   providers: [
     SimulationService,
     PortfolioService,
-    SimulationReportsService
+    SimulationReportsService,
+    CanDeactivateGuard
   ]
 })
 export class SimulationModule {

@@ -11,6 +11,7 @@
         <div class="selector">
           <app-select
             [selectedItem]="selectedPortfolio"
+            [disabled]="simulationDetails?.simulationId"
             [list]="portfolios$ | async"
             [valueType]="'name'"
             (selectEmitter)="onSelectedPortfolio($event)"

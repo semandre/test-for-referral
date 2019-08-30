@@ -21,16 +21,16 @@ export class CashFlowComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.items) {
-      this.yearChartData = this.items.cashFlow5Year.map((data: CashFlow) => ({
+      this.yearChartData = this.items ? this.items.cashFlow5Year.map((data: CashFlow) => ({
         month: data.dateAsOf,
         before: data.zBefore,
         after: data.zAfter
-      }));
-      this.monthChartData = this.items.cashFlow12Month.map((data: CashFlow) => ({
+      })) : [];
+      this.monthChartData = this.items ? this.items.cashFlow12Month.map((data: CashFlow) => ({
         month: data.dateAsOf,
         before: data.zBefore,
         after: data.zAfter
-      }));
+      })) : [];
     }
   }
 

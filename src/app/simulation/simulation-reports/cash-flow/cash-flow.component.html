@@ -1,4 +1,4 @@
-<div class="cash-flow">
+<div class="cash-flow" *ngIf="items">
   <div class="table-wrapper">
     <h3 class="head-title">12 Month Horizon</h3>
     <app-reports-table [columns]="columns" [items]="items?.cashFlow12Month" [styles]="styles" [totalItems]="items?.total12Month" [totalColumns]="totalColumns"></app-reports-table>

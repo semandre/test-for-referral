@@ -22,6 +22,7 @@ export class SelectComponent implements OnInit, OnChanges {
   @Input() list: any[];
   @Input() valueType: string;
   @Input() selectedItem: any;
+  @Input() disabled: boolean;
 
   isOpen: boolean;
   visibleOptions: number;
@@ -46,5 +47,10 @@ export class SelectComponent implements OnInit, OnChanges {
   select(option: any): void {
     this.selectEmitter.emit(option);
     this.isOpen = false;
+  }
+
+  openSelect(open) {
+    if (!this.disabled)
+      this.isOpen = open;
   }
 }

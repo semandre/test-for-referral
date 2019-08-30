@@ -3,7 +3,7 @@ export interface TransactionDetailsView {
   sell: TransactionDetails[];
   totalBuy: TransactionDetails;
   totalSell: TransactionDetails;
-  difference: TransactionDetails[];
+  difference: TransactionDetails;
 }
 
 export interface TransactionDetails {

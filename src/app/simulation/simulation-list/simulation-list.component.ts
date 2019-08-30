@@ -4,10 +4,12 @@ import { Observable, Subject } from 'rxjs';
 
 import { Simulation } from '../../shared/types/simulation.model';
 import { SimulationService } from '../../shared/services/simulation.service';
-import { takeUntil } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { SimulationReportsComponent } from '../simulation-reports/simulation-reports.component';
 import { MatDialog } from '@angular/material';
+import { ConfirmComponent } from '../../shared/components/confirm/confirm.component';
+import { ErrorHandlerService } from '../../shared/services/error-handler.service';
 
 @Component({
   selector: 'app-simulation-list',
@@ -26,7 +28,8 @@ export class SimulationListComponent implements OnInit, OnDestroy {
     private simulationService: SimulationService,
     private router: Router,
     public dialog: MatDialog,
-    private ngxLoaderService: NgxUiLoaderService
+    private ngxLoaderService: NgxUiLoaderService,
+    private errorHandler: ErrorHandlerService
   ) {
   }
 
@@ -36,10 +39,10 @@ export class SimulationListComponent implements OnInit, OnDestroy {
       takeUntil(this._destroy$)
     ).subscribe(simulations => {
       this.list = simulations;
-    }, error => {
-      console.error(error);
-    }, () => {
       this.ngxLoaderService.stopLoader('main-content-loader');
+    }, error => {
+      this.ngxLoaderService.stopLoader('main-content-loader');
+      this.errorHandler.showError(error);
     });
   }
 
@@ -71,11 +74,35 @@ export class SimulationListComponent implements OnInit, OnDestroy {
   }
 
   onDelete(item: Simulation, $event: MouseEvent): void {
-    this.simulationService.deleteSimulation(item.id).pipe(
-      takeUntil(this._destroy$)
-    ).subscribe( (id: number | string) => {
-      this.list = this.list.filter((simulation: Simulation) => simulation.id !== id);
-    });
+    this.dialog
+      .open(ConfirmComponent, {
+        width: '370px',
+        data: {
+          message: `Do you want to remove simulation ${item.name}?`,
+          confirmText: 'Remove',
+          cancelText: 'Cancel',
+          title: 'Confirmation'
+        }
+      })
+      .afterClosed()
+      .pipe(
+        takeUntil(this._destroy$)
+      )
+      .subscribe((confirm) => {
+        if (confirm) {
+          this.ngxLoaderService.startLoader('main-content-loader');
+          this.simulationService.deleteSimulation(item.id).pipe(
+            takeUntil(this._destroy$)
+          ).subscribe((id: number | string) => {
+            this.list = this.list.filter((simulation: Simulation) => simulation.id !== id);
+            this.ngxLoaderService.stopLoader('main-content-loader');
+          }, error => {
+            this.ngxLoaderService.stopLoader('main-content-loader');
+            this.errorHandler.showError(error);
+          });
+        }
+      });
+
     $event.stopPropagation();
   }
 

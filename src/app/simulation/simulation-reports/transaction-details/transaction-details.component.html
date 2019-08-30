@@ -1,4 +1,4 @@
-<div class="transaction-details">
+<div class="transaction-details" *ngIf="items">
   <div class="col-flex-table bold">
     <div class="col-flex-table__column" *ngFor="let column of columns">
       <div class="col-flex-table__column__header">{{column.name}}</div>

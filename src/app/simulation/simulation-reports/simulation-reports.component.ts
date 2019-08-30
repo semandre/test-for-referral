@@ -30,6 +30,8 @@ import { map, takeUntil } from 'rxjs/operators';
 import { ReportViewModel } from '../../shared/types/report-view.model';
 import { CashFlowDetails } from '../../shared/types/cash-flow.model';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { ErrorHandlerService } from '../../shared/services/error-handler.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-simulation-reports',
@@ -49,6 +51,7 @@ export class SimulationReportsComponent implements OnInit {
     private cdRef: ChangeDetectorRef,
     private simulationReportsService: SimulationReportsService,
     private ngxLoaderService: NgxUiLoaderService,
+    private errorHandler: ErrorHandlerService,
     @Inject(MAT_DIALOG_DATA) public data: { id: number, portfolio: string, dateAsOf: string }
   ) {
     this._simulationId = data.id;
@@ -84,11 +87,14 @@ export class SimulationReportsComponent implements OnInit {
         this.transactionInfo = report.reportBondSwapDetails;
         this.stressed = report.reportInstantaneousRateShift;
         this.cashFlow = report.reportCashFlowResult;
-      }, error => {
-        console.error(error);
-      }, () => {
         this.isLoading = false;
         this.ngxLoaderService.stopLoader('main-content-loader');
+        this.cdRef.detectChanges();
+      }, (error: HttpErrorResponse) => {
+        console.error(error);
+        this.isLoading = false;
+        this.ngxLoaderService.stopLoader('main-content-loader');
+        this.errorHandler.showError(error);
         this.cdRef.detectChanges();
       });
   }

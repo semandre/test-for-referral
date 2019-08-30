@@ -17,8 +17,9 @@ import { SimulationReportsComponent } from '../simulation-reports/simulation-rep
 import { SimulationTableComponent } from './simulation-table/simulation-table.component';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { getChanges } from '../../shared/helpers/checkObjectChanges';
-import { ConfirmLeaveComponent } from './confirm-leave/confirm-leave.component';
+import { ConfirmComponent } from '../../shared/components/confirm/confirm.component';
 import { CanDeactivateGuard } from '../../shared/helpers/canDeactivate';
+import { ErrorHandlerService } from '../../shared/services/error-handler.service';
 
 @Component({
   selector: 'app-simulation-item',
@@ -47,7 +48,8 @@ export class SimulationItemComponent implements OnInit, OnDestroy, CanDeactivate
     private router: Router,
     private simulationService: SimulationService,
     private portfolioService: PortfolioService,
-    private ngxLoaderService: NgxUiLoaderService
+    private ngxLoaderService: NgxUiLoaderService,
+    private errorHandler: ErrorHandlerService
   ) {
   }
 
@@ -56,7 +58,7 @@ export class SimulationItemComponent implements OnInit, OnDestroy, CanDeactivate
   }
 
   onOpenPicker(): void {
-    if (getChanges(this.simDetCopy, this.simTable.simulationDetails)) {
+    if (!this.simulationDetails || !this.simulationDetails.simulationId) {
       this.picker.open();
     }
   }
@@ -120,10 +122,16 @@ export class SimulationItemComponent implements OnInit, OnDestroy, CanDeactivate
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    if (!getChanges(this.simDetCopy, this.simTable.simulationDetails)) {
+    if (!getChanges(this.simDetCopy, this.simulationDetails)) {
       return this.dialog
-        .open(ConfirmLeaveComponent, {
+        .open(ConfirmComponent, {
           width: '370px',
+          data: {
+            message: 'Do you want to save before leave?',
+            confirmText: 'Save',
+            cancelText: 'Leave',
+            title: 'Confirmation'
+          }
         })
         .afterClosed()
         .pipe(
@@ -154,11 +162,10 @@ export class SimulationItemComponent implements OnInit, OnDestroy, CanDeactivate
         this.simulationDetails.portfolio = this.selectedPortfolio;
         this.simulationDetails.dateAsOf = dateAsOf;
         this.simulationDetails = Object.assign(new SimulationDetails(), this.simulationDetails);
-        this.simDetCopy = Object.assign(new SimulationDetails(), this.simulationDetails);
-      }, error => {
-        console.error(error);
-      }, () => {
         this.ngxLoaderService.stopLoader('main-content-loader');
+      }, error => {
+        this.ngxLoaderService.stopLoader('main-content-loader');
+        this.errorHandler.showError(error);
       });
   }
 
@@ -185,12 +192,11 @@ export class SimulationItemComponent implements OnInit, OnDestroy, CanDeactivate
             cusipData: simulation.cusipData.map((data: CusipData) => ({ ...data }))
           });
         this.dateControl = new FormControl({value: new Date(simulation.dateAsOf), disabled: true});
-        this.simulationDetails = simulation;
         this.selectedPortfolio = simulation.portfolio;
         this.ngxLoaderService.stopLoader('main-content-loader');
       }, error => {
         this.ngxLoaderService.stopLoader('main-content-loader');
-        console.error(error);
+        this.errorHandler.showError(error);
       });
   }
 
@@ -209,13 +215,14 @@ export class SimulationItemComponent implements OnInit, OnDestroy, CanDeactivate
           return cusipData;
         }) as Array<CusipData>;
         this.simulationDetails = Object.assign(new SimulationDetails(), response as SimulationDetails);
+        this.simDetCopy = Object.assign(new SimulationDetails(), this.simulationDetails);
+        this.ngxLoaderService.stopLoader('main-content-loader');
         if (this.leaveAfterSave) {
           this.router.navigate(['/list']);
         }
       }, (error: HttpErrorResponse) => {
-        console.error(error);
-      }, () => {
         this.ngxLoaderService.stopLoader('main-content-loader');
+        this.errorHandler.showError(error);
       });
   }
 
@@ -229,13 +236,15 @@ export class SimulationItemComponent implements OnInit, OnDestroy, CanDeactivate
         takeUntil(this._destroy$)
       )
       .subscribe((response: SimulationDetails) => {
+        this.simDetCopy = Object.assign(new SimulationDetails(), this.simulationDetails);
+        this.ngxLoaderService.stopLoader('main-content-loader');
         this.leaveAfterSave ?
-          this.router.navigateByUrl(`list/${response.simulationId}`) :
-          this.router.navigate(['/list']);
+          this.router.navigate(['/list']) :
+          this.router.navigateByUrl(`list/${response.simulationId}`);
       }, (error: HttpErrorResponse) => {
         console.error(error);
-      }, () => {
         this.ngxLoaderService.stopLoader('main-content-loader');
+        this.errorHandler.showError(error);
       });
   }
 

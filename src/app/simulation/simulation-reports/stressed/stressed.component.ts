@@ -23,11 +23,11 @@ export class StressedComponent implements OnChanges {
   chartsData = [];
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.chartsData = this.items.shift.reduce((acc: any[], cur: number, ind: number) => ([...acc, {
+    this.chartsData = this.items ? this.items.shift.reduce((acc: any[], cur: number, ind: number) => ([...acc, {
       shift: cur,
       before: this.items.before[ind].marketValue,
       after: this.items.after[ind].marketValue
-    }]), []);
+    }]), []) : [];
   }
 
 }

@@ -17,7 +17,7 @@
         <div class="flex-table__row__content">{{item.dateAsOf | date : "MM/dd/yyyy"}}</div>
         <div class="hover-btn">
           <ul id="menu-{{i}}">
-            <li (click)="onDuplicate(item, $event)">Duplicate</li>
+<!--            <li (click)="onDuplicate(item, $event)">Duplicate</li>-->
             <li (click)="onExport(item, $event)">Export To Excel</li>
             <li (click)="onDelete(item, $event)">Delete</li>
           </ul>

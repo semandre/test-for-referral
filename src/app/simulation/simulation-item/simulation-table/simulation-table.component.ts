@@ -108,9 +108,12 @@ export class SimulationTableComponent implements OnInit, OnChanges {
   }
 
   onAddNewLine(): void {
+    if (!this.simulationDetails.portfolio || !this.simulationDetails.dateAsOf) {
+      return;
+    }
     this.simulationDetails.cusipData = this.simulationDetails.cusipData.length && isEmpty(this.simulationDetails.cusipData.slice(-1)[0]) ?
       this.simulationDetails.cusipData :
-      [...this.simulationDetails.cusipData, CusipDataMaker.createEmpty()];
+      [...this.simulationDetails.cusipData, CusipDataMaker.createEmpty(this.simulationDetails.cusipData.length)];
   }
 
   private initColumns(): TableColumn[] {
