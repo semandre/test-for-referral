@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="simulation-item__header__wrapper">
-      <button [disabled]="!simulationDetails.simulationId" type="button" class="report-btn" (click)="openReportsDialog()">
+      <button [disabled]="!simulationDetails?.simulationId" type="button" class="report-btn" (click)="openReportsDialog()">
         Generate report
       </button>
       <button class="outline-btn" (click)="openDialog()">Save</button>

@@ -72,6 +72,20 @@
       white-space: nowrap;
     }
 
+    &__total{
+      width: 100%;
+      background: $lighter-grey;
+      font-weight: $font-default;
+      line-height: 20px;
+      letter-spacing: $ls-1;
+      padding: 10px;
+      white-space: nowrap;
+    }
+
+    &__total:first-child{
+      font-weight: $medium;
+    }
+
     &__content{
       width: 100%;
       padding: 12px 10px;

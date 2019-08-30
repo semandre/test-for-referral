@@ -23,6 +23,13 @@ import {
 } from '../../shared/consts/stressed';
 import { TRANSACTION_INFO_MOCK } from '../../../mocks/transaction-info-mock';
 import { transactionInfoPage } from './transaction-info/transaction-info-excel';
+import { SimulationDetails } from '../../shared/types/simulation.model';
+import { Subject } from 'rxjs';
+import { SimulationReportsService } from '../../shared/services/simulation-reports.service';
+import { map, takeUntil } from 'rxjs/operators';
+import { ReportViewModel } from '../../shared/types/report-view.model';
+import { CashFlowDetails } from '../../shared/types/cash-flow.model';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-simulation-reports',
@@ -32,28 +39,64 @@ import { transactionInfoPage } from './transaction-info/transaction-info-excel';
 })
 export class SimulationReportsComponent implements OnInit {
 
+  private _destroy$ = new Subject<any>();
+  private _simulationId: number;
+  private _portfolio: string;
+  private _dateAsOf: string;
   constructor(
     public dialogRef: MatDialogRef<SimulationReportsComponent>,
     private excelService: ExcelExporterService,
     private cdRef: ChangeDetectorRef,
-    @Inject(MAT_DIALOG_DATA) public data: { id: number }
+    private simulationReportsService: SimulationReportsService,
+    private ngxLoaderService: NgxUiLoaderService,
+    @Inject(MAT_DIALOG_DATA) public data: { id: number, portfolio: string, dateAsOf: string }
   ) {
+    this._simulationId = data.id;
+    this._portfolio = data.portfolio;
+    this._dateAsOf = data.dateAsOf;
   }
 
-  isLoading = false;
+  isLoading = true;
   selectedTab = 'info';
-  transactionDetails = Details;
+  transactionDetails = null;
   transactionDetailsCol = TRANSACTION_DETAILS;
-  cashFlow = CASH_FLOW;
+  cashFlow: CashFlowDetails = null;
   cashFlowCol = CASH_FLOW_COL;
-  stressed = STRESSED;
+  stressed = null;
   gainLossCol = GAIN_LOSS_COL;
   stressedBeforeCol = STRESSED_BEFORE_COL;
   stressedBaseCol = STRESSED_VALUE_COL;
-  transactionInfo = TRANSACTION_INFO_MOCK;
+  transactionInfo = null;
   alphabet = upperCaseAlp;
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.ngxLoaderService.startLoader('main-content-loader');
+    });
+    this.isLoading = true;
+    this.simulationReportsService.fetchReport(this._portfolio, this._dateAsOf, this._simulationId)
+      .pipe(
+        takeUntil(this._destroy$),
+        map( (result: ReportViewModel) => {
+          result.reportInstantaneousRateShift.shift = [
+            -100, 0, 200, 300, 400, 500
+          ];
+          return result;
+        })
+      )
+      .subscribe( (report: ReportViewModel) => {
+        console.log(report);
+        this.transactionDetails = report.reportTransactionDetails;
+        this.transactionInfo = report.reportBondSwapDetails;
+        this.stressed = report.reportInstantaneousRateShift;
+        this.cashFlow = report.reportCashFlowResult;
+      }, error => {
+        console.error(error);
+      }, () => {
+        this.isLoading = false;
+        this.ngxLoaderService.stopLoader('main-content-loader');
+        this.cdRef.detectChanges();
+      });
   }
 
   onClose(): void {
@@ -61,6 +104,7 @@ export class SimulationReportsComponent implements OnInit {
   }
 
   onExport(): void {
+    this.ngxLoaderService.startLoader('main-content-loader');
     const workbook = new Workbook(WorkbookFormat.Excel2007);
     const font: IWorkbookFont = workbook.styles().normalStyle.styleFormat.font;
     font.name = 'Verdana';
@@ -70,15 +114,16 @@ export class SimulationReportsComponent implements OnInit {
     this.stressedPage(workbook);
     this.cashFlowPage(workbook);
 
-    this.isLoading = true;
+    // this.isLoading = true;
     ExcelUtility
       .save(workbook, 'report')
       .then(() => {
-        this.isLoading = false;
+        // this.isLoading = false;
+        this.ngxLoaderService.stopLoader('main-content-loader');
         this.cdRef.markForCheck();
       })
       .catch(() => {
-        this.isLoading = false;
+        // this.isLoading = false;
         this.cdRef.markForCheck();
       });
   }
@@ -173,8 +218,8 @@ export class SimulationReportsComponent implements OnInit {
 
   private cashFlowPage(workbook: Workbook): void {
     const sheet = workbook.worksheets().add('CashFlow');
-    const yearLength = this.cashFlow.reportCashFlow5Year.length;
-    const monthLength = this.cashFlow.reportCashFlow12Month.length;
+    const yearLength = this.cashFlow.cashFlow5Year.length;
+    const monthLength = this.cashFlow.cashFlow12Month.length;
     const cashFLowColLength = this.cashFlowCol.length;
     const header = sheet.getCell('A3');
     const monthHeader = sheet.getCell('A7');
@@ -192,12 +237,12 @@ export class SimulationReportsComponent implements OnInit {
     this.excelService
       .setColumns(this.cashFlowCol, sheet, 9, 0, colWidth);
     this.excelService
-      .setCellsWithNestedData(this.cashFlow.reportCashFlow12Month, this.cashFlowCol, sheet, 10, 0);
+      .setCellsWithNestedData(this.cashFlow.cashFlow12Month, this.cashFlowCol, sheet, 10, 0);
 
     this.excelService
       .setColumns(this.cashFlowCol, sheet, 9, cashFLowColLength + 3, colWidth);
     this.excelService
-      .setCellsWithNestedData(this.cashFlow.reportCashFlow5Year, this.cashFlowCol, sheet, 10, cashFLowColLength + 3);
+      .setCellsWithNestedData(this.cashFlow.cashFlow5Year, this.cashFlowCol, sheet, 10, cashFLowColLength + 3);
     const monthChart: ChartOptions = {
       startRow,
       endRow: startRow + 10,

@@ -15,6 +15,7 @@ import { PortfolioService } from '../../shared/services/portfolio.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SimulationReportsComponent } from '../simulation-reports/simulation-reports.component';
 import { SimulationTableComponent } from './simulation-table/simulation-table.component';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-simulation-item',
@@ -23,7 +24,7 @@ import { SimulationTableComponent } from './simulation-table/simulation-table.co
 })
 export class SimulationItemComponent implements OnInit {
 
-  @ViewChild('simTable', { static: true }) simTable: SimulationTableComponent;
+  @ViewChild('simTable', {static: true}) simTable: SimulationTableComponent;
 
   selectedPortfolio: string;
   simulationDetails: SimulationDetails;
@@ -40,6 +41,7 @@ export class SimulationItemComponent implements OnInit {
     private router: Router,
     private simulationService: SimulationService,
     private portfolioService: PortfolioService,
+    private ngxLoaderService: NgxUiLoaderService
   ) {
   }
 
@@ -48,6 +50,7 @@ export class SimulationItemComponent implements OnInit {
   }
 
   onSelectedDate($event: any): void {
+    console.log(this.selectedPortfolio);
     if (this.selectedPortfolio) {
       this.fetchSimulationTemplate($event.value.toISOString());
     }
@@ -85,18 +88,21 @@ export class SimulationItemComponent implements OnInit {
       maxWidth: '100vw',
       panelClass: 'reports-dialog',
       data: {
-        id: this.simulationDetails.simulationId
+        id: this.simulationDetails.simulationId,
+        portfolio: this.simulationDetails.portfolio,
+        dateAsOf: this.simulationDetails.dateAsOf
       }
     });
   }
 
   ngOnInit(): void {
-    this.dateControl = new FormControl({ value: Date.now(), disabled: true });
+    this.dateControl = new FormControl({value: Date.now(), disabled: true});
     this.portfolios$ = this.portfolioService.fetchPortfolios();
     this.fetchSelectedSimulation();
   }
 
   private fetchSimulationTemplate(dateAsOf: any): void {
+    this.ngxLoaderService.startLoader('main-content-loader');
     this.simulationService.fetchSimulationsTemplate(this.selectedPortfolio, dateAsOf)
       .pipe(takeUntil(this._destroy$))
       .subscribe(templates => {
@@ -107,10 +113,15 @@ export class SimulationItemComponent implements OnInit {
         this.simulationDetails.portfolio = this.selectedPortfolio;
         this.simulationDetails.dateAsOf = dateAsOf;
         this.simulationDetails = Object.assign(new SimulationDetails(), this.simulationDetails);
+      }, error => {
+        console.error(error);
+      }, () => {
+        this.ngxLoaderService.stopLoader('main-content-loader');
       });
   }
 
   private fetchSelectedSimulation(): void {
+    this.ngxLoaderService.startLoader('main-content-loader');
     this.route.params
       .pipe(
         switchMap((params: Params) => !params.id ?
@@ -123,9 +134,13 @@ export class SimulationItemComponent implements OnInit {
           cusipData.id = index;
           return cusipData;
         }) as Array<CusipData>;
-        this.dateControl = new FormControl({ value: new Date(simulation.dateAsOf), disabled: true });
+        this.dateControl = new FormControl({value: new Date(simulation.dateAsOf), disabled: true});
         this.simulationDetails = simulation;
         this.selectedPortfolio = simulation.portfolio;
+        this.ngxLoaderService.stopLoader('main-content-loader');
+      }, error => {
+        this.ngxLoaderService.stopLoader('main-content-loader');
+        console.error(error);
       });
   }
 
@@ -133,6 +148,7 @@ export class SimulationItemComponent implements OnInit {
     if (!simulationDetails) {
       return;
     }
+    this.ngxLoaderService.startLoader('main-content-loader');
     this.simulationService.updateSimulation(simulationDetails)
       .pipe(
         takeUntil(this._destroy$)
@@ -145,6 +161,8 @@ export class SimulationItemComponent implements OnInit {
         this.simulationDetails = Object.assign(new SimulationDetails(), response as SimulationDetails);
       }, (error: HttpErrorResponse) => {
         console.error(error);
+      }, () => {
+        this.ngxLoaderService.stopLoader('main-content-loader');
       });
   }
 
@@ -152,6 +170,7 @@ export class SimulationItemComponent implements OnInit {
     if (!simulationDetails) {
       return;
     }
+    this.ngxLoaderService.startLoader('main-content-loader');
     this.simulationService.saveSimulation(simulationDetails)
       .pipe(
         takeUntil(this._destroy$)
@@ -160,10 +179,9 @@ export class SimulationItemComponent implements OnInit {
         this.router.navigateByUrl(`list/${response.simulationId}`);
       }, error => {
         console.error(error);
+      }, () => {
+        this.ngxLoaderService.stopLoader('main-content-loader');
       });
   }
 
-  // private observeCusipData(): void {
-  //   Object.observe()
-  // }
 }

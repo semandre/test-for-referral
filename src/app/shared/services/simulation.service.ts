@@ -20,13 +20,13 @@ export class SimulationService {
   }
 
   fetchSimulations(): Observable<Simulation[]> {
-    // return this.apiService.get('simulations');
-    return of(Simulations);
+    return this.apiService.get('simulations');
+    // return of(Simulations);
   }
 
   fetchSimulationData(id: number): Observable<any> {
-    // return this.apiService.get(`simulations/${id}`);
-    return of(simulationItems);
+    return this.apiService.get(`simulations/${id}`);
+    // return of(simulationItems);
   }
 
   updateSimulation(simulationDetails: SimulationDetails): Observable<SimulationDetails> {

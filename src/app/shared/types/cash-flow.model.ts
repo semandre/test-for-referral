@@ -1,13 +1,12 @@
 export interface CashFlowDetails {
-  reportCashFlow12Month: CashFlow[];
-  reportCashFlow5Year: CashFlow[];
+  cashFlow5Year: CashFlow[];
+  cashFlow12Month: CashFlow[];
+  total12Month: CashFlow;
+  Total5Year: CashFlow;
 }
 
 export interface CashFlow {
-   cusip: string;
-   action: string;
    dateAsOf: string;
-   month: string;
    zBefore: number;
    zAfter: number;
    difference: number;

@@ -28,4 +28,5 @@ export interface TransactionDetails {
   annualAccretion: number;
   taxableBond: string;
   searchStr: string;
+  afterTaxAnnual: number;
 }

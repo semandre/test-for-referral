@@ -16,6 +16,7 @@ import { TransactionInfoComponent } from './simulation-reports/transaction-info/
 import { StressedComponent } from './simulation-reports/stressed/stressed.component';
 import { CashFlowComponent } from './simulation-reports/cash-flow/cash-flow.component';
 import { ReportsTableComponent } from './simulation-reports/reports-table/reports-table.component';
+import { SimulationReportsService } from '../shared/services/simulation-reports.service';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { ReportsTableComponent } from './simulation-reports/reports-table/report
   ],
   providers: [
     SimulationService,
-    PortfolioService
+    PortfolioService,
+    SimulationReportsService
   ]
 })
 export class SimulationModule {

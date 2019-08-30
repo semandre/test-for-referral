@@ -6,28 +6,28 @@
     </div>
     <div class="info-wrapper__block__content">
       <p>Sale Proceeds</p>
-      <p>{{info.sale | negNumber}}</p>
+      <p>{{info?.saleProceeds | negNumber}}</p>
     </div>
     <div class="info-wrapper__block__content">
       <p>Tax Basis of Holdings (Book value of Present Holdings)</p>
-      <p>{{info.taxBasis | negNumber}}</p>
+      <p>{{info?.taxBasisOfHoldings | negNumber}}</p>
     </div>
     <div class="info-wrapper__block__content">
       <p>Gross Gain / Loss on this Transaction</p>
-      <p>{{info.grossGainLoss | negNumber}}</p>
+      <p>{{info?.grossGain | negNumber}}</p>
     </div>
     <div class="info-wrapper__block__content">
       <p>Tax Savings</p>
-      <p class="change">{{info.taxSavings | negNumber}}</p>
+      <p class="change">{{info?.taxSavings | negNumber}}</p>
     </div>
     <div class="info-wrapper__block__content">
       <p>After Tax Net Gain / Loss</p>
-      <p>{{info.afterTax | negNumber}}</p>
+      <p>{{info?.afterTaxNetGain | negNumber}}</p>
     </div>
     <h2>Funds Available for Reinvestment</h2>
     <div class="info-wrapper__block__content">
       <p>Sale Proceeds</p>
-      <p>{{info.sale | negNumber}}</p>
+      <p>{{info.saleProceeds | negNumber}}</p>
     </div>
     <div class="info-wrapper__block__content">
       <p>Tax Savings</p>
@@ -35,24 +35,24 @@
     </div>
     <div class="info-wrapper__block__content">
       <p>Funds Available for Reinvestment</p>
-      <p>{{info.availableFunds | negNumber}}</p>
+      <p>{{info.fundsAvailableForReinvest | negNumber}}</p>
     </div>
     <div class="info-wrapper__block__content">
       <p>Cost of Securities Purchased</p>
-      <p>{{info.purchasedCosts | negNumber}}</p>
+      <p>{{info.costOfSecuritiesPurchased | negNumber}}</p>
     </div>
     <div class="info-wrapper__block__content">
       <p>Funds Remaining (Required)</p>
-      <p>{{info.remainingFunds | negNumber}}</p>
+      <p>{{info.fundsRemaining | negNumber}}</p>
     </div>
     <h2>Loss Recovery Time</h2>
     <div class="info-wrapper__block__content">
       <p>Change in Annual Revenue</p>
-      <p>{{info.annualChange | negNumber}}</p>
+      <p>{{info.changeInAnnualRevenue | negNumber}}</p>
     </div>
     <div class="info-wrapper__block__content">
       <p>After Tax Net Gain / Loss</p>
-      <p>{{info.afterTax | negNumber}}</p>
+      <p>{{info.afterTaxNetGain | negNumber}}</p>
     </div>
     <div class="info-wrapper__block__content bold">
       <p>Recovery Time (Yrs)</p>
@@ -60,7 +60,7 @@
     </div>
     <div class="info-wrapper__block__content">
       <p>Weighted Avg Life Present Holdings (Yrs)</p>
-      <p>{{info.weightedHoldings | negNumber}}</p>
+      <p>{{info.weightedAvgLife | negNumber}}</p>
     </div>
     <div class="info-wrapper__block__content">
       <p>Difference</p>
@@ -69,11 +69,11 @@
     <h2>Increased Return On Swap</h2>
     <div class="info-wrapper__block__content">
       <p>Change in Annual Revenue</p>
-      <p>{{info.annualChange | negNumber}}</p>
+      <p>{{info.changeInAnnualRevenue | negNumber}}</p>
     </div>
     <div class="info-wrapper__block__content">
       <p>Weighted Avg Life Present Holdings (Yrs)</p>
-      <p>{{info.weightedHoldings | negNumber}}</p>
+      <p>{{info.weightedAvgLife | negNumber}}</p>
     </div>
     <div class="info-wrapper__block__content">
       <p>Increased Revenue</p>
@@ -81,7 +81,7 @@
     </div>
     <div class="info-wrapper__block__content">
       <p>After Tax Net Loss</p>
-      <p>{{info.afterTax | negNumber}}</p>
+      <p>{{info.afterTaxNetGain | negNumber}}</p>
     </div>
     <div class="info-wrapper__block__content bold" >
       <p>Net Increased Revenue</p>
@@ -90,7 +90,7 @@
     <h2>Break-Even Calculations</h2>
     <div class="info-wrapper__block__content">
       <p>After Tax Annual Revenue on Present Holding</p>
-      <p>{{info.afterTaxPresentHolding | negNumber}}</p>
+      <p>{{info.afterTaxAnnualRevenue | negNumber}}</p>
     </div>
     <div class="info-wrapper__block__content">
       <p>Annual Net Gain /(Loss) (Tax Adjusted)</p>
@@ -98,15 +98,15 @@
     </div>
     <div class="info-wrapper__block__content">
       <p>Annual Amount Recovered</p>
-      <p>{{info.annualAmountRecovered | negNumber}}</p>
+      <p>{{info.annualAmtRecovered | negNumber}}</p>
     </div>
     <div class="info-wrapper__block__content">
       <p>Funds Available for Reinvestment</p>
-      <p>{{info.availableFunds | negNumber}}</p>
+      <p>{{info.fundsAvailableForReinvest | negNumber}}</p>
     </div>
     <div class="info-wrapper__block__content bold">
       <p>BreakEven Yield</p>
-      <p>{{info.breakEven | negNumber}}</p>
+      <p>{{info.breakEvenYield | negNumber}}</p>
     </div>
   </div>
 </div>

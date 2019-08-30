@@ -31,6 +31,8 @@
     "igniteui-angular-excel": "^8.0.0",
     "jszip": "^3.1.5",
     "minireset.css": "~0.0.4",
+    "ngx-perfect-scrollbar": "^8.0.0",
+    "ngx-ui-loader": "^8.0.0",
     "rxjs": "~6.5.2",
     "tslib": "^1.9.0",
     "web-animations-js": "^2.3.2",

@@ -1,11 +1,11 @@
 <div class="cash-flow">
   <div class="table-wrapper">
     <h3 class="head-title">12 Month Horizon</h3>
-    <app-reports-table [columns]="columns" [items]="items?.reportCashFlow12Month" [styles]="styles"></app-reports-table>
+    <app-reports-table [columns]="columns" [items]="items?.cashFlow12Month" [styles]="styles" [total]="items?.total12Month"></app-reports-table>
   </div>
   <div class="table-wrapper">
     <h3 class="head-title">5 Year Horizon</h3>
-    <app-reports-table [columns]="columns" [items]="items?.reportCashFlow5Year" [styles]="styles"></app-reports-table>
+    <app-reports-table [columns]="columns" [items]="items?.cashFlow5Year" [styles]="styles" [total]="items?.Total5Year"></app-reports-table>
   </div>
   <div class="chart-wrapper">
     <div class="header-wrapper">

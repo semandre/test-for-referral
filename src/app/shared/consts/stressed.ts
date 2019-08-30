@@ -1,6 +1,6 @@
 export const GAIN_LOSS_COL = [
   { name: 'Description', value: 'description' },
-  { name: 'Book', value: 'book' },
+  { name: 'Book', value: 'before' },
   { name: 'After', value: 'after' },
   { name: 'Change', value: 'change' },
 ];

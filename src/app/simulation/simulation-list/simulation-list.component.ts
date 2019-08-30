@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import { Simulation } from '../../shared/types/simulation.model';
 import { SimulationService } from '../../shared/services/simulation.service';
 import { takeUntil } from 'rxjs/operators';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-simulation-list',
@@ -21,15 +22,21 @@ export class SimulationListComponent implements OnInit, OnDestroy {
 
   constructor(
     private simulationService: SimulationService,
-    private router: Router
+    private router: Router,
+    private ngxLoaderService: NgxUiLoaderService
   ) {
   }
 
   ngOnInit(): void {
+    this.ngxLoaderService.startLoader('main-content-loader');
     this.simulationService.fetchSimulations().pipe(
       takeUntil(this._destroy$)
     ).subscribe(simulations => {
       this.list = simulations;
+    }, error => {
+      console.error(error);
+    }, () => {
+      this.ngxLoaderService.stopLoader('main-content-loader');
     });
   }
 
@@ -48,7 +55,7 @@ export class SimulationListComponent implements OnInit, OnDestroy {
   onDelete(item: Simulation, $event: MouseEvent): void {
     this.simulationService.deleteSimulation(item.id).pipe(
       takeUntil(this._destroy$)
-    ).subscribe( id => {
+    ).subscribe(id => {
       console.log(id);
       this.list = this.list.filter(simulation => simulation.id !== id);
     });

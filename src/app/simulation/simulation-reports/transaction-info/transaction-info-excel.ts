@@ -61,37 +61,37 @@ function setInfoCol(sheet: Worksheet): void {
 
 
 function setDataCol(sheet: Worksheet, info: TransactionInfo): void {
-  sheet.getCell('H4').value = checkIfNegative(info.sale);
-  sheet.getCell('H5').value = checkIfNegative(info.taxBasis);
-  sheet.getCell('H6').value = checkIfNegative(info.grossGainLoss);
+  sheet.getCell('H4').value = checkIfNegative(info.saleProceeds);
+  sheet.getCell('H5').value = checkIfNegative(info.taxBasisOfHoldings);
+  sheet.getCell('H6').value = checkIfNegative(info.grossGain);
   sheet.getCell('H7').value = checkIfNegative(info.taxSavings);
   sheet.rows(6).cells(7).cellFormat.font.colorInfo = WorkbookColorInfo.l_op_Implicit_WorkbookColorInfo_Color('red');
-  sheet.getCell('H8').value = checkIfNegative(info.afterTax);
+  sheet.getCell('H8').value = checkIfNegative(info.afterTaxNetGain);
 
-  sheet.getCell('H10').value = checkIfNegative(info.sale);
+  sheet.getCell('H10').value = checkIfNegative(info.saleProceeds);
   sheet.getCell('H11').value = checkIfNegative(info.taxSavings);
   sheet.rows(10).cells(7).cellFormat.font.colorInfo = WorkbookColorInfo.l_op_Implicit_WorkbookColorInfo_Color('red');
-  sheet.getCell('H12').value = checkIfNegative(info.availableFunds);
-  sheet.getCell('H13').value = checkIfNegative(info.purchasedCosts);
-  sheet.getCell('H14').value = checkIfNegative(info.remainingFunds);
+  sheet.getCell('H12').value = checkIfNegative(info.fundsAvailableForReinvest);
+  sheet.getCell('H13').value = checkIfNegative(info.costOfSecuritiesPurchased);
+  sheet.getCell('H14').value = checkIfNegative(info.fundsRemaining);
 
-  sheet.getCell('H16').value = checkIfNegative(info.annualChange);
-  sheet.getCell('H17').value = checkIfNegative(info.afterTax);
+  sheet.getCell('H16').value = checkIfNegative(info.changeInAnnualRevenue);
+  sheet.getCell('H17').value = checkIfNegative(info.afterTaxNetGain);
   sheet.getCell('H18').value = info.recoveryTime;
-  sheet.getCell('H19').value = checkIfNegative(info.weightedHoldings);
+  sheet.getCell('H19').value = checkIfNegative(info.weightedAvgLife);
   sheet.getCell('H20').value = checkIfNegative(info.difference);
 
-  sheet.getCell('H22').value = checkIfNegative(info.annualChange);
-  sheet.getCell('H23').value = info.weightedHoldings;
+  sheet.getCell('H22').value = checkIfNegative(info.changeInAnnualRevenue);
+  sheet.getCell('H23').value = info.weightedAvgLife;
   sheet.getCell('H24').value = checkIfNegative(info.increasedRevenue);
-  sheet.getCell('H25').value = checkIfNegative(info.afterTax);
+  sheet.getCell('H25').value = checkIfNegative(info.afterTaxNetGain);
   sheet.getCell('H26').value = checkIfNegative(info.netIncreasedRevenue);
 
-  sheet.getCell('H28').value = checkIfNegative(info.afterTaxPresentHolding);
+  sheet.getCell('H28').value = checkIfNegative(info.afterTaxAnnualRevenue);
   sheet.getCell('H29').value = checkIfNegative(info.annualNetGain);
-  sheet.getCell('H30').value = checkIfNegative(info.annualAmountRecovered);
-  sheet.getCell('H31').value = checkIfNegative(info.availableFunds);
-  sheet.getCell('H32').value = info.breakEven + '%';
+  sheet.getCell('H30').value = checkIfNegative(info.annualAmtRecovered);
+  sheet.getCell('H31').value = checkIfNegative(info.fundsAvailableForReinvest);
+  sheet.getCell('H32').value = info.breakEvenYield + '%';
 }
 
 function setHeaderStyle(sheet: Worksheet, row: number): void {
