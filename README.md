@@ -41,3 +41,20 @@ it transforms your negative number to: `(|x|)`
 
 `table.component.scss` - styles for table (row-based-table and column-based-table)
 
+
+##Excel Exporter Service
+
+`setColumns` - Sets columns of the table with grey background and bold font (you can extend them to make background and font dynamically).
+rowOffset goes for the row you want to use and colOffset goes to column you want to use.
+
+`setCells` - use this method when you have a single object and want to fill cells. pass columns which you want to show in object, about offsets you can see above.
+
+`setCellsWithNestedData` - use this method when you have an object with an array of objects inside. Parameters are the same as in `setCells` method.
+
+`setCellsWithArray` - use this method when you have an array of simple data.  Parameters are the same as in `setCells` method.
+
+`generateChart` - method which generates charts to excel. Check ChartOpts interface to understand what options you can pass into.
+
+`setHeaderStyle` = sets styles that are present in main columns
+
+
