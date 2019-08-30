@@ -1,0 +1,8 @@
+<div class="create-wrapper">
+  <h3>{{title}}</h3>
+  <p>{{message}}</p>
+  <div class="btn-wrapper">
+    <button class="outline-btn" (click)="cancel()" *ngIf="cancelText">{{cancelText}}</button>
+    <button class="raised-btn" (click)="confirm()" *ngIf="confirmText">{{confirmText}}</button>
+  </div>
+</div>

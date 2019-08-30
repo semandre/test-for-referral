@@ -12,9 +12,17 @@ import { IgxCategoryChartModule } from 'igniteui-angular-charts/ES5/igx-category
 import { SelectComponent } from './components/select/select.component';
 import { TableColumnsDropdownComponent } from './components/table-columns-dropdown/table-columns-dropdown.component';
 import { NegativeNumberPipe } from './pipes/negative-number.pipe';
+import { CanDeactivateGuard } from './helpers/canDeactivate';
+import { ConfirmComponent } from './components/confirm/confirm.component';
+import { ErrorHandlerService } from './services/error-handler.service';
 
 @NgModule({
-  declarations: [SelectComponent, TableColumnsDropdownComponent, NegativeNumberPipe],
+  declarations: [
+    SelectComponent,
+    TableColumnsDropdownComponent,
+    NegativeNumberPipe,
+    ConfirmComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -43,7 +51,14 @@ import { NegativeNumberPipe } from './pipes/negative-number.pipe';
     TableColumnsDropdownComponent,
     NegativeNumberPipe,
   ],
-  providers: [IgxExcelExporterService],
+  entryComponents: [
+    ConfirmComponent
+  ],
+  providers: [
+    IgxExcelExporterService,
+    CanDeactivateGuard,
+    ErrorHandlerService
+  ],
 })
 export class SharedModule {
 }

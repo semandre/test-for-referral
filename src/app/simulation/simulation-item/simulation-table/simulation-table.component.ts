@@ -29,9 +29,9 @@ export class SimulationTableComponent implements OnInit, OnChanges {
   @Input() optionalColumns: TableColumn[];
 
   onMenuOpen = false;
-  objectKeys = Object.keys;
   columns = [];
   selectedRows = [];
+  simDetCopy: SimulationDetails;
 
   constructor(
     private excelExportService: IgxExcelExporterService,
@@ -49,6 +49,7 @@ export class SimulationTableComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['simulationDetails']) {
       this.columns = this.initColumns();
+      this.simDetCopy = Object.assign({}, this.simulationDetails);
     }
   }
 
@@ -107,9 +108,12 @@ export class SimulationTableComponent implements OnInit, OnChanges {
   }
 
   onAddNewLine(): void {
+    if (!this.simulationDetails.portfolio || !this.simulationDetails.dateAsOf) {
+      return;
+    }
     this.simulationDetails.cusipData = this.simulationDetails.cusipData.length && isEmpty(this.simulationDetails.cusipData.slice(-1)[0]) ?
       this.simulationDetails.cusipData :
-      [...this.simulationDetails.cusipData, CusipDataMaker.createEmpty()];
+      [...this.simulationDetails.cusipData, CusipDataMaker.createEmpty(this.simulationDetails.cusipData.length)];
   }
 
   private initColumns(): TableColumn[] {
@@ -133,6 +137,16 @@ export class SimulationTableComponent implements OnInit, OnChanges {
     } else {
       return lastIndex <= index ?
         this.simulationDetails.cusipData.slice(lastIndex, index + 1) : this.simulationDetails.cusipData.slice(index, lastIndex + 1);
+    }
+  }
+
+  numberParser(event: any): number {
+    return event.replace(/,/g, '').toLocaleString();
+  }
+
+  inputHandler(e: KeyboardEvent): void {
+    if (isNaN(+e.key)) {
+      e.preventDefault();
     }
   }
 }

@@ -4,7 +4,7 @@ export const TRANSACTION_DETAILS = [
   {name: 'Security', value: 'securityDesc'},
   {name: 'Coupon', value: 'coupon'},
   {name: 'Current par', value: 'currentPar'},
-  {name: 'Maturity', value: 'maturity'},
+  {name: 'Maturity', value: 'maturity', type: 'date'},
   {name: 'Book price', value: 'bookPrice'},
   {name: 'Book Value', value: 'bookVal'},
   {name: 'Gain/loss', value: 'gainLoss'},

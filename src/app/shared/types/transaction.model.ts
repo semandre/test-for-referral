@@ -3,7 +3,7 @@ export interface TransactionDetailsView {
   sell: TransactionDetails[];
   totalBuy: TransactionDetails;
   totalSell: TransactionDetails;
-  difference: TransactionDetails[];
+  difference: TransactionDetails;
 }
 
 export interface TransactionDetails {
@@ -28,4 +28,5 @@ export interface TransactionDetails {
   annualAccretion: number;
   taxableBond: string;
   searchStr: string;
+  afterTaxAnnual: number;
 }

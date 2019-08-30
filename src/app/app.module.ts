@@ -9,6 +9,16 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { HeaderComponent } from './header/header.component';
 import {ApiService} from './shared/services/api.service';
 import { IgxExcelModule } from 'igniteui-angular-excel/ES5/igx-excel-module';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import {
+  PERFECT_SCROLLBAR_CONFIG,
+  PerfectScrollbarConfigInterface,
+  PerfectScrollbarModule
+} from 'ngx-perfect-scrollbar';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 @NgModule({
   declarations: [
@@ -21,9 +31,17 @@ import { IgxExcelModule } from 'igniteui-angular-excel/ES5/igx-excel-module';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    IgxExcelModule
+    IgxExcelModule,
+    NgxUiLoaderModule,
+    PerfectScrollbarModule
   ],
-  providers: [ApiService],
+  providers: [
+    ApiService,
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,20 +1,20 @@
 export interface TransactionInfo {
-  sale: number;
-  taxBasis: number;
-  grossGainLoss: number;
+  saleProceeds: number;
+  taxBasisOfHoldings: number;
+  grossGain: number;
   taxSavings: number;
-  afterTax: number;
-  availableFunds: number;
-  purchasedCosts: number;
-  remainingFunds: number;
-  annualChange: number;
+  afterTaxNetGain: number;
+  fundsAvailableForReinvest: number;
+  costOfSecuritiesPurchased: number;
+  fundsRemaining: number;
+  changeInAnnualRevenue: number;
   recoveryTime: number;
-  weightedHoldings: number;
+  weightedAvgLife: number;
   difference: number;
   increasedRevenue: number;
   netIncreasedRevenue: number;
-  afterTaxPresentHolding: number;
+  afterTaxAnnualRevenue: number;
   annualNetGain: number;
-  annualAmountRecovered: number;
-  breakEven: number;
+  annualAmtRecovered: number;
+  breakEvenYield: number;
 }

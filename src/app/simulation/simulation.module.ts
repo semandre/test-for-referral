@@ -16,6 +16,10 @@ import { TransactionInfoComponent } from './simulation-reports/transaction-info/
 import { StressedComponent } from './simulation-reports/stressed/stressed.component';
 import { CashFlowComponent } from './simulation-reports/cash-flow/cash-flow.component';
 import { ReportsTableComponent } from './simulation-reports/reports-table/reports-table.component';
+import { SimulationReportsService } from '../shared/services/simulation-reports.service';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { ConfirmComponent } from '../shared/components/confirm/confirm.component';
+import { CanDeactivateGuard } from '../shared/helpers/canDeactivate';
 
 
 @NgModule({
@@ -32,15 +36,21 @@ import { ReportsTableComponent } from './simulation-reports/reports-table/report
     CashFlowComponent,
     ReportsTableComponent,
   ],
-  entryComponents: [SimulationCreateComponent, SimulationReportsComponent],
+  entryComponents: [
+    SimulationCreateComponent,
+    SimulationReportsComponent
+  ],
   imports: [
     CommonModule,
     SimulationRoutingModule,
     SharedModule,
+    PerfectScrollbarModule,
   ],
   providers: [
     SimulationService,
-    PortfolioService
+    PortfolioService,
+    SimulationReportsService,
+    CanDeactivateGuard
   ]
 })
 export class SimulationModule {

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { TableColumn } from '../types/tableColumnsModel';
 import { CellFill, Worksheet } from 'igniteui-angular-excel/ES5/excel.core';
-import { upperCaseAlp } from '../consts/alphabet';
+
+import { TableColumn } from '../types/tableColumnsModel';
 import { ChartOptions } from '../types/chart-options.model';
+import { upperCaseAlp } from '../consts/alphabet';
 
 @Injectable({
   providedIn: 'root'
@@ -38,15 +39,16 @@ export class ExcelExporterService {
     object: any,
     columns: TableColumn[],
     sheet: Worksheet,
-    offset: number
+    colOffset: number,
+    rowOffset: number
   ): void {
     Object
       .keys(object)
       .filter((res: string) => columns.find((val: TableColumn) => val.value === res))
       .forEach((data: string, index: number) =>
-        sheet.getCell(`${this.alphabet[index]}${offset}`).value = typeof object[data] === 'number' && object[data] < 0 ?
+        sheet.getCell(`${this.alphabet[index + colOffset]}${rowOffset}`).value = typeof object[data] === 'number' && object[data] < 0 ?
           `(${Math.abs(object[data])})` : object[data]);
-    sheet.rows(offset - 1).cells(0).cellFormat.font.bold = true;
+    sheet.rows(rowOffset - 1).cells(colOffset).cellFormat.font.bold = true;
   }
 
   setCellsWithNestedData(array: any[],

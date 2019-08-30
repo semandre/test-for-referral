@@ -1,2 +1,10 @@
 @import "assets/styles/variables";
 @import "assets/styles/components/reports";
+::ng-deep .reports-dialog{
+
+  .mat-dialog-container{
+    border-radius: 0;
+    background: $white;
+    color: $color-default;
+  }
+}

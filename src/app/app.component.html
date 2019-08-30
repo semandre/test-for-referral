@@ -4,8 +4,10 @@
     <app-navigation [isOpen]="isOpen"></app-navigation>
   </div>
   <div class="wrapper__content" [class.open]="isOpen">
-    <router-outlet></router-outlet>
+    <perfect-scrollbar>
+      <router-outlet></router-outlet>
+    </perfect-scrollbar>
   </div>
 </div>
-
+<ngx-ui-loader [loaderId]="'main-content-loader'"></ngx-ui-loader>
 

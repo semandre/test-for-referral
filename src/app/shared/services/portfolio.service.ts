@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+
 import { ApiService } from './api.service';
 import { Portfolio } from '../types/simulation.model';
 

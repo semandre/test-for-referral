@@ -19,8 +19,9 @@ export interface CusipData {
 }
 
 export class CusipDataMaker {
-  static createEmpty(): CusipData {
+  static createEmpty(id: number): CusipData {
     return {
+      id,
       cusip: '',
       originalFace: 0,
       remainingFace: 0,

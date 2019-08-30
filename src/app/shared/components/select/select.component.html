@@ -1,6 +1,6 @@
-<div class="selector__block" (click)="isOpen = !isOpen">
+<div class="selector__block" (click)="openSelect(!isOpen)">
   {{selectedItem ? selectedItem : ''}}
-  <i class="material-icons" [class.open] = isOpen>
+  <i class="material-icons" [class.open] = isOpen *ngIf="!disabled">
     keyboard_arrow_down
   </i>
 </div>
