@@ -108,7 +108,7 @@ export class SimulationReportsComponent implements OnInit {
     const workbook = new Workbook(WorkbookFormat.Excel2007);
     const font: IWorkbookFont = workbook.styles().normalStyle.styleFormat.font;
     font.name = 'Verdana';
-    font.height = 16 * 10;
+    font.height = 16 * 12;
     this.transactionDetailsPage(workbook);
     transactionInfoPage(workbook, this.transactionInfo);
     this.stressedPage(workbook);
@@ -160,7 +160,7 @@ export class SimulationReportsComponent implements OnInit {
     const secondRowOffset = this.stressed.gainLoss.length + 7;
     const firstColOffset = this.stressedBeforeCol.length + 3;
     const secondColOffset = this.stressedBaseCol.length + firstColOffset + 1;
-    const colWidth = 3000;
+    const colWidth = 5000;
     header.value = 'Instantaneous Rate Shift Gain / Loss';
     sheet.rows(1).cells(0).cellFormat.font.bold = true;
 
@@ -222,7 +222,7 @@ export class SimulationReportsComponent implements OnInit {
     const monthHeader = sheet.getCell('A7');
     const yearHeader = sheet.getCell(`${this.alphabet[cashFLowColLength + 3]}7`);
     const startRow = 14 + monthLength;
-    const colWidth = 3000;
+    const colWidth = 5000;
     header.value = 'Horizon Cashflow';
     monthHeader.value = '12 Month Horizon';
     yearHeader.value = '5 Year Horizon';

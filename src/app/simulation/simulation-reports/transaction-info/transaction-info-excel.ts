@@ -6,6 +6,8 @@ export function transactionInfoPage(workbook: Workbook, transactionInfo: Transac
   sheet.getCell('A3').value = 'Gain / Loss on Sale';
   sheet.getCell('H3').value = 'Transaction Information';
   setHeaderStyle(sheet, 2);
+  sheet.columns(7).width = 6000;
+  sheet.columns(7).cellFormat.alignment = 3;
 
   setInfoCol(sheet);
   setDataCol(sheet, transactionInfo);

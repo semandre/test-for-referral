@@ -45,9 +45,11 @@ export class ExcelExporterService {
     Object
       .keys(object)
       .filter((res: string) => columns.find((val: TableColumn) => val.value === res))
-      .forEach((data: string, index: number) =>
-        sheet.getCell(`${this.alphabet[index + colOffset]}${rowOffset}`).value = typeof object[data] === 'number' && object[data] < 0 ?
-          `(${Math.abs(object[data])})` : object[data]);
+      .forEach((data: string, index: number) => {
+        const cell = sheet.getCell(`${this.alphabet[index + colOffset]}${rowOffset}`);
+        cell.value = this.checkIfNegNumber(object[data]);
+        cell.cellFormat.alignment = this.validateDataForAlignment(object[data]) ? 3 : 1;
+      });
     sheet.rows(rowOffset - 1).cells(colOffset).cellFormat.font.bold = true;
   }
 
@@ -63,9 +65,9 @@ export class ExcelExporterService {
           .keys(cur)
           .filter((res: string) => columns.find((val: TableColumn) => val.value === res))
           .forEach((data: string, i: number) => {
-            sheet.getCell(
-              `${this.alphabet[i + columnOffset]}${index + rowOffset}`).value = typeof cur[data] === 'number' && cur[data] < 0 ?
-              `(${Math.abs(cur[data])})` : cur[data];
+            const cell = sheet.getCell(`${this.alphabet[i + columnOffset]}${index + rowOffset}`);
+            cell.value = this.checkIfNegNumber(cur[data]);
+            cell.cellFormat.alignment = this.validateDataForAlignment(cur[data]) ? 3 : 1;
           });
       });
   }
@@ -76,8 +78,11 @@ export class ExcelExporterService {
     rowOffset: number,
     columnOffset: number,
   ): void {
-    array.forEach((cur: any, i: number) =>
-      sheet.getCell(`${this.alphabet[columnOffset]}${i + rowOffset}`).value = cur);
+    array.forEach((cur: any, i: number) => {
+      const cell = sheet.getCell(`${this.alphabet[columnOffset]}${i + rowOffset}`);
+      cell.value = cur;
+      cell.cellFormat.alignment = this.validateDataForAlignment(cur) ? 3 : 1;
+    });
   }
 
   generateChart(sheet: Worksheet, opts: ChartOptions): void {
@@ -95,4 +100,13 @@ export class ExcelExporterService {
     cell.verticalAlignment = 1;
     cell.wrapText = true;
   }
+
+  private checkIfNegNumber(data: any): any {
+    return typeof data === 'number' && data < 0 ? `(${Math.abs(data)})` : data;
+  }
+
+  private validateDataForAlignment(data: any) {
+    return typeof data === 'number' || new Date(data).toString() !== 'Invalid Date';
+  }
 }
+
