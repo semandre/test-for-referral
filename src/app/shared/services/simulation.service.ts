@@ -15,18 +15,18 @@ export class SimulationService {
   }
 
   fetchSimulationsTemplate(portfolio: string, dateAsOf: any): Observable<CusipData[]> {
-    return this.apiService.get(`cusipDataTemplate?portfolio=${portfolio}&dateAsOf=${dateAsOf}`);
-    // return of(simulationItems.cusipData);
+    // return this.apiService.get(`cusipDataTemplate?portfolio=${portfolio}&dateAsOf=${dateAsOf}`);
+    return of(simulationItems.cusipData);
   }
 
   fetchSimulations(): Observable<Simulation[]> {
-    return this.apiService.get('simulations');
-    // return of(Simulations);
+    // return this.apiService.get('simulations');
+    return of(Simulations);
   }
 
   fetchSimulationData(id: number): Observable<any> {
-    return this.apiService.get(`simulations/${id}`);
-    // return of(simulationItems);
+    // return this.apiService.get(`simulations/${id}`);
+    return of(simulationItems);
   }
 
   updateSimulation(simulationDetails: SimulationDetails): Observable<SimulationDetails> {
